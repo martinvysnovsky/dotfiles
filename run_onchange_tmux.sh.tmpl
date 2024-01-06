@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# dot_tmux.conf hash: {{ include "dot_tmux.conf" | sha256sum }}
+if tmux info &> /dev/null; then 
+  tmux source ~/.tmux.conf
+fi
