@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# gnome_custom_keybindings.conf hash: {{ include "gnome_custom_keybindings.conf" | sha256sum }}
+dconf load /org/gnome/settings-daemon/plugins/media-keys/ < {{ joinPath .chezmoi.sourceDir "gnome_custom_keybindings.conf" | quote }}
