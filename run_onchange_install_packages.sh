@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo dnf install -y neovim python3-neovim g++ ripgrep
+sudo dnf install -y neovim python3-neovim g++ ripgrep zsh
