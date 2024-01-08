@@ -105,7 +105,9 @@ local plugins = {
 			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
-			require("chatgpt").setup()
+			require("chatgpt").setup({
+				api_key_cmd = "pass openai/api_key",
+			})
 			local chatgpt = require("chatgpt")
 			require("which-key").register({
 				p = {

@@ -44,3 +44,7 @@
     refreshPeriod = "168h"
     [".oh-my-zsh/custom/themes/powerlevel10k".clone]
       args = ["--depth=1"]
+
+[".password-store"]
+    type = "git-repo"
+    url = "git@github.com:martinvysnovsky/pass-store.git"
