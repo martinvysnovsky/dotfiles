@@ -314,6 +314,43 @@ local plugins = {
 		"TamaMcGlinn/quickfixdd",
 		lazy = false,
 	},
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-neotest/neotest-jest",
+		},
+		event = {
+			"BufEnter *spec.ts",
+		},
+		config = function()
+			require("neotest").setup({
+				adapters = {
+					require("neotest-jest")({
+						jestCommand = "npm test -- ",
+						jestConfigFile = function()
+							local file = vim.fn.expand("%")
+
+							if string.find(file, "e2e%-spec") then
+								return vim.fn.getcwd() .. "/test/jest-e2e.config.ts"
+							end
+
+							return vim.fn.getcwd() .. "/jest.config.ts"
+						end,
+						env = { CI = true },
+						cwd = function()
+							return vim.fn.getcwd()
+						end,
+					}),
+				},
+			})
+
+			vim.api.nvim_set_keymap("n", "<leader>tr", "<cmd>lua require('neotest').run.run()<cr>", {})
+			vim.api.nvim_set_keymap("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", {})
+		end,
+	},
 }
 
 return plugins
