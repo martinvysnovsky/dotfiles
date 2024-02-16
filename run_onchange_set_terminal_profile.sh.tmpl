@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# gnome_terminal_profile.conf hash: {{ include "gnome_terminal_profile.conf" | sha256sum }}
-dconf load /org/gnome/terminal/legacy/profiles:/ < {{ joinPath .chezmoi.sourceDir "gnome_terminal_profile.conf" | quote }}
