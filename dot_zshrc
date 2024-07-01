@@ -34,4 +34,6 @@ export PATH
 export EDITOR='/usr/bin/nvim'
 
 # Zoxide
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init --cmd cd zsh)"?
+
+DISABLE_AUTO_UPDATE="true"
