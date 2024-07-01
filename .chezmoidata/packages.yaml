@@ -1,0 +1,12 @@
+packages:
+  - neovim
+  - python3-neovim
+  - g++
+  - ripgrep
+  - zsh
+  - pass
+  - pass-otp
+  - fzf
+  - alacritty
+  - zoxide
+  - lazygit

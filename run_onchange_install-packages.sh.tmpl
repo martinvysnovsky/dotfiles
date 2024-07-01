@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+{{- if eq .chezmoi.osRelease.id "fedora" }}
+sudo dnf copr enable -y atim/lazygit
+sudo dnf install -y {{ .packages | join " " }}
+{{ end -}}
+{{ end -}}

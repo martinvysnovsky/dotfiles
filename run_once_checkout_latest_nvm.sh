@@ -10,6 +10,3 @@ git checkout $(git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list -
 nvm install 20
 nvm install-latest-npm
 nvm alias default 20
-
-# install global packages
-npm install -g neovim
