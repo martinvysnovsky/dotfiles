@@ -3,6 +3,8 @@
 
 {{- if eq .chezmoi.osRelease.id "fedora" }}
 sudo dnf copr enable -y atim/lazygit
-sudo dnf install -y {{ .packages | join " " }}
+sudo dnf install -y {{ .packages.common | join " " }} {{ .packages.fedora | join " " }}
+{{- else if eq .chezmoi.osRelease.id "arch" }}
+sudo pacman -S --noconfirm {{ .packages.common | join " " }} {{ .packages.arch | join " " }}
 {{ end -}}
 {{ end -}}

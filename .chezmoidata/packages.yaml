@@ -1,12 +1,15 @@
 packages:
-  - neovim
-  - python3-neovim
-  - g++
-  - ripgrep
-  - zsh
-  - pass
-  - pass-otp
-  - fzf
-  - alacritty
-  - zoxide
-  - lazygit
+  common:
+    - neovim
+    - ripgrep
+    - zsh
+    - pass
+    - pass-otp
+    - fzf
+    - alacritty
+    - zoxide
+    - lazygit
+  fedora:
+    - python3-neovim
+    - g++
+  arch:
