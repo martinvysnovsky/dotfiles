@@ -1,5 +1,6 @@
 packages:
   common:
+    - tmux
     - neovim
     - ripgrep
     - zsh
@@ -13,3 +14,4 @@ packages:
     - python3-neovim
     - g++
   arch:
+    - ncurses
