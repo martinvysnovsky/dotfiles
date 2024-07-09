@@ -14,5 +14,8 @@ packages:
     - python3-neovim
     - g++
   arch:
-    - ncurses
-    - ttf-jetbrains-mono-nerd
+    pacman:
+      - ncurses
+      - ttf-jetbrains-mono-nerd
+    yay:
+      - google-chrome
