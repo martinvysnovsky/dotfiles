@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+{{- if eq .chezmoi.osRelease.id "arch" }}
+cd ~/yay
+makepkg -si
+{{ end -}}
+{{ end -}}

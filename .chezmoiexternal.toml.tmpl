@@ -52,3 +52,9 @@
 [".password-store"]
     type = "git-repo"
     url = "git@github.com:martinvysnovsky/pass-store.git"
+
+{{ if eq .chezmoi.osRelease.id "arch" }}
+["yay"]
+    type = "git-repo"
+    url = "https://aur.archlinux.org/yay.git"
+{{ end }}
