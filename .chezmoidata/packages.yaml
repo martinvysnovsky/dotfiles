@@ -15,3 +15,4 @@ packages:
     - g++
   arch:
     - ncurses
+    - ttf-jetbrains-mono-nerd
