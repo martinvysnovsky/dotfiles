@@ -19,3 +19,4 @@ packages:
       - ttf-jetbrains-mono-nerd
     yay:
       - google-chrome
+      - mongodb-compass
