@@ -5,7 +5,7 @@
 sudo dnf copr enable -y atim/lazygit
 sudo dnf install -y {{ .packages.common | join " " }} {{ .packages.fedora | join " " }}
 {{- else if eq .chezmoi.osRelease.id "arch" }}
-sudo pacman -S --noconfirm {{ .packages.common | join " " }} {{ .packages.arch.pacman | join " " }}
+sudo pacman -S --needed --noconfirm {{ .packages.common | join " " }} {{ .packages.arch.pacman | join " " }}
 yay -Sy {{ .packages.arch.yay | join " " }}
 {{ end -}}
 {{ end -}}
