@@ -8,3 +8,8 @@ set("n", "<S-y><S-y>", '"+yy', { desc = "Copy line to system clipboard" })
 set("n", "<S-y>", '"+y', { desc = "Copy selection to system clipboard" })
 set("v", "<S-y><S-y>", '"+yy', { desc = "Copy line to system clipboard" })
 set("v", "<S-y>", '"+y', { desc = "Copy selection to system clipboard" })
+
+set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
+set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
