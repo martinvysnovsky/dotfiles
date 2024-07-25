@@ -37,3 +37,6 @@ export EDITOR='/usr/bin/nvim'
 eval "$(zoxide init zsh)"
 
 DISABLE_AUTO_UPDATE="true"
+
+# Enable VIM mode
+bindkey -v
