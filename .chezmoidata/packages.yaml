@@ -13,6 +13,7 @@ packages:
   fedora:
     - python3-neovim
     - g++
+    - tldr
   arch:
     pacman:
       - ncurses
