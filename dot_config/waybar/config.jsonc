@@ -1,0 +1,50 @@
+{
+  "height": 24,
+  "spacing": 10,
+
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["tray", "network", "pulseaudio", "custom/powermenu"],
+
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%H:%M %d.%m.%Y}",
+  },
+
+  "tray": {
+    "spacing": 10,
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "⬇{bandwidthDownBytes} ⬆{bandwidthUpBytes}",
+    "interval": 3,
+    "format-linked": "{ifname} (No IP) ",
+    "format": "",
+    "format-disconnected": "",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "tooltip-format": " {bandwidthUpBits}  {bandwidthDownBits}\n{ifname}\n{ipaddr}/{cidr}\n",
+    "tooltip-format-wifi": " {essid} {frequency}MHz\nStrength: {signaldBm}dBm ({signalStrength}%)\nIP: {ipaddr}/{cidr}\n {bandwidthUpBits}  {bandwidthDownBits}",
+    "min-length": 17,
+    "max-length": 17,
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}% {format_source}",
+    "format-bluetooth": " {icon} {volume}% {format_source}",
+    "format-bluetooth-muted": "  {icon} {format_source}",
+    "format-muted": "  {format_source}",
+    "format-source-muted": "",
+    "format-icons": {
+      "default": ["", "", ""],
+    },
+    "on-click": "pavucontrol",
+  },
+
+  "custom/powermenu": {
+    "format": "{icon}",
+    "format-icons": ["⏻"],
+    "tooltip": false,
+    "on-click": "wlogout -p layer-shell &>/dev/null",
+  },
+}

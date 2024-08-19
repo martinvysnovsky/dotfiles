@@ -14,6 +14,7 @@ packages:
     - wtype
     - wl-clipboard
     - wlsunset
+    - wlogout
   fedora:
     - python3-neovim
     - g++
