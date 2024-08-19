@@ -11,6 +11,8 @@ packages:
     - zoxide
     - lazygit
     - hyprland
+    - wtype
+    - wl-clipboard
   fedora:
     - python3-neovim
     - g++
