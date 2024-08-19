@@ -13,6 +13,7 @@ packages:
     - hyprland
     - wtype
     - wl-clipboard
+    - wlsunset
   fedora:
     - python3-neovim
     - g++
