@@ -7,7 +7,7 @@ packages:
     - pass
     - pass-otp
     - fzf
-    - alacritty
+    - kitty
     - zoxide
     - lazygit
     - hyprland
