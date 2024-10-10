@@ -4,5 +4,7 @@
 {{- if eq .chezmoi.osRelease.id "arch" }}
 cd ~/yay
 makepkg -si
+cd ..
+rm -rf yay
 {{ end -}}
 {{ end -}}
