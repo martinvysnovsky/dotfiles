@@ -7,6 +7,6 @@ sudo dnf install -y {{ .packages.common | join " " }} {{ .packages.fedora | join
 {{- else if eq .chezmoi.osRelease.id "arch" }}
 sudo pacman -S --needed --noconfirm {{ .packages.common | join " " }} {{ .packages.arch.pacman | join " " }}
 yay --save --answerclean None --answerdiff None
-yay -Sy {{ .packages.arch.yay | join " " }}
+yay -S --needed --noconfirm {{ .packages.arch.yay | join " " }}
 {{ end -}}
 {{ end -}}

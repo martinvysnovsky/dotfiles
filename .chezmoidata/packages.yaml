@@ -25,8 +25,8 @@ packages:
     pacman:
       - ncurses
       - ttf-jetbrains-mono-nerd
-      - slack-desktop
     yay:
       - google-chrome
       - mongodb-compass
       - wlogout
+      - slack-desktop
