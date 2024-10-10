@@ -15,11 +15,11 @@ packages:
     - wtype
     - wl-clipboard
     - wlsunset
-    - wlogout
   fedora:
     - python3-neovim
     - g++
     - tldr
+    - wlogout
   arch:
     pacman:
       - ncurses
@@ -27,3 +27,4 @@ packages:
     yay:
       - google-chrome
       - mongodb-compass
+      - wlogout
