@@ -30,3 +30,4 @@ packages:
       - mongodb-compass
       - wlogout
       - slack-desktop
+      - obsidian
