@@ -1,0 +1,7 @@
+{
+  "itAsyncBlock": {
+    "prefix": "tita",
+    "body": ["it('$1', async () => {", "  $0", "})", ""],
+    "description": "Testing async `it` block"
+  }
+}
