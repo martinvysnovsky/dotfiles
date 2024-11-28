@@ -25,6 +25,9 @@ packages:
     pacman:
       - ncurses
       - ttf-jetbrains-mono-nerd
+      - bluez
+      - bluez-utils
+      - blueman
     yay:
       - google-chrome
       - mongodb-compass
