@@ -16,6 +16,7 @@ packages:
     - wtype
     - wl-clipboard
     - wlsunset
+    - task
   fedora:
     - python3-neovim
     - g++
