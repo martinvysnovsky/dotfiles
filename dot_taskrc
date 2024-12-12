@@ -39,14 +39,13 @@ data.location=~/.task
 #include solarized-light-256.theme
 #include no-color.theme
 
+report.next.columns = id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency
+
 include ~/.taskrc-wingtask
 
 news.version=2.6.0
 
 context.work.read=+work
 context.work.write=+work
-context=work
-
 context.personal.read=-work
 context.personal.write=-work
-context=personal
