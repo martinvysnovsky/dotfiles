@@ -40,3 +40,13 @@ data.location=~/.task
 #include no-color.theme
 
 include ~/.taskrc-wingtask
+
+news.version=2.6.0
+
+context.work.read=+work
+context.work.write=+work
+context=work
+
+context.personal.read=-work
+context.personal.write=-work
+context=personal
