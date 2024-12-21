@@ -20,7 +20,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # FZF mappings and options
-[ -f /usr/share/fzf/shell/key-bindings.bash ] && source /usr/share/fzf/shell/key-bindings.zsh
+[ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 
 # User specific environment
