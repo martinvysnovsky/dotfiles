@@ -8,7 +8,6 @@ packages:
     - pass-otp
     - fzf
     - kitty
-    - zoxide
     - lazygit
     - hyprland
     - hyprlock
