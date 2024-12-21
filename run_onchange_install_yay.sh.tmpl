@@ -1,11 +1,7 @@
-{{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
-{{- if eq .chezmoi.osRelease.id "arch" }}
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 cd ..
 rm -rf yay
-{{ end -}}
-{{ end -}}

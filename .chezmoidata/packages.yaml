@@ -1,5 +1,5 @@
 packages:
-  common:
+  pacman:
     - tmux
     - neovim
     - ripgrep
@@ -17,21 +17,15 @@ packages:
     - wl-clipboard
     - wlsunset
     - task
-  fedora:
-    - python3-neovim
-    - g++
+    - ncurses
+    - ttf-jetbrains-mono-nerd
+    - bluez
+    - bluez-utils
+    - blueman
     - tldr
+  yay:
+    - google-chrome
+    - mongodb-compass
     - wlogout
-  arch:
-    pacman:
-      - ncurses
-      - ttf-jetbrains-mono-nerd
-      - bluez
-      - bluez-utils
-      - blueman
-    yay:
-      - google-chrome
-      - mongodb-compass
-      - wlogout
-      - slack-desktop
-      - obsidian
+    - slack-desktop
+    - obsidian

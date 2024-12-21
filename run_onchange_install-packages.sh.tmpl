@@ -1,12 +1,5 @@
-{{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 
-{{- if eq .chezmoi.osRelease.id "fedora" }}
-sudo dnf copr enable -y atim/lazygit
-sudo dnf install -y {{ .packages.common | join " " }} {{ .packages.fedora | join " " }}
-{{- else if eq .chezmoi.osRelease.id "arch" }}
-sudo pacman -S --needed --noconfirm {{ .packages.common | join " " }} {{ .packages.arch.pacman | join " " }}
+sudo pacman -S --needed --noconfirm {{ .packages.pacman | join " " }}
 yay --save --answerclean None --answerdiff None
-yay -S --needed --noconfirm {{ .packages.arch.yay | join " " }}
-{{ end -}}
-{{ end -}}
+yay -S --needed --noconfirm {{ .packages.yay | join " " }}

@@ -1,0 +1,81 @@
+[".tmux/plugins/tpm"]
+type = "git-repo"
+url = "https://github.com/tmux-plugins/tpm"
+
+[".tmux/plugins/tpm".clone]
+args = ["--depth=1"]
+
+[".nvm"]
+type = "git-repo"
+url = "https://github.com/nvm-sh/nvm.git"
+
+[".nvm".pull]
+args = ["origin", "master"]
+
+[".config/nvim"]
+type = "archive"
+stripComponents = 1
+url = "https://github.com/LazyVim/starter/archive/refs/heads/main.zip"
+refreshPeriod = "168h"
+exclude = ["*/lua/**"]
+
+[".oh-my-zsh"]
+type = "archive"
+url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+stripComponents = 1
+refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+type = "archive"
+url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
+exact = true
+stripComponents = 1
+refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+type = "archive"
+url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
+exact = true
+stripComponents = 1
+refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/themes/powerlevel10k"]
+type = "git-repo"
+url = "https://github.com/romkatv/powerlevel10k.git"
+refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/themes/powerlevel10k".clone]
+args = ["--depth=1"]
+
+[".password-store"]
+type = "git-repo"
+url = "git@github.com:martinvysnovsky/pass-store.git"
+refreshPeriod = "24h"
+
+["obsidian"]
+type = "git-repo"
+url = "git@github.com:martinvysnovsky/obsidian-vault"
+refreshPeriod = "24h"
+
+["bin/wofi-pass"]
+type = "file"
+url = "https://raw.githubusercontent.com/schmidtandreas/wofi-pass/main/wofi-pass"
+executable = true
+refreshPeriod = "168h"
+
+["bin/bemoji"]
+type = "file"
+url = "https://raw.githubusercontent.com/marty-oehme/bemoji/refs/heads/main/bemoji"
+executable = true
+refreshPeriod = "168h"
+
+[".config/waybar/catppuccin-mocha.css"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/waybar/main/themes/mocha.css"
+refreshPeriod = "168h"
+
+["bugwarrior"]
+type = "archive"
+stripComponents = 1
+url = "https://github.com/ralphbean/bugwarrior/archive/refs/heads/develop.zip"
+refreshPeriod = "168h"
