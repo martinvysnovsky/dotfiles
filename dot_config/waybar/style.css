@@ -48,6 +48,8 @@ tooltip {
   background: #11111b;
   color: #cdd6f4;
   border-radius: 10px;
+  box-shadow: inherit;
+  text-shadow: inherit;
 }
 
 #window,
