@@ -11,6 +11,8 @@ packages:
     - lazygit
     - hyprland
     - hyprlock
+    - hyprpaper
+    - hyprland-qtutil
     - waybar
     - wtype
     - wl-clipboard
