@@ -1,60 +1,69 @@
+@import "../waybar/catppuccin-mocha.css";
+
+* {
+  background-image: none;
+  box-shadow: none;
+}
+
 window {
-    font-family: monospace;
-    font-size: 14pt;
-    color: #cdd6f4; /* text */
-    background-color: rgba(30, 30, 46, 0.5);
+  background-color: rgba(12, 12, 12, 0.9);
 }
 
 button {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 25%;
-    border: none;
-    background-color: rgba(30, 30, 46, 0);
-    margin: 5px;
-    transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  color: #ffffff;
+  background-color: #1e1e1e;
+  background-repeat: no-repeat;
+  background-position: center 40%;
+  background-size: 20%;
+  border-radius: 10px;
+  border: none;
+  margin: 16px;
+  font-size: 1.5em;
+  padding-bottom: 20px;
 }
 
-button:hover {
-    background-color: rgba(49, 50, 68, 0.1);
-}
-
-button:focus {
-    background-color: #cba6f7;
-    color: #1e1e2e;
+button svg {
+  background-color: red;
 }
 
 #lock {
-    background-image: image(url("./lock.png"));
+  background-image: image(url("./icons/lock.svg"));
 }
-#lock:focus {
-    background-image: image(url("./lock-hover.png"));
+#lock:hover {
+  background-color: @teal;
 }
 
 #logout {
-    background-image: image(url("./logout.png"));
+  background-image: image(url("./icons/logout.svg"));
 }
-#logout:focus {
-    background-image: image(url("./logout-hover.png"));
+#logout:hover {
+  background-color: @yellow;
 }
 
 #suspend {
-    background-image: image(url("./sleep.png"));
+  background-image: image(url("./icons/suspend.svg"));
 }
-#suspend:focus {
-    background-image: image(url("./sleep-hover.png"));
+#suspend:hover {
+  background-color: @peach;
+}
+
+#hibernate {
+  background-image: image(url("./icons/hibernate.svg"));
+}
+#hibernate:hover {
+  background-color: @blue;
 }
 
 #shutdown {
-    background-image: image(url("./power.png"));
+  background-image: image(url("./icons/shutdown.svg"));
 }
-#shutdown:focus {
-    background-image: image(url("./power-hover.png"));
+#shutdown:hover {
+  background-color: @red;
 }
 
 #reboot {
-    background-image: image(url("./restart.png"));
+  background-image: image(url("./icons/reboot.svg"));
 }
-#reboot:focus {
-    background-image: image(url("./restart-hover.png"));
+#reboot:hover {
+  background-color: @sapphire;
 }
