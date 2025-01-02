@@ -3,3 +3,4 @@
 sudo pacman -S --needed --noconfirm {{ .packages.pacman | join " " }}
 yay --save --answerclean None --answerdiff None
 yay -S --needed --noconfirm {{ .packages.yay | join " " }}
+npm install -g {{ .packages.npm | join " " }}

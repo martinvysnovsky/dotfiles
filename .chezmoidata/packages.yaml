@@ -30,3 +30,5 @@ packages:
     - wlogout
     - slack-desktop
     - obsidian
+  npm:
+    - npm-check
