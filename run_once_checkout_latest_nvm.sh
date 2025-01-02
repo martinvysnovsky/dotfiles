@@ -7,6 +7,6 @@ git checkout $(git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list -
 . ~/.nvm/nvm.sh
 
 # install latest node
-nvm install 20
+nvm install 22
 nvm install-latest-npm
-nvm alias default 20
+nvm alias default 22
