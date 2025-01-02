@@ -5,6 +5,7 @@ return {
 			filtered_items = {
 				always_show_by_pattern = {
 					".env*",
+					".github",
 					".chezmoidata",
 					".chezmoiexternal*",
 				},
