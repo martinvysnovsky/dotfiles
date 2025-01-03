@@ -7,7 +7,7 @@ return {
 		provider = "openai",
 		openai = {
 			endpoint = "https://api.deepseek.com",
-			model = "deepseek-chat",
+			model = "deepseek-coder",
 		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
