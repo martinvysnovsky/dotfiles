@@ -24,6 +24,7 @@ packages:
     - bluez-utils
     - blueman
     - tldr
+    - man-db
   yay:
     - google-chrome
     - mongodb-compass
