@@ -25,11 +25,14 @@ packages:
     - blueman
     - tldr
     - man-db
+    - docker
+    - docker-compose
   yay:
     - google-chrome
     - mongodb-compass
     - wlogout
     - slack-desktop
     - obsidian
+    - lazydocker
   npm:
     - npm-check
