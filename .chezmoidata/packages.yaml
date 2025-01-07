@@ -27,6 +27,11 @@ packages:
     - man-db
     - docker
     - docker-compose
+    - noto-fonts
+    - noto-fonts-cjk
+    - noto-fonts-emoji
+    - noto-fonts-extra
+    - gnome-keyring # for mongodb-compass
   yay:
     - google-chrome
     - mongodb-compass
