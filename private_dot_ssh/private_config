@@ -1,12 +1,12 @@
 Host bitbucket.org-ketler
     HostName bitbucket.org
-    User martinvysnovsky_myketler
+    User git
     IdentityFile ~/.ssh/bitbucket_ketler
     IdentitiesOnly yes
 
 Host bitbucket.org-martin_vysnovsky_riwers
     HostName bitbucket.org
-    User martin_vysnovsky_riwers
+    User git
     IdentityFile ~/.ssh/bitbucket_riwers
     IdentitiesOnly yes
 
