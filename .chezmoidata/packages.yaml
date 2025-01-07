@@ -32,6 +32,7 @@ packages:
     - noto-fonts-emoji
     - noto-fonts-extra
     - gnome-keyring # for mongodb-compass
+    - libreoffice-fresh
   yay:
     - google-chrome
     - mongodb-compass
