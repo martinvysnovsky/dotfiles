@@ -41,8 +41,6 @@ data.location=~/.task
 
 report.next.columns = id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency
 
-include ~/.taskrc-wingtask
-
 news.version=2.6.0
 
 context.work.read=+work
