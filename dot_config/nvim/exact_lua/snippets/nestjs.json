@@ -1,4 +1,9 @@
 {
+  "parent": {
+    "prefix": "nrap",
+    "body": ["@Parent() $1: $2,"],
+    "description": "Add @Parent() argument to NestJS resolver"
+  },
   "currentUser": {
     "prefix": "nracu",
     "body": ["@CurrentUser() user: CurrentUserType,"],
