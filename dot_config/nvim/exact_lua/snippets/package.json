@@ -20,6 +20,12 @@
           "typescript"
         ],
         "path": "./nestjs.json"
+      },
+      {
+        "language": [
+          "graphql"
+        ],
+        "path": "./graphql.json"
       }
     ]
   }
