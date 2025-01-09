@@ -6,7 +6,7 @@
   },
   "currentUser": {
     "prefix": "nracu",
-    "body": ["@CurrentUser() user: CurrentUserType,"],
+    "body": ["@CurrentUser() currentUser: CurrentUserType,"],
     "description": "Add @CurrentUser() argument to NestJS resolver"
   }
 }
