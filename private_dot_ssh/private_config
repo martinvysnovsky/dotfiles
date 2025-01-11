@@ -15,3 +15,9 @@ Host github.com
     User git
     IdentityFile ~/.ssh/github_personal
     IdentitiesOnly yes
+
+Host gitlab.archlinux.org
+    HostName gitlab.archlinux.org
+    User git
+    IdentityFile ~/.ssh/arch-gitlab
+    IdentitiesOnly yes
