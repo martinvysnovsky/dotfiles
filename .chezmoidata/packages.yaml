@@ -33,6 +33,8 @@ packages:
     - noto-fonts-extra
     - gnome-keyring # for mongodb-compass
     - libreoffice-fresh
+    - zathura
+    - zathura-pdf-mupdf
   yay:
     - google-chrome
     - mongodb-compass
