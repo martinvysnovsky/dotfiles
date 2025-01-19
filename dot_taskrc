@@ -4,8 +4,7 @@
 # 'man task-sync' or 'man taskrc'
 
 sync.server.url=http://localhost:6000
-sync.server.client_id=[your client-id]
-sync.encryption_secret=[your encryption secret]
+include .taskrc_secret
 
 # Here is an example of entries that use the default, override and blank values
 #   variable=foo   -- By specifying a value, this overrides the default
