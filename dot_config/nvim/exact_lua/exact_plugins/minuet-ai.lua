@@ -3,7 +3,7 @@ return {
 	config = function()
 		require("minuet").setup({
 			notify = "warn",
-			context_window = 6400,
+			context_window = 1600,
 			n_completions = 1,
 			provider = "openai_fim_compatible",
 			provider_options = {
@@ -11,11 +11,12 @@ return {
 					api_key = "TERM",
 					name = "Ollama",
 					end_point = "http://localhost:11434/v1/completions",
-					model = "qwen2.5-coder:7b",
+					model = "qwen2.5-coder:14b",
 					stream = true,
 					optional = {
-						max_tokens = 16,
+						max_tokens = 32,
 						top_p = 0.9,
+						stop = { "\n" },
 					},
 				},
 			},

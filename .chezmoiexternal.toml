@@ -74,6 +74,11 @@ type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/waybar/main/themes/mocha.css"
 refreshPeriod = "168h"
 
+["taskchampion-sync-server/docker-compose.yml"]
+type = "file"
+url = "https://raw.githubusercontent.com/GothenburgBitFactory/taskchampion-sync-server/refs/heads/main/docker-compose.yml"
+refreshPeriod = "168h"
+
 ["bugwarrior"]
 type = "archive"
 stripComponents = 1
