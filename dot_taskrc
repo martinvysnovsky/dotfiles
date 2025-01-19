@@ -3,6 +3,9 @@
 # For more documentation, see https://taskwarrior.org or try 'man task', 'man task-color',
 # 'man task-sync' or 'man taskrc'
 
+sync.server.url=http://localhost:6000
+include .taskrc_secret
+
 # Here is an example of entries that use the default, override and blank values
 #   variable=foo   -- By specifying a value, this overrides the default
 #   variable=      -- By specifying no value, this means no default
@@ -41,7 +44,7 @@ data.location=~/.task
 
 report.next.columns = id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency
 
-news.version=2.6.0
+news.version=3.3.0
 
 context.work.read=+work
 context.home.read=-work
