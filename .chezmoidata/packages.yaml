@@ -44,3 +44,4 @@ packages:
     - lazydocker
   npm:
     - npm-check
+    - \@nestjs/cli
