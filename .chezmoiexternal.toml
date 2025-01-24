@@ -73,9 +73,3 @@ refreshPeriod = "168h"
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/waybar/main/themes/mocha.css"
 refreshPeriod = "168h"
-
-["bugwarrior"]
-type = "archive"
-stripComponents = 1
-url = "https://github.com/ralphbean/bugwarrior/archive/refs/heads/develop.zip"
-refreshPeriod = "168h"

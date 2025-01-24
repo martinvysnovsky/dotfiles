@@ -35,6 +35,8 @@ packages:
     - libreoffice-fresh
     - zathura
     - zathura-pdf-mupdf
+    - python
+    - python-pipx
   yay:
     - google-chrome
     - mongodb-compass
@@ -42,6 +44,9 @@ packages:
     - slack-desktop
     - obsidian
     - lazydocker
+    - python311 # for bugwarrior
   npm:
     - npm-check
     - \@nestjs/cli
+  pip311:
+    - bugwarrior[jira]
