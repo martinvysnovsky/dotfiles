@@ -3,7 +3,7 @@ return {
 	config = function()
 		require("minuet").setup({
 			notify = "warn",
-			context_window = 1600,
+			context_window = 16000,
 			n_completions = 1,
 			provider = "openai_fim_compatible",
 			provider_options = {
@@ -14,7 +14,7 @@ return {
 					model = "qwen2.5-coder:14b",
 					stream = true,
 					optional = {
-						max_tokens = 32,
+						max_tokens = 256,
 						top_p = 0.9,
 						stop = { "\n" },
 					},
