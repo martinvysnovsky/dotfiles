@@ -18,6 +18,7 @@ packages:
     - wl-clipboard
     - wlsunset
     - task
+    - taskwarrior-tui
     - ncurses
     - ttf-jetbrains-mono-nerd
     - bluez
@@ -37,6 +38,7 @@ packages:
     - zathura-pdf-mupdf
     - python
     - python-pipx
+    - terraform
   yay:
     - google-chrome
     - mongodb-compass
