@@ -1,0 +1,16 @@
+customCommands:
+  containers:
+    - name: bash
+      attach: true
+      command: "docker exec -it {{ .Container.ID }} bash"
+      serviceNames: []
+
+    - name: backup_mongo
+      attach: true
+      command: "docker run --rm --volumes-from {{ .Container.ID }} -v /home/martinvysnovsky/mongo_backup:/backup ubuntu tar cvf /backup/backup.tar /data/db"
+      serviceNames: []
+
+    - name: restore_mongo
+      attach: true
+      command: "docker run --rm --volumes-from {{ .Container.ID }} -v /home/martinvysnovsky/mongo_backup:/backup ubuntu bash -c 'cd /data/db && tar xvf /backup/backup.tar --strip 2'"
+      serviceNames: []
