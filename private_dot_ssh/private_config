@@ -21,3 +21,8 @@ Host gitlab.archlinux.org
     User git
     IdentityFile ~/.ssh/arch-gitlab
     IdentitiesOnly yes
+
+Host 165.227.169.125
+    HostName 165.227.169.125
+    User root
+    IdentityFile ~/.ssh/riwers_digital_ocean
