@@ -39,6 +39,8 @@ packages:
     - python
     - python-pipx
     - terraform
+    - imagemagick
+    - fd
   yay:
     - google-chrome
     - mongodb-compass
