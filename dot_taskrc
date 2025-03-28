@@ -30,7 +30,7 @@ data.location=~/.task
 #include light-16.theme
 #include light-256.theme
 #include dark-16.theme
-#include dark-256.theme
+include dark-256.theme
 #include dark-red-256.theme
 #include dark-green-256.theme
 #include dark-blue-256.theme
@@ -44,7 +44,7 @@ data.location=~/.task
 
 report.next.columns = id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description.count,urgency
 
-news.version=3.3.0
+news.version=3.4.0
 
 context.work.read=+work
 context.home.read=-work
