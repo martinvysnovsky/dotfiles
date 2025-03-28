@@ -1,8 +1,8 @@
 return {
 	"epwalsh/obsidian.nvim",
 	event = {
-		"BufReadPre " .. vim.fn.expand("~") .. "/Obsidian/**/**.md",
-		"BufNewFile " .. vim.fn.expand("~") .. "/Obsidian/**/**.md",
+		"BufReadPre " .. vim.fn.expand("~") .. "/obsidian/**/**.md",
+		"BufNewFile " .. vim.fn.expand("~") .. "/obsidian/**/**.md",
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -11,8 +11,14 @@ return {
 		workspaces = {
 			{
 				name = "personal",
-				path = "~/Obsidian",
+				path = "~/obsidian",
 			},
+		},
+		daily_notes = {
+			folder = "Daily",
+			date_format = "%Y-%m-%d",
+			default_tags = { "daily-notes" },
+			template = "Daily.md",
 		},
 		follow_url_func = function(url)
 			vim.fn.jobstart({ "xdg-open", url }) -- linux
