@@ -14,6 +14,13 @@ return {
 				path = "~/obsidian",
 			},
 		},
+		templates = {
+			folder = "Templates",
+			date_format = "%Y-%m-%d",
+			time_format = "%H:%M",
+			-- A map for custom variables, the key should be the variable and the value a function
+			substitutions = {},
+		},
 		daily_notes = {
 			folder = "Daily",
 			date_format = "%Y-%m-%d",

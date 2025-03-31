@@ -14,7 +14,7 @@ return {
 			)
 			vim.api.nvim_set_keymap("n", "<leader>tv", "<cmd>TWView<cr>", { noremap = true, silent = true })
 			vim.api.nvim_set_keymap("n", "<leader>tu", "<cmd>TWUpdateCurrent<cr>", { noremap = true, silent = true })
-			vim.api.nvim_set_keymap("n", "<c-space>", "<cmd>TWToggle<cr>", { silent = true })
+			vim.api.nvim_set_keymap("n", "<leader>tc", "<cmd>TWToggle<cr>", { silent = true })
 
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 				group = vim.api.nvim_create_augroup("TWTask", { clear = true }),
