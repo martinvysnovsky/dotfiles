@@ -1,7 +1,6 @@
 return {
 	{
 		"huantrinh1802/m_taskwarrior_d.nvim",
-		version = "*",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		config = function()
 			require("m_taskwarrior_d").setup()
@@ -18,30 +17,32 @@ return {
 
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 				group = vim.api.nvim_create_augroup("TWTask", { clear = true }),
-				pattern = "*.md,*.markdown",
+				pattern = "*.md",
 				callback = function()
 					vim.cmd("TWSyncTasks")
 				end,
 			})
 		end,
-		ui = {
-			checkboxes = {
-				[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-				["x"] = { char = "", hl_group = "ObsidianDone" },
-				[">"] = { char = "", hl_group = "ObsidianRightArrow" },
-				["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
-			},
-			hl_groups = {
-				ObsidianTodo = { bold = true, fg = "#f78c6c" },
-				ObsidianDone = { bold = true, fg = "#89ddff" },
-				ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
-				ObsidianTilde = { bold = true, fg = "#ff5370" },
-				ObsidianBullet = { bold = true, fg = "#89ddff" },
-				ObsidianRefText = { underline = true, fg = "#008080" },
-				ObsidianExtLinkIcon = { fg = "#008080" },
-				ObsidianTag = { italic = true, fg = "#89ddff" },
-				ObsidianHighlightText = { bg = "#75662e" },
-			},
-		},
+	},
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("render-markdown").setup({
+				checkbox = {
+					enabled = true,
+					checked = {
+						-- Replaces '[x]' of 'task_list_marker_checked'
+						icon = " ",
+						-- Highligh for the checked icon
+						highlight = "RenderMarkdownChecked",
+					},
+					custom = {
+						started = { raw = "[>]", rendered = " ", highlight = "@markup.raw" },
+						deleted = { raw = "[~]", rendered = " ", highlight = "@markup.raw" },
+					},
+				},
+			})
+		end,
 	},
 }

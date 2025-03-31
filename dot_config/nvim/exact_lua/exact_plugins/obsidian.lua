@@ -1,8 +1,9 @@
 return {
 	"epwalsh/obsidian.nvim",
+	lazy = true,
 	event = {
-		"BufReadPre " .. vim.fn.expand("~") .. "/obsidian/**/**.md",
-		"BufNewFile " .. vim.fn.expand("~") .. "/obsidian/**/**.md",
+		"BufReadPre " .. vim.fn.expand("~") .. "/obsidian/*.md",
+		"BufNewFile " .. vim.fn.expand("~") .. "/obsidian/*.md",
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -30,5 +31,8 @@ return {
 		follow_url_func = function(url)
 			vim.fn.jobstart({ "xdg-open", url }) -- linux
 		end,
+		ui = {
+			enable = false,
+		},
 	},
 }
