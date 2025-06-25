@@ -23,6 +23,12 @@
       },
       {
         "language": [
+          "typescriptreact"
+        ],
+        "path": "./react.json"
+      },
+      {
+        "language": [
           "graphql"
         ],
         "path": "./graphql.json"

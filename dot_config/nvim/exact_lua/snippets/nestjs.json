@@ -1,4 +1,19 @@
 {
+  "contructor": {
+    "prefix": "nrc",
+    "body": ["constructor(private readonly $1Service: $2$1Service) {}"],
+    "description": "Add constructor to NestJS resolver"
+  },
+  "contructorService": {
+    "prefix": "nrcs",
+    "body": ["private readonly $1Service: $2$1Service,"],
+    "description": "Add service to constructor to NestJS resolver"
+  },
+  "contructorLoader": {
+    "prefix": "nrcl",
+    "body": ["private readonly $1Loader: $2$1Loader,"],
+    "description": "Add loader to constructor to NestJS resolver"
+  },
   "parent": {
     "prefix": "nrap",
     "body": ["@Parent() $1: $2,"],
@@ -8,5 +23,45 @@
     "prefix": "nracu",
     "body": ["@CurrentUser() currentUser: CurrentUserType,"],
     "description": "Add @CurrentUser() argument to NestJS resolver"
+  },
+  "query": {
+    "prefix": "nrq",
+    "body": ["@Query('$1')", "$2($3) {", "  $4", "}"],
+    "description": "Add @Query() method to NestJS resolver"
+  },
+  "mutation": {
+    "prefix": "nrm",
+    "body": ["@Mutation('$1')", "$2($3) {", "  $4", "}"],
+    "description": "Add @Mutation() method to NestJS resolver"
+  },
+  "mutationCreate": {
+    "prefix": "nrmc",
+    "body": [
+      "@Mutation('create$1')",
+      "create(@Args('input') input: Create$1Input) {",
+      "  $3",
+      "}"
+    ],
+    "description": "Add create mutation method to NestJS resolver"
+  },
+  "mutationUpdate": {
+    "prefix": "nrmu",
+    "body": [
+      "@Mutation('update$1')",
+      "update(@Args('id') id: ID, @Args('input') input: Update$1Input) {",
+      "  $3",
+      "}"
+    ],
+    "description": "Add update mutation method to NestJS resolver"
+  },
+  "mutationDelete": {
+    "prefix": "nrmd",
+    "body": [
+      "@Mutation('delete$1')",
+      "delete(@Args('id') id: ID) {",
+      "  $2",
+      "}"
+    ],
+    "description": "Add delete mutation method to NestJS resolver"
   }
 }
