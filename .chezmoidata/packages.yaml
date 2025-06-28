@@ -17,8 +17,6 @@ packages:
     - wtype
     - wl-clipboard
     - wlsunset
-    - task
-    - taskwarrior-tui
     - ncurses
     - ttf-jetbrains-mono-nerd
     - bluez
@@ -49,9 +47,6 @@ packages:
     - slack-desktop
     - obsidian
     - lazydocker
-    - python311 # for bugwarrior
   npm:
     - npm-check
     - \@nestjs/cli
-  pip311:
-    - bugwarrior[jira]

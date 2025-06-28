@@ -6,6 +6,3 @@ yay --save --answerclean None --answerdiff None
 yay -S --needed --noconfirm {{ .packages.yay | join " " }}
 
 npm install -g {{ .packages.npm | join " " }}
-
-pipx ensurepath
-pipx install --python 3.11 {{ .packages.pip311 | join " " }}
