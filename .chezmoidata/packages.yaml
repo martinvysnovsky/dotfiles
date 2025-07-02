@@ -47,6 +47,7 @@ packages:
     - slack-desktop
     - obsidian
     - lazydocker
+    - dragon-drop
   npm:
     - npm-check
     - \@nestjs/cli
