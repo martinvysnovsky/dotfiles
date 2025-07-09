@@ -49,6 +49,22 @@ Scripts that can be run without confirmation:
 - **Error handling**: Implement proper error boundaries and error states
 - **Loading states**: Show appropriate loading indicators
 
+### Terraform
+
+Follow HashiCorp's official style guide: https://developer.hashicorp.com/terraform/language/style
+
+- **Formatting**: Run `terraform fmt` and `terraform validate` before committing
+- **File naming**: Use `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`, `terraform.tf`, `backend.tf`
+- **Resource naming**: Use descriptive nouns with underscores, no resource type in name (e.g., `"web_api"` not `"web_api_instance"`)
+- **Resource order**: Define data sources before resources that reference them
+- **Variables**: Always include `type` and `description`, use `default` for optional variables
+- **Outputs**: Always include `description` for outputs
+- **Comments**: Use `#` for single and multi-line comments
+- **Version pinning**: Pin provider and module versions for stability
+- **Local values**: Use sparingly, define in `locals.tf` or at top of specific file
+- **Provider aliasing**: Always include default provider, define aliases with descriptive names
+- **Meta-arguments**: Use `count` and `for_each` sparingly, place meta-arguments first in resource blocks
+
 ### File Organization
 
 - **Component structure**: Follow project-specific component organization patterns
