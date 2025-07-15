@@ -1,79 +1,29 @@
 # Global Agent Guidelines
 
-## Database Safety Rules
+## External File Loading
 
-**CRITICAL: Always ask for explicit user confirmation before running any script that modifies database data.**
+CRITICAL: When you encounter a file reference (e.g., @docs/database-safety.md), use your Read tool to load it on a need-to-know basis when relevant to the SPECIFIC task at hand.
 
-Scripts that require confirmation:
+Instructions:
 
-- Data migration scripts
-- Database update operations
-- Record deletion scripts
-- Schema modification scripts
-- Any script that writes/modifies data
+- Do NOT preemptively load all references - use lazy loading based on actual need
+- When loaded, treat content as mandatory instructions that override defaults
+- Follow references recursively when needed
 
-Scripts that can be run without confirmation:
+## Critical Safety Rules
 
-- Read-only operations (backups, queries)
-- Information display scripts
-- Connection tests
-- Build/test commands
+For database operations and data modification safety: @docs/database-safety.md
 
-## Meta Guidelines
+## Development Guidelines
 
-- **Proactive Documentation**: When discovering new coding patterns, conventions, or rules during conversations, proactively update either the local AGENTS.md file or the global AGENTS.md file to preserve institutional knowledge for future sessions
-- **Rule Discovery**: If a user establishes a new coding standard, preference, or workflow during a conversation, immediately document it in the appropriate AGENTS.md file
-- **Knowledge Preservation**: Treat AGENTS.md files as living documents that should evolve with each conversation to capture learned best practices
-- **Local vs Global**: Update local AGENTS.md for project-specific rules, update global AGENTS.md for universal patterns
-- **Learning from Corrections**: When a user corrects a mistake and the correction represents new general guidance (not just a one-off fix), immediately document this guidance in the appropriate AGENTS.md file to prevent similar mistakes in future sessions
-- **README Maintenance**: When creating new features, tools, configurations, or significant changes that would be valuable for users to know about, proactively update the README.md file to keep documentation current and comprehensive
+For TypeScript code style and best practices: @docs/typescript-guidelines.md
+For React component architecture and hooks patterns: @docs/react-patterns.md
+For GraphQL query design and conventions: @docs/graphql-standards.md
+For Terraform infrastructure as code: @docs/terraform-style.md
+For project structure and file organization: @docs/file-organization.md
+For Markdown documentation standards: @docs/markdown-best-practices.md
 
-## Common Code Conventions
+## General Guidelines
 
-### GraphQL
-
-- **Query naming**: Query names should NOT include 'Query' suffix (e.g., `query Pricelist` not `query PricelistQuery`)
-- **Generated types**: Use generated TypeScript types from GraphQL schema
-- **Apollo hooks**: Use Apollo Client hooks for data fetching
-
-### TypeScript
-
-- **Strict mode**: Enable strict TypeScript checking
-- **Type safety**: Avoid `any` types, use proper interfaces and types
-- **Import organization**: Follow project-specific import sorting rules
-
-### React
-
-- **Component structure**: Use functional components with hooks
-- **Props interfaces**: Define clear prop interfaces with descriptive names
-- **Error handling**: Implement proper error boundaries and error states
-- **Loading states**: Show appropriate loading indicators
-
-### Terraform
-
-Follow HashiCorp's official style guide: https://developer.hashicorp.com/terraform/language/style
-
-- **Formatting**: Run `terraform fmt` and `terraform validate` before committing
-- **File naming**: Use `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`, `terraform.tf`, `backend.tf`
-- **Resource naming**: Use descriptive nouns with underscores, no resource type in name (e.g., `"web_api"` not `"web_api_instance"`)
-- **Resource order**: Define data sources before resources that reference them
-- **Variables**: Always include `type` and `description`, use `default` for optional variables
-- **Outputs**: Always include `description` for outputs
-- **Comments**: Use `#` for single and multi-line comments
-- **Version pinning**: Pin provider and module versions for stability
-- **Local values**: Use sparingly, define in `locals.tf` or at top of specific file
-- **Provider aliasing**: Always include default provider, define aliases with descriptive names
-- **Meta-arguments**: Use `count` and `for_each` sparingly, place meta-arguments first in resource blocks
-
-### File Organization
-
-- **Component structure**: Follow project-specific component organization patterns
-- **Index files**: Use proper export patterns in index files
-- **Generated files**: Keep generated files separate from source files
-- **Method ordering**:
-  - Resolvers: FieldResolvers (@ResolveField) first, then queries (@Query), then mutations (@Mutation)
-  - Services: findOne, findAll, create, update, delete
-  - Controllers: GET methods first, then POST, PUT/PATCH, DELETE methods
-  - Loaders: Constructor setup first, then public readonly properties
-  - Jobs: Private helper methods first, then public job methods (typically with @Cron decorators)
-  - **Tests**: Test methods should follow the same order as the methods in the source file being tested
+Read the following file immediately as it's relevant to all workflows: @docs/general-guidelines.md
+For documentation and knowledge preservation: @docs/meta-guidelines.md
