@@ -7,12 +7,32 @@
   "mcp": {
     "atlassian": {
       "type": "local",
-      "command": ["npx", "-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"],
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"
+      ],
       "enabled": true
     },
     "canva": {
       "type": "local",
-      "command": ["npx", "-y", "mcp-remote@latest", "https://mcp.canva.com/mcp"],
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.canva.com/mcp"
+      ],
+      "enabled": true
+    },
+    "puppeteer": {
+      "type": "local",
+      "command": ["npx", "-y", "puppeteer-vision-mcp-server"],
+      "environment": {
+        "API_BASE_URL": "https://api.anthropic.com/v1",
+        "VISION_MODEL": "claude-sonnet-4-20250514",
+        "TRANSPORT_TYPE": "stdio"
+      },
       "enabled": true
     }
   }
