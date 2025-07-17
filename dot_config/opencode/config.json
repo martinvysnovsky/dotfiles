@@ -9,6 +9,11 @@
       "type": "local",
       "command": ["npx", "-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"],
       "enabled": true
+    },
+    "canva": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-remote@latest", "https://mcp.canva.com/mcp"],
+      "enabled": true
     }
   }
 }
