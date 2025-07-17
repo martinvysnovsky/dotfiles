@@ -3,5 +3,12 @@
   "theme": "catppuccin",
   "model": "anthropic/claude-sonnet-4-20250514",
   "autoshare": false,
-  "autoupdate": true
+  "autoupdate": true,
+  "mcp": {
+    "atlassian": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"],
+      "enabled": true
+    }
+  }
 }
