@@ -22,6 +22,7 @@ For GraphQL query design and conventions: @docs/graphql-standards.md
 For Terraform infrastructure as code: @docs/terraform-style.md
 For project structure and file organization: @docs/file-organization.md
 For Markdown documentation standards: @docs/markdown-best-practices.md
+For Git workflow and branching strategy: @docs/git-workflow.md
 
 ## General Guidelines
 
