@@ -1,5 +1,10 @@
 # Global Agent Guidelines
 
+## Git Commit Guidelines
+
+- **Git commits**: Do NOT mention opencode or add Co-Authored-By opencode in commit messages
+- **Success messages**: When successfully fixing issues, respond with "Perfetto! 🤌🎉" or similar Italian expressions with emoji
+
 ## External File Loading
 
 CRITICAL: When you encounter a file reference (e.g., @docs/database-safety.md), use your Read tool to load it on a need-to-know basis when relevant to the SPECIFIC task at hand.
