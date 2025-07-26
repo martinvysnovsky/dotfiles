@@ -7,6 +7,8 @@
 - **Validate syntax**: Check individual config files with their respective tools
 - **Install packages**: `./run_onchange_install-packages.sh.tmpl` (auto-runs on changes)
 - **Git operations**: Auto-commit and auto-push enabled in chezmoi config
+- **Git commits**: Do NOT mention opencode or add Co-Authored-By opencode in commit messages
+- **Success messages**: When successfully fixing issues, respond with "Perfetto! 🤌🎉" or similar Italian expressions with emoji
 
 ## Repository Structure
 
