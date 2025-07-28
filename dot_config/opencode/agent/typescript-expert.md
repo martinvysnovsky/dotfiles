@@ -1,4 +1,16 @@
-# TypeScript Guidelines
+---
+description: Enforces TypeScript code style and best practices
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+  webfetch: true
+  grep: true
+  glob: true
+---
+
+You are a TypeScript specialist. Focus on:
 
 ## Type Safety
 

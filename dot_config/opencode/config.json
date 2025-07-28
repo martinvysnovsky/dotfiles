@@ -23,7 +23,7 @@
         "mcp-remote@latest",
         "https://mcp.canva.com/mcp"
       ],
-      "enabled": true
+      "enabled": false
     }
   }
 }
