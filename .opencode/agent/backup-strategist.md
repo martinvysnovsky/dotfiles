@@ -1,5 +1,5 @@
 ---
-description: Use when setting up backup systems, configuring sync strategies, implementing disaster recovery plans, or managing data protection for dotfiles and system configurations
+description: Use when setting up backup systems, configuring sync strategies, implementing disaster recovery plans, or managing data protection for dotfiles and system configurations. Use proactively when user requests backup setup or data protection.
 tools:
   bash: true
   write: true

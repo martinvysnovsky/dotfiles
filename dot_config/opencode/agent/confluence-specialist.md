@@ -1,5 +1,5 @@
 ---
-description: Use when working with Confluence pages, creating team documentation, managing Confluence spaces, or implementing documentation workflows and collaboration processes
+description: Use when working with Confluence pages, creating team documentation, managing Confluence spaces, or implementing documentation workflows and collaboration processes. Use proactively when user mentions Confluence or team documentation needs.
 tools:
   read: true
   write: true

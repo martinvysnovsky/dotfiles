@@ -1,5 +1,5 @@
 ---
-description: Use when creating knowledge bases, documenting processes and decisions, organizing team knowledge, or implementing knowledge management and preservation strategies
+description: Use when creating knowledge bases, documenting processes and decisions, organizing team knowledge, or implementing knowledge management and preservation strategies. Use proactively when user requests knowledge organization or process documentation.
 tools:
   read: true
   write: true

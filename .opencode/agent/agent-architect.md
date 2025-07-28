@@ -1,5 +1,5 @@
 ---
-description: Use when creating new opencode agents, designing agent workflows, managing agent configurations, or implementing specialized automation for dotfiles and development workflows
+description: Use when creating new opencode agents, designing agent workflows, managing agent configurations, or implementing specialized automation for dotfiles and development workflows. Use proactively when user requests agent creation or workflow automation.
 tools:
   read: true
   write: true

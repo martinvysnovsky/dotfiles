@@ -1,5 +1,5 @@
 ---
-description: Use when working with Docker containers, creating docker-compose configurations, managing container orchestration, or setting up containerized development environments
+description: Use when working with Docker containers, creating docker-compose configurations, managing container orchestration, or setting up containerized development environments. Use proactively when user works with Docker or containerization.
 tools:
   bash: true
   write: true

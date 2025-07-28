@@ -1,5 +1,5 @@
 ---
-description: Use when installing system packages, managing pacman/yay repositories, handling npm dependencies, or maintaining package lists and system software installations
+description: Use when installing system packages, managing pacman/yay repositories, handling npm dependencies, or maintaining package lists and system software installations. Use proactively when user requests package installation or system software management.
 tools:
   bash: true
   write: true

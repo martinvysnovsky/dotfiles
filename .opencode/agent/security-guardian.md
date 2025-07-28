@@ -1,5 +1,5 @@
 ---
-description: Use when managing GPG encryption, configuring SSH keys, setting up security policies, or implementing secure authentication and encryption workflows
+description: Use when managing GPG encryption, configuring SSH keys, setting up security policies, or implementing secure authentication and encryption workflows. Use proactively when user works with security configurations or encryption.
 tools:
   bash: false
   write: true

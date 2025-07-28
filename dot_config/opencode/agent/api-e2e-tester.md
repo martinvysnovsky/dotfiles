@@ -1,5 +1,5 @@
 ---
-description: Use when writing end-to-end tests for NestJS APIs, implementing Testcontainers for database testing, testing GraphQL endpoints, or creating integration test suites
+description: Use when writing end-to-end tests for NestJS APIs, implementing Testcontainers for database testing, testing GraphQL endpoints, or creating integration test suites. Use proactively after creating API integrations or complex workflows.
 tools:
   read: true
   write: true

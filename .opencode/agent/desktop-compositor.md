@@ -1,5 +1,5 @@
 ---
-description: Use when configuring Hyprland window manager, setting up Wayland desktop environments, managing compositor settings, or integrating desktop configurations with chezmoi
+description: Use when configuring Hyprland window manager, setting up Wayland desktop environments, managing compositor settings, or integrating desktop configurations with chezmoi. Use proactively when user works with Hyprland or Wayland configurations.
 tools:
   write: true
   edit: true

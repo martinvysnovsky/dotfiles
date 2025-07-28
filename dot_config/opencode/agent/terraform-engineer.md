@@ -1,5 +1,5 @@
 ---
-description: Use when writing Terraform configurations, managing infrastructure as code, creating cloud resources, or implementing Terraform modules and best practices
+description: Use when writing Terraform configurations, managing infrastructure as code, creating cloud resources, or implementing Terraform modules and best practices. Use proactively when working with infrastructure code or cloud resources.
 tools:
   read: true
   write: true

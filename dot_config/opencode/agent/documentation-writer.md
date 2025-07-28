@@ -1,5 +1,5 @@
 ---
-description: Use when writing README files, creating API documentation, writing technical guides, or improving existing documentation with proper markdown formatting and structure
+description: Use when writing README files, creating API documentation, writing technical guides, or improving existing documentation with proper markdown formatting and structure. Use proactively after creating significant features or when user requests documentation.
 tools:
   read: true
   write: true

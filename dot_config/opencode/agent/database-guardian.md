@@ -1,5 +1,5 @@
 ---
-description: Use when running database migrations, executing data modification scripts, or performing any database operations that require safety validation and user confirmation
+description: Use when running database migrations, executing data modification scripts, or performing any database operations that require safety validation and user confirmation. Use proactively when user requests database operations.
 tools:
   bash: false
   write: false

@@ -1,5 +1,5 @@
 ---
-description: Use when writing unit tests for NestJS APIs, implementing Jest testing patterns, creating mocks for services and dependencies, or testing backend business logic
+description: Use when writing unit tests for NestJS APIs, implementing Jest testing patterns, creating mocks for services and dependencies, or testing backend business logic. Use proactively after creating API endpoints or services.
 tools:
   read: true
   write: true

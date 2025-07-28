@@ -1,5 +1,5 @@
 ---
-description: Use when managing chezmoi dotfiles, creating configuration templates, setting up encryption, handling cross-platform compatibility, or coordinating dotfiles workflows
+description: Use when managing chezmoi dotfiles, creating configuration templates, setting up encryption, handling cross-platform compatibility, or coordinating dotfiles workflows. Use proactively when user works with dotfiles or chezmoi configurations.
 tools:
   bash: true
   write: true

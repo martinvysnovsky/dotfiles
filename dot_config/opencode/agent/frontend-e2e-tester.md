@@ -1,5 +1,5 @@
 ---
-description: Use when writing end-to-end tests with Playwright, testing user workflows in React applications, or implementing browser automation and E2E testing strategies
+description: Use when writing end-to-end tests with Playwright, testing user workflows in React applications, or implementing browser automation and E2E testing strategies. Use proactively after implementing user workflows or when user requests E2E testing.
 tools:
   read: true
   write: true

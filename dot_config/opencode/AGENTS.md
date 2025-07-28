@@ -2,27 +2,25 @@
 
 ## Success Messages
 
-- **Success messages**: When successfully fixing issues, respond with "Perfetto! 🤌🎉" or similar Italian expressions with emoji
+- **Success messages**: When successfully fixing issues, respond with "Perfetto! 🤌" or similar Italian expressions with emoji
 
-## Available Agents
+## Available Custom Agents
 
-Specialized agents are configured in the `agent/` directory:
+The following specialized agents are available in `~/.config/opencode/agent/`:
 
-- **api-e2e-tester**: NestJS E2E testing with Testcontainers + GraphQL
-- **api-unit-tester**: NestJS unit testing with Jest + mocking strategies  
-- **confluence-specialist**: Confluence documentation workflows and collaboration
-- **database-guardian**: Database safety rules and data modification protocols
-- **documentation-writer**: Markdown documentation standards and best practices
-- **file-organizer**: Project structure and file organization patterns
-- **frontend-e2e-tester**: Playwright E2E testing for React applications
-- **frontend-unit-tester**: React/TypeScript unit testing with Vitest + Testing Library
-- **git-master**: Git workflows, conventional commits, and repository best practices
-- **graphql-specialist**: GraphQL query design and conventions
-- **knowledge-keeper**: Documentation and knowledge preservation workflows
-- **react-architect**: React component architecture and hooks patterns
-- **terraform-engineer**: Terraform infrastructure as code best practices
-- **typescript-expert**: TypeScript code style and best practices
+- **api-e2e-tester** - End-to-end testing for NestJS APIs with Testcontainers
+- **api-unit-tester** - Unit testing for NestJS APIs with Jest patterns
+- **confluence-specialist** - Confluence documentation and team collaboration
+- **database-guardian** - Database operations with safety validation
+- **documentation-writer** - Technical documentation with proper markdown
+- **file-organizer** - Project structure and file organization
+- **frontend-e2e-tester** - Frontend E2E testing with Playwright
+- **frontend-unit-tester** - React component testing with Vitest/Testing Library
+- **git-master** - Git workflows and conventional commits
+- **graphql-specialist** - GraphQL schemas, queries, and resolvers
+- **knowledge-keeper** - Knowledge management and process documentation
+- **react-architect** - React patterns and architecture best practices
+- **terraform-engineer** - Infrastructure as code with Terraform
+- **typescript-expert** - TypeScript best practices and type safety
 
-## Agent Usage
-
-Agents are self-contained markdown files with YAML frontmatter containing their configuration and instructions in the markdown body.
+Use these agents proactively when working on related tasks!

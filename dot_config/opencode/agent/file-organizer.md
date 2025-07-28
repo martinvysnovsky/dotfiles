@@ -1,5 +1,5 @@
 ---
-description: Use when organizing project files and directories, restructuring codebases, creating folder hierarchies, or implementing file naming conventions and project architecture
+description: Use when organizing project files and directories, restructuring codebases, creating folder hierarchies, or implementing file naming conventions and project architecture. Use proactively when user requests file organization or project restructuring.
 tools:
   read: true
   write: true

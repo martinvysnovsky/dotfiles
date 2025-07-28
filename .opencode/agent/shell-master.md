@@ -1,5 +1,5 @@
 ---
-description: Use when configuring ZSH shell, setting up tmux sessions, managing terminal environments, or implementing advanced shell automation and customizations
+description: Use when configuring ZSH shell, setting up tmux sessions, managing terminal environments, or implementing advanced shell automation and customizations. Use proactively when user works with shell configurations or terminal environments.
 tools:
   write: true
   edit: true
