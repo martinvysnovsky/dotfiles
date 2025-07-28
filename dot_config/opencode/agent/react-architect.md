@@ -149,4 +149,4 @@ useEffect(() => {
 ### Focus Management
 - Manage focus for dynamic content
 - Provide visible focus indicators
-- Use proper heading hierarchy
+- Use proper heading hierarchy- Use proper heading hierarchy

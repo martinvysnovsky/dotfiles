@@ -1,5 +1,5 @@
 ---
-description: Manages documentation and knowledge preservation workflows
+description: Documentation and knowledge preservation workflows
 tools:
   read: true
   write: true

@@ -1,5 +1,5 @@
 ---
-description: Enforces GraphQL query design and conventions
+description: GraphQL query design and conventions
 tools:
   read: true
   write: true

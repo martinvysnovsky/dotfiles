@@ -1,5 +1,5 @@
 ---
-description: Enforces Terraform infrastructure as code best practices
+description: Terraform infrastructure as code best practices
 tools:
   read: true
   write: true
@@ -150,4 +150,4 @@ terraform {
 - Use remote state storage
 - Enable state locking
 - Separate environments with different state files
-- Use workspaces or separate directories for environments
+- Use workspaces or separate directories for environments- Use workspaces or separate directories for environments- Use workspaces or separate directories for environments

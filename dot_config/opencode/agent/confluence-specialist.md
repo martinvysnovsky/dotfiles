@@ -1,5 +1,5 @@
 ---
-description: Manages Confluence documentation workflows, content creation, and collaboration
+description: Confluence documentation workflows and collaboration
 tools:
   read: true
   write: true

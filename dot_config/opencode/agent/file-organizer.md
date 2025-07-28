@@ -1,13 +1,13 @@
 ---
-description: Enforces project structure and file organization patterns
+description: Project structure and file organization patterns
 tools:
   read: true
   write: true
   edit: true
   bash: true
-  list: true
-  glob: true
+  webfetch: true
   grep: true
+  glob: true
 ---
 
 You are a file organization specialist. Focus on:
