@@ -1,5 +1,5 @@
 ---
-description: Manages system packages across pacman, yay, and npm ecosystems
+description: Use when installing system packages, managing pacman/yay repositories, handling npm dependencies, or maintaining package lists and system software installations
 tools:
   bash: true
   write: true

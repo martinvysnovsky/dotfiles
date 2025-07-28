@@ -1,5 +1,5 @@
 ---
-description: NestJS unit testing with Jest + mocking strategies
+description: Use when writing unit tests for NestJS APIs, implementing Jest testing patterns, creating mocks for services and dependencies, or testing backend business logic
 tools:
   read: true
   write: true

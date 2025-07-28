@@ -1,5 +1,5 @@
 ---
-description: Enforces TypeScript code style and best practices
+description: Use when writing TypeScript code, fixing type errors, improving type safety, or enforcing TypeScript best practices and code organization
 tools:
   read: true
   write: true

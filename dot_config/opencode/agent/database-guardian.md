@@ -1,5 +1,5 @@
 ---
-description: Enforces database safety rules and data modification protocols
+description: Use when running database migrations, executing data modification scripts, or performing any database operations that require safety validation and user confirmation
 tools:
   bash: false
   write: false

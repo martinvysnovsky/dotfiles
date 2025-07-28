@@ -1,5 +1,5 @@
 ---
-description: GraphQL query design and conventions
+description: Use when writing GraphQL schemas, creating queries and mutations, implementing GraphQL resolvers, or optimizing GraphQL API design and performance
 tools:
   read: true
   write: true

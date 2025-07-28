@@ -1,5 +1,5 @@
 ---
-description: Documentation and knowledge preservation workflows
+description: Use when creating knowledge bases, documenting processes and decisions, organizing team knowledge, or implementing knowledge management and preservation strategies
 tools:
   read: true
   write: true

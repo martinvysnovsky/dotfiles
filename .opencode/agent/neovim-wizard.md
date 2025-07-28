@@ -1,5 +1,5 @@
 ---
-description: Manages Neovim Lua configuration, plugins, and keymaps with automation
+description: Use when configuring Neovim, writing Lua configurations, managing plugins, setting up keymaps, or automating Neovim workflows and customizations
 tools:
   write: true
   edit: true

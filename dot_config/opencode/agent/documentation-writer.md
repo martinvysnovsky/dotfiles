@@ -1,5 +1,5 @@
 ---
-description: Enforces markdown documentation standards and best practices
+description: Use when writing README files, creating API documentation, writing technical guides, or improving existing documentation with proper markdown formatting and structure
 tools:
   read: true
   write: true

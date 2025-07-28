@@ -1,5 +1,5 @@
 ---
-description: Manages git workflows, conventional commits, and repository best practices
+description: Use when creating git commits, managing branches, implementing git workflows, or enforcing conventional commit standards and repository best practices
 tools:
   read: true
   write: true

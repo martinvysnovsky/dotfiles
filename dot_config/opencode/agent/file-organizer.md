@@ -1,5 +1,5 @@
 ---
-description: Project structure and file organization patterns
+description: Use when organizing project files and directories, restructuring codebases, creating folder hierarchies, or implementing file naming conventions and project architecture
 tools:
   read: true
   write: true

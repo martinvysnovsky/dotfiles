@@ -1,5 +1,5 @@
 ---
-description: Confluence documentation workflows and collaboration
+description: Use when working with Confluence pages, creating team documentation, managing Confluence spaces, or implementing documentation workflows and collaboration processes
 tools:
   read: true
   write: true

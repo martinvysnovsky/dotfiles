@@ -1,5 +1,5 @@
 ---
-description: Manages Docker, docker-compose, and container configurations for development workflows
+description: Use when working with Docker containers, creating docker-compose configurations, managing container orchestration, or setting up containerized development environments
 tools:
   bash: true
   write: true

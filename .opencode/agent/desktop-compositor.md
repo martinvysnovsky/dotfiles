@@ -1,5 +1,5 @@
 ---
-description: Configures Hyprland window manager and Wayland ecosystem tools with chezmoi integration
+description: Use when configuring Hyprland window manager, setting up Wayland desktop environments, managing compositor settings, or integrating desktop configurations with chezmoi
 tools:
   write: true
   edit: true

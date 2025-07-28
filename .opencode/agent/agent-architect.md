@@ -1,5 +1,5 @@
 ---
-description: Creates and manages specialized agents for opencode workflows and dotfiles management
+description: Use when creating new opencode agents, designing agent workflows, managing agent configurations, or implementing specialized automation for dotfiles and development workflows
 tools:
   read: true
   write: true

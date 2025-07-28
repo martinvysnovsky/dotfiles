@@ -1,5 +1,5 @@
 ---
-description: Primary chezmoi workflow coordinator managing dotfiles configuration, templates, encryption, and cross-platform compatibility
+description: Use when managing chezmoi dotfiles, creating configuration templates, setting up encryption, handling cross-platform compatibility, or coordinating dotfiles workflows
 tools:
   bash: true
   write: true

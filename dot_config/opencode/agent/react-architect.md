@@ -1,5 +1,5 @@
 ---
-description: Enforces React component architecture and hooks patterns
+description: Use when creating React components, implementing hooks, optimizing React performance, or enforcing React architecture patterns and best practices
 tools:
   read: true
   write: true

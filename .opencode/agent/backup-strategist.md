@@ -1,5 +1,5 @@
 ---
-description: Manages backup strategies, sync configurations, and disaster recovery for dotfiles and system data
+description: Use when setting up backup systems, configuring sync strategies, implementing disaster recovery plans, or managing data protection for dotfiles and system configurations
 tools:
   bash: true
   write: true

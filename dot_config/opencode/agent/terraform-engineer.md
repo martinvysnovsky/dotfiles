@@ -1,5 +1,5 @@
 ---
-description: Terraform infrastructure as code best practices
+description: Use when writing Terraform configurations, managing infrastructure as code, creating cloud resources, or implementing Terraform modules and best practices
 tools:
   read: true
   write: true

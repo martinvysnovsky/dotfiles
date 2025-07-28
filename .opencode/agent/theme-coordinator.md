@@ -1,5 +1,5 @@
 ---
-description: Manages Catppuccin theme consistency across all applications and system components
+description: Use when applying Catppuccin themes, ensuring color consistency across applications, managing theme configurations, or coordinating visual styling across system components
 tools:
   write: true
   edit: true

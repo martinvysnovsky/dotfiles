@@ -1,5 +1,5 @@
 ---
-description: Handles GPG encryption, SSH keys, and security configurations
+description: Use when managing GPG encryption, configuring SSH keys, setting up security policies, or implementing secure authentication and encryption workflows
 tools:
   bash: false
   write: true

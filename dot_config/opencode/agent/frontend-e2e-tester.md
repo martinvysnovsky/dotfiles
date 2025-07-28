@@ -1,5 +1,5 @@
 ---
-description: Playwright E2E testing for React applications
+description: Use when writing end-to-end tests with Playwright, testing user workflows in React applications, or implementing browser automation and E2E testing strategies
 tools:
   read: true
   write: true

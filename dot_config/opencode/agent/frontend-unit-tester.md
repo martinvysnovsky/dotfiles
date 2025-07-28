@@ -1,5 +1,5 @@
 ---
-description: React/TypeScript unit testing with Vitest + Testing Library
+description: Use when writing unit tests for React components, testing TypeScript code with Vitest, or implementing Testing Library patterns for frontend testing
 tools:
   read: true
   write: true

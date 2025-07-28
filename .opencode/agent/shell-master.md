@@ -1,5 +1,5 @@
 ---
-description: Manages ZSH, tmux, and terminal environment configuration with advanced automation
+description: Use when configuring ZSH shell, setting up tmux sessions, managing terminal environments, or implementing advanced shell automation and customizations
 tools:
   write: true
   edit: true
