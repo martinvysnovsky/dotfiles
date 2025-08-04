@@ -1,3 +1,9 @@
+Host bitbucket.org
+    HostName bitbucket.org
+    User git
+    IdentityFile ~/.ssh/bitbucket_ketler
+    IdentitiesOnly yes
+
 Host bitbucket.org-ketler
     HostName bitbucket.org
     User git
