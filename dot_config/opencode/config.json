@@ -4,6 +4,14 @@
   "model": "anthropic/claude-sonnet-4-20250514",
   "share": "disabled",
   "autoupdate": true,
+  "mode": {
+    "plan": {
+      "model": "anthropic/claude-haiku-4-20250514"
+    },
+    "build": {
+      "model": "anthropic/claude-sonnet-4-20250514"
+    }
+  },
   "mcp": {
     "atlassian": {
       "type": "local",
