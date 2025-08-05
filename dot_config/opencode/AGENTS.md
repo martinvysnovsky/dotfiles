@@ -23,16 +23,4 @@ The following specialized agents are available in `~/.config/opencode/agent/`:
 - **terraform-engineer** - Infrastructure as code with Terraform
 - **typescript-expert** - TypeScript best practices and type safety
 
-## Proactive Agent Usage
-
-**IMPORTANT**: Use these agents proactively when working on related tasks! Don't wait for explicit requests - if you're working on code that falls within an agent's expertise, automatically invoke the appropriate agent to ensure best practices and quality.
-
-Examples of proactive usage:
-- After writing TypeScript code → Use **typescript-expert** to review and improve type safety
-- After creating React components → Use **react-architect** to ensure proper patterns
-- When git operations are needed → Use **git-master** for all git-related tasks
-- After writing tests → Use **frontend-unit-tester** or **api-unit-tester** as appropriate
-- When working with documentation → Use **documentation-writer** for proper formatting
-- After database changes → Use **database-guardian** for safety validation
-
 Use these agents proactively when working on related tasks!
