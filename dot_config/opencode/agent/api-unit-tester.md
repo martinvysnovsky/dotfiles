@@ -16,16 +16,37 @@ You are a specialized agent for writing and maintaining unit tests for NestJS/Ty
 
 ## Core Principles
 
+## Testing Strategy by Layer
+
+### Services (Data Layer)
+- **Use testcontainers** with real databases
+- Test actual database operations and queries
+- Validate data persistence and business logic
+- Use factories for test data management
+
+### Controllers (HTTP Layer)  
+- **Mock service dependencies**
+- Test request/response handling
+- Validate authentication and authorization
+- Focus on HTTP-specific logic
+
+### Resolvers (GraphQL Layer)
+- **Mock service dependencies** 
+- Test field resolution and argument handling
+- Validate GraphQL-specific logic
+- Test DataLoader integration
+
 ### API Testing Philosophy
-- **Isolated unit testing**: Test individual services, controllers, and resolvers in isolation
-- **Dependency mocking**: Mock external dependencies (databases, APIs, services)
+- **Service testing**: Use testcontainers with real databases for data layer testing
+- **Controller/Resolver testing**: Mock service dependencies to test HTTP/GraphQL layers
 - **Business logic focus**: Test core business logic and edge cases
-- **Fast execution**: Unit tests should run quickly without external dependencies
+- **Layer isolation**: Test each layer independently with appropriate mocking strategy
 
 ### Testing Stack
 - **Jest**: JavaScript testing framework with mocking capabilities
 - **@nestjs/testing**: NestJS testing utilities and module builders
-- **@automock/jest**: Advanced mocking for dependency injection
+- **testcontainers**: Docker container management for service database testing
+- **@automock/jest**: Advanced mocking for dependency injection (controllers/resolvers)
 - **@faker-js/faker**: Generate realistic test data
 - **Supertest**: HTTP assertion library for controller testing
 
@@ -95,15 +116,169 @@ moduleNameMapping: {
   "test": "jest",
   "test:watch": "jest --watch",
   "test:cov": "jest --coverage",
+  "test:services": "jest --testPathPattern=service.spec.ts --maxWorkers=1 --testTimeout=60000",
+  "test:units": "jest --testPathPattern='(controller|resolver).spec.ts'",
   "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-  "test:ci": "node --max-old-space-size=3072 node_modules/.bin/jest --ci --reporters=default --reporters=jest-junit"
+  "test:ci": "npm run test:units && npm run test:services"
+},
+"devDependencies": {
+  "testcontainers": "^10.24.2",
+  "@testcontainers/postgresql": "^10.24.2"
 }
 }
 ```
 
-## Service Testing Patterns
+## Service Testing with Testcontainers
 
-### 1. Basic Service Testing
+### 1. MongoDB Service Testing
+```typescript
+import { Test, TestingModule } from '@nestjs/testing';
+import { GenericContainer, StartedTestContainer } from 'testcontainers';
+import mongoose from 'mongoose';
+import { CarsFactory } from 'test/factories/cars.factory';
+
+import { ConfigModule } from 'src/config/config.module';
+import { DatabaseModule } from 'src/database/database.module';
+import { CarsService } from './cars.service';
+import { Car, CarSchema } from './entities/car.entity';
+
+describe('CarsService (MongoDB)', () => {
+  let mongodbContainer: StartedTestContainer;
+  let service: CarsService;
+  let carsFactory: CarsFactory;
+
+  beforeAll(async () => {
+    mongodbContainer = await new GenericContainer('mongo:7.0')
+      .withExposedPorts(27017)
+      .start();
+
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        ConfigModule.register({
+          isGlobal: true,
+          ignoreEnvFile: true,
+          validationSchema: undefined,
+          load: [
+            () => ({
+              DB_CONNECTION: `mongodb://${mongodbContainer.getHost()}:${mongodbContainer.getMappedPort(27017)}/test`,
+            }),
+          ],
+        }),
+        DatabaseModule.forRoot(),
+        DatabaseModule.forFeature([{ name: Car.name, schema: CarSchema }]),
+      ],
+      providers: [CarsService, CarsFactory],
+    }).compile();
+
+    service = module.get(CarsService);
+    carsFactory = module.get(CarsFactory);
+  }, 60000);
+
+  beforeEach(async () => {
+    await carsFactory.clean();
+  });
+
+  afterAll(async () => {
+    await mongoose.disconnect();
+    await mongodbContainer.stop();
+  });
+
+  describe('findByIds', () => {
+    it('should find cars by ids from real database', async () => {
+      const car = await carsFactory.create({
+        title: 'BMW X5',
+        manufacturer: 'BMW',
+      });
+
+      const result = await service.findByIds([car._id]);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].title).toBe('BMW X5');
+      expect(result[0].manufacturer).toBe('BMW');
+    });
+  });
+
+  describe('create', () => {
+    it('should persist car to real database', async () => {
+      const carData = {
+        title: 'Audi A4',
+        manufacturer: 'Audi',
+        price: 25000,
+      };
+
+      const result = await service.create(carData);
+
+      expect(result.id).toBeDefined();
+      expect(result.title).toBe('Audi A4');
+
+      // Verify persistence
+      const found = await service.findOne(result.id);
+      expect(found.manufacturer).toBe('Audi');
+    });
+  });
+});
+```
+
+### 2. PostgreSQL Service Testing
+```typescript
+import { PostgreSqlContainer, StartedPostgreSqlContainer } from '@testcontainers/postgresql';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+describe('CarsService (PostgreSQL)', () => {
+  let postgresContainer: StartedPostgreSqlContainer;
+  let service: CarsService;
+
+  beforeAll(async () => {
+    postgresContainer = await new PostgreSqlContainer('postgres:15')
+      .withDatabase('test')
+      .withUsername('test')
+      .withPassword('test')
+      .start();
+
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        TypeOrmModule.forRoot({
+          type: 'postgres',
+          host: postgresContainer.getHost(),
+          port: postgresContainer.getPort(),
+          username: postgresContainer.getUsername(),
+          password: postgresContainer.getPassword(),
+          database: postgresContainer.getDatabase(),
+          entities: [Car],
+          synchronize: true,
+        }),
+        TypeOrmModule.forFeature([Car]),
+      ],
+      providers: [CarsService],
+    }).compile();
+
+    service = module.get(CarsService);
+  }, 60000);
+
+  afterAll(async () => {
+    await postgresContainer.stop();
+  });
+
+  describe('create', () => {
+    it('should persist car to PostgreSQL', async () => {
+      const carData = {
+        title: 'Mercedes C-Class',
+        manufacturer: 'Mercedes',
+        price: 35000,
+      };
+
+      const result = await service.create(carData);
+
+      expect(result.id).toBeDefined();
+      expect(result.title).toBe('Mercedes C-Class');
+    });
+  });
+});
+```
+
+## Service Testing Patterns (Legacy - Use for Reference Only)
+
+### 1. Basic Service Testing (Use Testcontainers Instead)
 ```typescript
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -629,7 +804,69 @@ it('should deny non-admin access', async () => {
 
 ## Test Data Management
 
-### 1. Factory Pattern
+### 1. Test Data Factory with Real Database
+```typescript
+// test/factories/test-data.factory.ts
+import { Injectable } from '@nestjs/common';
+import { HydratedDocument, Model, Types, UpdateQuery } from 'mongoose';
+import { DeepPartial } from 'src/common/interfaces/deep-partial.interface';
+
+@Injectable()
+export abstract class TestDataFactory<E> {
+  protected abstract readonly model: Model<E>;
+
+  abstract create(
+    data?: DeepPartial<E> & { _id?: Types.ObjectId },
+  ): Promise<HydratedDocument<E>>;
+
+  update(id: string, data: UpdateQuery<E>) {
+    return this.model.updateOne({ _id: id }, data);
+  }
+
+  findAll(): Promise<HydratedDocument<E>[]> {
+    return this.model.find().exec();
+  }
+
+  findById(id: Types.ObjectId): Promise<HydratedDocument<E> | null> {
+    return this.model.findById(id).exec();
+  }
+
+  async clean(): Promise<void> {
+    await this.model.deleteMany({});
+  }
+}
+
+// test/factories/cars.factory.ts
+@Injectable()
+export class CarsFactory extends TestDataFactory<Car> {
+  constructor(
+    @InjectModel(Car.name)
+    protected readonly model: CarModel,
+  ) {
+    super();
+  }
+
+  async create(data?: DeepPartial<Car> & { _id?: Types.ObjectId }) {
+    const manufacturer = data?.manufacturer || faker.vehicle.manufacturer();
+    const model = data?.model || faker.vehicle.model();
+    const title = manufacturer + ' ' + model;
+
+    const car = new this.model({
+      state: faker.lorem.word(),
+      title,
+      manufacturer,
+      model,
+      year: faker.number.int({ min: 2000, max: new Date().getFullYear() }),
+      price: faker.finance.amount({ min: 2000, max: 50000 }),
+      ...data,
+    });
+
+    return await car.save();
+  }
+}
+```
+
+### 2. Legacy Factory Pattern (For Mock Testing)
 ```typescript
 // test/factories/cars.factory.ts
 import { faker } from '@faker-js/faker';
@@ -818,21 +1055,43 @@ unit-tests:
 
 ## Best Practices and Anti-Patterns
 
-### ✅ Do's
-- Mock all external dependencies
-- Test business logic, not framework code
-- Use descriptive test names
-- Test edge cases and error conditions
-- Keep tests fast and isolated
-- Use factories for test data generation
+## Testing Strategy Guidelines
 
-### ❌ Don'ts
-- Don't test private methods directly
-- Don't use real databases in unit tests
-- Don't test implementation details
-- Don't make tests dependent on each other
-- Don't ignore failing tests
-- Don't test third-party library functionality
+### Service Testing (Use Testcontainers)
+- ✅ Use real databases for data layer testing
+- ✅ Test actual database operations and transactions
+- ✅ Use factories for test data management
+- ✅ Clean database state between tests
+- ❌ Don't mock database repositories in service tests
+
+### Controller Testing (Use Mocks)
+- ✅ Mock service dependencies
+- ✅ Test HTTP layer logic only
+- ✅ Focus on request/response handling
+- ❌ Don't use real databases in controller tests
+
+### Resolver Testing (Use Mocks)  
+- ✅ Mock service dependencies
+- ✅ Test GraphQL field resolution
+- ✅ Test DataLoader integration
+- ❌ Don't use real databases in resolver tests
+
+### General Best Practices
+- ✅ Test business logic, not framework code
+- ✅ Use descriptive test names
+- ✅ Test edge cases and error conditions
+- ✅ Use factories for test data generation
+- ❌ Don't test private methods directly
+- ❌ Don't test implementation details
+- ❌ Don't make tests dependent on each other
+- ❌ Don't ignore failing tests
+- ❌ Don't test third-party library functionality
+
+### Performance Considerations
+- Service tests with testcontainers: 30-60 seconds setup
+- Controller/resolver tests with mocks: <5 seconds
+- Run service tests separately or with `--maxWorkers=1`
+- Use longer timeouts for testcontainer tests
 
 ## Success Criteria
 
