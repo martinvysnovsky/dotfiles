@@ -1,5 +1,6 @@
 ---
 description: Use when running database migrations, executing data modification scripts, or performing any database operations that require safety validation and user confirmation. Use proactively when user requests database operations.
+mode: subagent
 tools:
   bash: false
   write: false

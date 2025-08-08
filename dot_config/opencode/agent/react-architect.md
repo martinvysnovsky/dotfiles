@@ -1,5 +1,6 @@
 ---
 description: Use when creating React components, implementing hooks, optimizing React performance, or enforcing React architecture patterns and best practices. Use proactively after creating React components or implementing complex hooks.
+mode: subagent
 tools:
   read: true
   write: true

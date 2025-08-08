@@ -1,5 +1,6 @@
 ---
 description: Use when configuring Neovim, writing Lua configurations, managing plugins, setting up keymaps, or automating Neovim workflows and customizations. Use proactively when user works with Neovim or Lua configurations.
+mode: subagent
 tools:
   write: true
   edit: true

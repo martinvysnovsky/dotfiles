@@ -1,5 +1,6 @@
 ---
 description: Use when writing TypeScript code, fixing type errors, improving type safety, or enforcing TypeScript best practices and code organization. Use proactively after writing significant TypeScript code or when type errors are encountered.
+mode: subagent
 tools:
   read: true
   write: true

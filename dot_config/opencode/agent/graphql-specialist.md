@@ -1,5 +1,6 @@
 ---
 description: Use when writing GraphQL schemas, creating queries and mutations, implementing GraphQL resolvers, or optimizing GraphQL API design and performance. Use proactively when working with GraphQL code or API design.
+mode: subagent
 tools:
   read: true
   write: true

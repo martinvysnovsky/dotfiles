@@ -1,5 +1,6 @@
 ---
 description: Use when writing unit tests for React components, testing TypeScript code with Vitest, or implementing Testing Library patterns for frontend testing. Use proactively after creating React components or when user requests test writing.
+mode: subagent
 tools:
   read: true
   write: true

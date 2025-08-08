@@ -1,5 +1,6 @@
 ---
 description: Use when creating git commits, managing branches, implementing git workflows, or enforcing conventional commit standards and repository best practices. Use proactively when user requests git commits or git operations.
+mode: subagent
 tools:
   read: true
   write: true

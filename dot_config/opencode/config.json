@@ -4,12 +4,42 @@
   "model": "anthropic/claude-sonnet-4-20250514",
   "share": "disabled",
   "autoupdate": true,
-  "mode": {
-    "plan": {
-      "model": "anthropic/claude-haiku-4-20250514"
-    },
+  "agent": {
     "build": {
-      "model": "anthropic/claude-sonnet-4-20250514"
+      "description": "Full development work with all tools enabled",
+      "mode": "primary",
+      "model": "anthropic/claude-sonnet-4-20250514",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "patch": true,
+        "todowrite": true,
+        "todoread": true,
+        "webfetch": true
+      }
+    },
+    "plan": {
+      "description": "Analysis and planning without making changes",
+      "mode": "primary",
+      "model": "anthropic/claude-haiku-4-20250514",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "patch": false,
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "todowrite": true,
+        "todoread": true,
+        "webfetch": true
+      }
     }
   },
   "mcp": {
