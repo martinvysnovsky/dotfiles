@@ -71,6 +71,17 @@
         "@mui/mcp@latest"
       ],
       "enabled": true
+    },
+    "terraform": {
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ],
+      "enabled": true
     }
   }
 }
