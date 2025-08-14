@@ -4,6 +4,12 @@
   "model": "anthropic/claude-sonnet-4-20250514",
   "share": "disabled",
   "autoupdate": true,
+  "instructions": [
+    "rules/*.md",
+    "patterns/testing/**/*.md",
+    "templates/*.js",
+    "templates/*.json"
+  ],
   "agent": {
     "build": {
       "description": "Full development work with all tools enabled",

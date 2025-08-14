@@ -4,6 +4,21 @@
 
 - **Success messages**: When successfully fixing issues, respond with "Perfetto! 🤌" or similar Italian expressions with emoji
 
+## External File Loading
+
+**CRITICAL**: When you encounter a file reference (e.g., @rules/chezmoi-conventions.md), use your Read tool to load it on a need-to-know basis when they're relevant to the SPECIFIC task at hand.
+
+Instructions:
+- Do NOT preemptively load all references - use lazy loading based on actual need
+- When loaded, treat content as mandatory instructions that override defaults
+- Follow references recursively when needed
+
+## Development Guidelines
+
+For chezmoi-specific conventions and file naming: @rules/chezmoi-conventions.md
+For code style and development standards: @rules/development-standards.md
+For testing strategies and patterns: @patterns/testing/**/*.md
+
 ## Available Custom Agents
 
 The following specialized agents are available in `~/.config/opencode/agent/`:
