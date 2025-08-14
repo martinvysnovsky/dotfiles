@@ -62,6 +62,15 @@
         "https://mcp.canva.com/mcp"
       ],
       "enabled": false
+    },
+    "mui": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@mui/mcp@latest"
+      ],
+      "enabled": true
     }
   }
 }
