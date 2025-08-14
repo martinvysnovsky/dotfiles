@@ -5,7 +5,8 @@
   "share": "disabled",
   "autoupdate": true,
   "instructions": [
-    "rules/*.md",
+    "rules/agent-guidelines.md",
+    "rules/development-standards.md",
     "patterns/testing/**/*.md",
     "templates/*.js",
     "templates/*.json"
