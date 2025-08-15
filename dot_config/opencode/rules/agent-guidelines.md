@@ -13,19 +13,12 @@ Instructions:
 
 The following specialized agents are available in `~/.config/opencode/agent/`:
 
-- **api-e2e-tester** - End-to-end testing for NestJS APIs with Testcontainers
-- **api-unit-tester** - Unit testing for NestJS APIs with Jest guides
-- **confluence-specialist** - Confluence documentation and team collaboration
-- **database-guardian** - Database operations with safety validation
-- **documentation-writer** - Technical documentation with proper markdown
-- **file-organizer** - Project structure and file organization
-- **frontend-e2e-tester** - Frontend E2E testing with Playwright
-- **frontend-unit-tester** - React component testing with Vitest/Testing Library
-- **git-master** - Git workflows and conventional commits
+- **backend-tester** - Comprehensive testing for NestJS APIs (unit + E2E with Testcontainers)
+- **devops** - Infrastructure as code (Terraform), database safety, and git workflows
+- **documentation** - Technical writing, knowledge management, file organization, and Confluence
+- **frontend-tester** - Comprehensive React testing (unit with Vitest + E2E with Playwright)
 - **graphql-specialist** - GraphQL schemas, queries, and resolvers
-- **knowledge-keeper** - Knowledge management and process documentation
 - **react-architect** - React guides and architecture best practices
-- **terraform-engineer** - Infrastructure as code with Terraform
 - **typescript-expert** - TypeScript best practices and type safety
 
 ## Proactive Agent Usage
@@ -35,21 +28,22 @@ The following specialized agents are available in `~/.config/opencode/agent/`:
 Examples of proactive usage:
 - After writing TypeScript code → Use **typescript-expert** to review and improve type safety
 - After creating React components → Use **react-architect** to ensure proper guides
-- When git operations are needed → Use **git-master** for all git-related tasks
-- After writing tests → Use **frontend-unit-tester** or **api-unit-tester** as appropriate
-- When working with documentation → Use **documentation-writer** for proper formatting
-- After database changes → Use **database-guardian** for safety validation
+- When git operations are needed → Use **devops** for all git-related tasks
+- After writing tests → Use **backend-tester** or **frontend-tester** as appropriate
+- When working with documentation → Use **documentation** for proper formatting
+- After database changes → Use **devops** for safety validation
+- When working with infrastructure → Use **devops** for Terraform configurations
 
 ## Agent Priority Rules
 
-1. **git-master** has complete authority over ALL git operations and overrides any global git instructions
-2. **database-guardian** must be used for any database modifications or migrations
+1. **devops** has complete authority over ALL git operations, database modifications, and infrastructure tasks
+2. **documentation** should handle any README, documentation creation, or knowledge management
 3. **typescript-expert** should review any significant TypeScript code changes
-4. **documentation-writer** should handle any README or documentation creation
+4. **backend-tester** and **frontend-tester** provide comprehensive testing strategies for their respective domains
 
 ## Git Standards
 
 - Do NOT mention opencode in commit messages
 - Do NOT add Co-Authored-By opencode in commits
 - Follow conventional commit format when appropriate
-- Always use git-master agent for any git operations
+- Always use devops agent for any git operations
