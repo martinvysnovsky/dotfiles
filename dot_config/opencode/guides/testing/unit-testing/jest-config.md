@@ -1,6 +1,6 @@
 # Jest Configuration for Unit Testing
 
-Configuration patterns for Jest in NestJS unit testing environments.
+Configuration guides for Jest in NestJS unit testing environments.
 
 ## Basic Jest Configuration
 

@@ -14,7 +14,7 @@ describe('CarsResolver', () => {
   let resolver: CarsResolver;
   let service: CarsService;
 
-  const mockCarsService = {
+  const carsService = {
     findAll: jest.fn(),
     findOne: jest.fn(),
     create: jest.fn(),
@@ -28,7 +28,7 @@ describe('CarsResolver', () => {
         CarsResolver,
         {
           provide: CarsService,
-          useValue: mockCarsService,
+          useValue: carsService,
         },
       ],
     }).compile();
@@ -42,41 +42,41 @@ describe('CarsResolver', () => {
   });
 
   describe('cars', () => {
-    it('should return an array of cars', async () => {
-      const mockCars = [{ id: '1', title: 'BMW X5' }];
-      mockCarsService.findAll.mockResolvedValue(mockCars);
+    it('returns an array of cars', async () => {
+      const cars = [{ id: '1', title: 'BMW X5' }];
+      carsService.findAll.mockResolvedValue(cars);
 
       const result = await resolver.cars();
 
-      expect(result).toEqual(mockCars);
+      expect(result).toEqual(cars);
       expect(service.findAll).toHaveBeenCalled();
     });
 
-    it('should handle filters', async () => {
-      const mockCars = [{ id: '1', title: 'BMW X5', manufacturer: 'BMW' }];
-      mockCarsService.findAll.mockResolvedValue(mockCars);
+    it('handles filters', async () => {
+      const cars = [{ id: '1', title: 'BMW X5', manufacturer: 'BMW' }];
+      carsService.findAll.mockResolvedValue(cars);
 
       const filters = { manufacturer: 'BMW' };
       const result = await resolver.cars(filters);
 
-      expect(result).toEqual(mockCars);
+      expect(result).toEqual(cars);
       expect(service.findAll).toHaveBeenCalledWith(filters);
     });
   });
 
   describe('car', () => {
-    it('should return a single car', async () => {
-      const mockCar = { id: '1', title: 'BMW X5' };
-      mockCarsService.findOne.mockResolvedValue(mockCar);
+    it('returns a single car', async () => {
+      const car = { id: '1', title: 'BMW X5' };
+      carsService.findOne.mockResolvedValue(car);
 
       const result = await resolver.car('1');
 
-      expect(result).toEqual(mockCar);
+      expect(result).toEqual(car);
       expect(service.findOne).toHaveBeenCalledWith('1');
     });
 
-    it('should return null for non-existent car', async () => {
-      mockCarsService.findOne.mockResolvedValue(null);
+    it('returns null for non-existent car', async () => {
+      carsService.findOne.mockResolvedValue(null);
 
       const result = await resolver.car('999');
 
@@ -91,24 +91,24 @@ describe('CarsResolver', () => {
 ```typescript
 describe('Mutations', () => {
   describe('createCar', () => {
-    it('should create a new car', async () => {
+    it('creates a new car', async () => {
       const createCarInput = {
         title: 'BMW X5',
         price: 25000,
         manufacturer: 'BMW',
       };
-      const mockCar = { id: '1', ...createCarInput };
-      mockCarsService.create.mockResolvedValue(mockCar);
+      const car = { id: '1', ...createCarInput };
+      carsService.create.mockResolvedValue(car);
 
       const result = await resolver.createCar(createCarInput);
 
-      expect(result).toEqual(mockCar);
+      expect(result).toEqual(car);
       expect(service.create).toHaveBeenCalledWith(createCarInput);
     });
 
-    it('should handle validation errors', async () => {
+    it('handles validation errors', async () => {
       const invalidInput = { title: '', price: -1000 };
-      mockCarsService.create.mockRejectedValue(
+      carsService.create.mockRejectedValue(
         new Error('Validation failed')
       );
 
@@ -118,21 +118,21 @@ describe('Mutations', () => {
   });
 
   describe('updateCar', () => {
-    it('should update existing car', async () => {
+    it('updates existing car', async () => {
       const updateInput = { title: 'Updated BMW X5' };
-      const mockCar = { id: '1', title: 'Updated BMW X5', price: 25000 };
-      mockCarsService.update.mockResolvedValue(mockCar);
+      const car = { id: '1', title: 'Updated BMW X5', price: 25000 };
+      carsService.update.mockResolvedValue(car);
 
       const result = await resolver.updateCar('1', updateInput);
 
-      expect(result).toEqual(mockCar);
+      expect(result).toEqual(car);
       expect(service.update).toHaveBeenCalledWith('1', updateInput);
     });
   });
 
   describe('deleteCar', () => {
-    it('should delete car', async () => {
-      mockCarsService.remove.mockResolvedValue(true);
+    it('deletes car', async () => {
+      carsService.remove.mockResolvedValue(true);
 
       const result = await resolver.deleteCar('1');
 
@@ -153,7 +153,7 @@ describe('CarsResolver with DataLoader', () => {
   let resolver: CarsResolver;
   let carLoader: DataLoader<string, Car>;
 
-  const mockCarLoader = {
+  const carLoader = {
     load: jest.fn(),
     loadMany: jest.fn(),
     clear: jest.fn(),
@@ -166,7 +166,7 @@ describe('CarsResolver with DataLoader', () => {
         CarsResolver,
         {
           provide: 'CAR_LOADER',
-          useValue: mockCarLoader,
+          useValue: carLoader,
         },
       ],
     }).compile();
@@ -175,26 +175,26 @@ describe('CarsResolver with DataLoader', () => {
     carLoader = module.get<DataLoader<string, Car>>('CAR_LOADER');
   });
 
-  it('should use DataLoader to fetch car', async () => {
-    const mockCar = { id: '1', title: 'BMW X5' };
-    mockCarLoader.load.mockResolvedValue(mockCar);
+  it('uses DataLoader to fetch car', async () => {
+    const car = { id: '1', title: 'BMW X5' };
+    carLoader.load.mockResolvedValue(car);
 
     const result = await resolver.car('1');
 
-    expect(result).toEqual(mockCar);
+    expect(result).toEqual(car);
     expect(carLoader.load).toHaveBeenCalledWith('1');
   });
 
-  it('should batch load multiple cars', async () => {
-    const mockCars = [
+  it('batches load multiple cars', async () => {
+    const cars = [
       { id: '1', title: 'BMW X5' },
       { id: '2', title: 'Audi A4' },
     ];
-    mockCarLoader.loadMany.mockResolvedValue(mockCars);
+    carLoader.loadMany.mockResolvedValue(cars);
 
     const result = await resolver.carsByIds(['1', '2']);
 
-    expect(result).toEqual(mockCars);
+    expect(result).toEqual(cars);
     expect(carLoader.loadMany).toHaveBeenCalledWith(['1', '2']);
   });
 });
@@ -205,7 +205,7 @@ describe('CarsResolver with DataLoader', () => {
 ### Related Entity Resolution
 ```typescript
 describe('Field Resolvers', () => {
-  const mockManufacturerService = {
+  const manufacturerService = {
     findOne: jest.fn(),
   };
 
@@ -215,11 +215,11 @@ describe('Field Resolvers', () => {
         CarsResolver,
         {
           provide: CarsService,
-          useValue: mockCarsService,
+          useValue: carsService,
         },
         {
           provide: ManufacturerService,
-          useValue: mockManufacturerService,
+          useValue: manufacturerService,
         },
       ],
     }).compile();
@@ -228,31 +228,31 @@ describe('Field Resolvers', () => {
   });
 
   describe('manufacturer', () => {
-    it('should resolve manufacturer for car', async () => {
-      const mockCar = { id: '1', manufacturerId: 'bmw-1' };
-      const mockManufacturer = { id: 'bmw-1', name: 'BMW' };
+    it('resolves manufacturer for car', async () => {
+      const car = { id: '1', manufacturerId: 'bmw-1' };
+      const manufacturer = { id: 'bmw-1', name: 'BMW' };
       
-      mockManufacturerService.findOne.mockResolvedValue(mockManufacturer);
+      manufacturerService.findOne.mockResolvedValue(manufacturer);
 
-      const result = await resolver.manufacturer(mockCar);
+      const result = await resolver.manufacturer(car);
 
-      expect(result).toEqual(mockManufacturer);
-      expect(mockManufacturerService.findOne).toHaveBeenCalledWith('bmw-1');
+      expect(result).toEqual(manufacturer);
+      expect(manufacturerService.findOne).toHaveBeenCalledWith('bmw-1');
     });
 
-    it('should handle missing manufacturer', async () => {
-      const mockCar = { id: '1', manufacturerId: 'non-existent' };
-      mockManufacturerService.findOne.mockResolvedValue(null);
+    it('handles missing manufacturer', async () => {
+      const car = { id: '1', manufacturerId: 'non-existent' };
+      manufacturerService.findOne.mockResolvedValue(null);
 
-      const result = await resolver.manufacturer(mockCar);
+      const result = await resolver.manufacturer(car);
 
       expect(result).toBeNull();
     });
   });
 
   describe('images', () => {
-    it('should resolve images for car', async () => {
-      const mockCar = { id: '1' };
+    it('resolves images for car', async () => {
+      const car = { id: '1' };
       const mockImages = [
         { id: '1', url: 'image1.jpg', carId: '1' },
         { id: '2', url: 'image2.jpg', carId: '1' },
@@ -263,7 +263,7 @@ describe('Field Resolvers', () => {
       };
 
       // Add ImageService to module providers
-      const result = await resolver.images(mockCar);
+      const result = await resolver.images(car);
 
       expect(result).toEqual(mockImages);
     });
@@ -276,7 +276,7 @@ describe('Field Resolvers', () => {
 ### GraphQL Context Testing
 ```typescript
 describe('Authentication Context', () => {
-  it('should access user from context', async () => {
+  it('accesses user from context', async () => {
     const mockContext = {
       req: {
         user: { id: '1', email: 'admin@example.com', role: 'admin' },
@@ -284,20 +284,20 @@ describe('Authentication Context', () => {
     };
 
     const createCarInput = { title: 'BMW X5', price: 25000 };
-    const mockCar = { id: '1', ...createCarInput, ownerId: '1' };
+    const car = { id: '1', ...createCarInput, ownerId: '1' };
     
-    mockCarsService.create.mockResolvedValue(mockCar);
+    carsService.create.mockResolvedValue(car);
 
     const result = await resolver.createCar(createCarInput, mockContext);
 
-    expect(result).toEqual(mockCar);
+    expect(result).toEqual(car);
     expect(service.create).toHaveBeenCalledWith({
       ...createCarInput,
       ownerId: '1',
     });
   });
 
-  it('should handle unauthenticated requests', async () => {
+  it('handles unauthenticated requests', async () => {
     const mockContext = { req: {} }; // No user in context
 
     const createCarInput = { title: 'BMW X5', price: 25000 };
@@ -311,21 +311,21 @@ describe('Authentication Context', () => {
 ### Role-Based Authorization
 ```typescript
 describe('Authorization', () => {
-  it('should allow admin to create cars', async () => {
+  it('allows admin to create cars', async () => {
     const mockContext = {
       req: { user: { id: '1', role: 'admin' } },
     };
 
     const createCarInput = { title: 'BMW X5', price: 25000 };
-    const mockCar = { id: '1', ...createCarInput };
-    mockCarsService.create.mockResolvedValue(mockCar);
+    const car = { id: '1', ...createCarInput };
+    carsService.create.mockResolvedValue(car);
 
     const result = await resolver.createCar(createCarInput, mockContext);
 
-    expect(result).toEqual(mockCar);
+    expect(result).toEqual(car);
   });
 
-  it('should deny regular user from creating cars', async () => {
+  it('deny regular user from creating cars', async () => {
     const mockContext = {
       req: { user: { id: '2', role: 'user' } },
     };
@@ -359,7 +359,7 @@ describe('Subscriptions', () => {
         CarsResolver,
         {
           provide: CarsService,
-          useValue: mockCarsService,
+          useValue: carsService,
         },
         {
           provide: 'PUB_SUB',
@@ -373,7 +373,7 @@ describe('Subscriptions', () => {
   });
 
   describe('carAdded', () => {
-    it('should return async iterator for car additions', () => {
+    it('returns async iterator for car additions', () => {
       const mockIterator = Symbol('async-iterator');
       mockPubSub.asyncIterator.mockReturnValue(mockIterator);
 
@@ -384,15 +384,15 @@ describe('Subscriptions', () => {
     });
   });
 
-  it('should publish car creation event', async () => {
+  it('publish car creation event', async () => {
     const createCarInput = { title: 'BMW X5', price: 25000 };
-    const mockCar = { id: '1', ...createCarInput };
-    mockCarsService.create.mockResolvedValue(mockCar);
+    const car = { id: '1', ...createCarInput };
+    carsService.create.mockResolvedValue(car);
 
     await resolver.createCar(createCarInput);
 
     expect(pubSub.publish).toHaveBeenCalledWith('carAdded', {
-      carAdded: mockCar,
+      carAdded: car,
     });
   });
 });

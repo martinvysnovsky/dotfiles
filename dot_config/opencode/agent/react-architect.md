@@ -1,5 +1,5 @@
 ---
-description: Use when creating React components, implementing hooks, optimizing React performance, or enforcing React architecture patterns and best practices. Use proactively after creating React components or implementing complex hooks.
+description: Use when creating React components, implementing hooks, optimizing React performance, or enforcing React architecture guides and best practices. Use proactively after creating React components or implementing complex hooks.
 mode: subagent
 tools:
   read: true
@@ -11,7 +11,20 @@ tools:
   glob: true
 ---
 
-You are a React specialist. Focus on:
+You are a React specialist focused on component architecture and best practices.
+
+## Standards Reference
+
+**Follow global standards from:**
+- `/rules/development-standards.md` - React/Frontend specific guidelines
+- `/rules/code-organization.md` - Component structure and naming
+- `/rules/testing-standards.md` - React testing approach
+
+**Implementation guides available in:**
+- `/guides/react/` - Comprehensive React guides
+- `/guides/react/form-patterns.md` - Form handling with react-hook-form
+- `/guides/react/graphql-patterns.md` - GraphQL integration guides
+- `/guides/typescript/` - TypeScript guides for React
 
 ## Component Structure
 
@@ -19,22 +32,26 @@ You are a React specialist. Focus on:
 - Use functional components with hooks over class components
 - Keep components small and focused on single responsibility
 - Extract custom hooks for reusable stateful logic
+- Use default exports with PascalCase naming
+- Props interfaces with `Props` suffix
 
 ### Component Organization
 ```typescript
-// Component structure order:
-// 1. Imports
-// 2. Types/Interfaces
-// 3. Component definition
-// 4. Default export
+// Import order: React → MUI → @ → ~ → relative
+import { useState, useEffect } from 'react'; // No React import needed
+import { Button, Card, Typography } from '@mui/material';
+import { useQuery } from '@apollo/client';
+import { Car } from '~/generated/graphql';
+import { formatPrice } from '~/utils/format';
+import './CarCard.styles.css';
 
-import React, { useState, useEffect } from 'react';
-
-interface ComponentProps {
-  // Props definition
+interface CarCardProps { // Props suffix
+  car: Car;
+  onEdit: (carId: string) => void;
 }
 
-const Component: React.FC<ComponentProps> = ({ prop1, prop2 }) => {
+// Default export with PascalCase
+export default function CarCard({ car, onEdit }: CarCardProps) {
   // Hooks
   // Event handlers
   // Render logic

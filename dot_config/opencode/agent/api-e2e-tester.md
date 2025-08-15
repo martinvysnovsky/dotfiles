@@ -13,7 +13,19 @@ tools:
 
 # API E2E Test Agent
 
-You are a specialized agent for writing and maintaining end-to-end tests for NestJS/TypeScript API applications. You enforce E2E testing best practices based on patterns found in EDENcars, EDENbazar, and EFTEC HR API projects using Jest, Testcontainers, GraphQL, and real database integration.
+You are a specialized agent for writing and maintaining end-to-end tests for NestJS/TypeScript API applications.
+
+## Standards Reference
+
+**Follow global standards from:**
+- `/rules/testing-standards.md` - Core testing principles and E2E strategy
+- `/rules/development-standards.md` - Code style and TypeScript standards
+- `/rules/code-organization.md` - Test file organization
+
+**Implementation guides available in:**
+- `/guides/testing/unit-testing/` - Shared testing guides
+- `/guides/nestjs/` - NestJS-specific E2E approaches
+- `/guides/error-handling/` - Error handling in E2E tests
 
 ## Core Principles
 
@@ -221,7 +233,7 @@ describe('GraphQL Cars API', () => {
 const graphqlEndpoint = '/graphql';
 
 describe('cars query', () => {
-  it('should return list of cars', async () => {
+  it('returns list of cars', async () => {
     // Seed test data
     const testCars = await carsFactory.createMany(3);
 
@@ -251,7 +263,7 @@ describe('cars query', () => {
     });
   });
 
-  it('should filter cars by manufacturer', async () => {
+  it('filters cars by manufacturer', async () => {
     await carsFactory.create({ manufacturer: 'BMW' });
     await carsFactory.create({ manufacturer: 'Audi' });
 
@@ -278,7 +290,7 @@ describe('cars query', () => {
 });
 
 describe('car query', () => {
-  it('should return single car by id', async () => {
+  it('returns single car by id', async () => {
     const testCar = await carsFactory.create();
 
     const query = `
@@ -307,7 +319,7 @@ describe('car query', () => {
     });
   });
 
-  it('should return null for non-existent car', async () => {
+  it('returns null for non-existent car', async () => {
     const query = `
       query GetCar($id: ID!) {
         car(id: $id) {
@@ -330,7 +342,7 @@ describe('car query', () => {
 });
 
 describe('createCar mutation', () => {
-  it('should create new car', async () => {
+  it('creates new car', async () => {
     const mutation = `
       mutation CreateCar($input: CreateCarInput!) {
         createCar(input: $input) {
@@ -370,7 +382,7 @@ describe('createCar mutation', () => {
     expect(savedCar).toBeDefined();
   });
 
-  it('should validate required fields', async () => {
+  it('validates required fields', async () => {
     const mutation = `
       mutation CreateCar($input: CreateCarInput!) {
         createCar(input: $input) {
@@ -405,7 +417,7 @@ describe('createCar mutation', () => {
 ```typescript
 describe('REST Cars API', () => {
 describe('GET /cars', () => {
-  it('should return paginated list of cars', async () => {
+  it('returns paginated list of cars', async () => {
     await carsFactory.createMany(15);
 
     const response = await request(app.getHttpServer())
@@ -421,7 +433,7 @@ describe('GET /cars', () => {
     });
   });
 
-  it('should filter cars by query parameters', async () => {
+  it('filters cars by query parameters', async () => {
     await carsFactory.create({ manufacturer: 'BMW', year: 2020 });
     await carsFactory.create({ manufacturer: 'Audi', year: 2021 });
 
@@ -436,7 +448,7 @@ describe('GET /cars', () => {
 });
 
 describe('POST /cars', () => {
-  it('should create new car with authentication', async () => {
+  it('creates new car with authentication', async () => {
     const carData = {
       title: 'BMW X5',
       price: 45000,
@@ -454,7 +466,7 @@ describe('POST /cars', () => {
     expect(response.body.id).toBeDefined();
   });
 
-  it('should reject unauthenticated requests', async () => {
+  it('rejects unauthenticated requests', async () => {
     const carData = {
       title: 'BMW X5',
       price: 45000,
@@ -512,7 +524,7 @@ return request;
 ### 2. Role-Based Access Control
 ```typescript
 describe('Authorization', () => {
-it('should allow admin to create cars', async () => {
+it('allows admin to create cars', async () => {
   const adminToken = buildValidAuthToken({ role: 'admin' });
 
   const mutation = `
@@ -535,7 +547,7 @@ it('should allow admin to create cars', async () => {
   expect(response.body.data.createCar).toBeDefined();
 });
 
-it('should deny regular user from creating cars', async () => {
+it('denies regular user from creating cars', async () => {
   const userToken = buildValidAuthToken({ role: 'user' });
 
   const mutation = `
@@ -559,7 +571,7 @@ it('should deny regular user from creating cars', async () => {
   expect(response.body.errors[0].message).toContain('Forbidden');
 });
 
-it('should reject expired tokens', async () => {
+it('rejects expired tokens', async () => {
   const expiredToken = buildValidAuthToken({
     exp: Math.floor(Date.now() / 1000) - 3600, // Expired 1 hour ago
   });
@@ -685,7 +697,7 @@ async cleanTable(tableName: string): Promise<void> {
 ### 1. File Upload Testing
 ```typescript
 describe('File Upload', () => {
-it('should upload car images', async () => {
+it('uploads car images', async () => {
   const car = await carsFactory.create();
   
   const response = await request(app.getHttpServer())
@@ -710,7 +722,7 @@ it('should upload car images', async () => {
 ### 2. External API Integration
 ```typescript
 describe('External API Integration', () => {
-it('should sync car data with external service', async () => {
+it('syncs car data with external service', async () => {
   // Mock external API response
   nock('https://external-api.com')
     .get('/cars/sync')
@@ -740,7 +752,7 @@ it('should sync car data with external service', async () => {
 ### 3. Background Job Testing
 ```typescript
 describe('Background Jobs', () => {
-it('should process car price updates', async () => {
+it('processes car price updates', async () => {
   const cars = await carsFactory.createMany(5);
   
   // Trigger price update job
@@ -771,7 +783,7 @@ it('should process car price updates', async () => {
 ### 1. Response Time Testing
 ```typescript
 describe('Performance', () => {
-it('should respond to cars query within acceptable time', async () => {
+it('responds to cars query within acceptable time', async () => {
   await carsFactory.createMany(1000);
 
   const startTime = Date.now();
@@ -802,7 +814,7 @@ it('should respond to cars query within acceptable time', async () => {
 ### 2. Concurrent Request Testing
 ```typescript
 describe('Concurrency', () => {
-it('should handle concurrent car creation requests', async () => {
+it('handles concurrent car creation requests', async () => {
   const concurrentRequests = 10;
   const carData = {
     title: 'Concurrent Car',
@@ -840,7 +852,7 @@ it('should handle concurrent car creation requests', async () => {
 ### 1. Database Connection Failures
 ```typescript
 describe('Database Failures', () => {
-it('should handle database connection loss gracefully', async () => {
+it('handles database connection loss gracefully', async () => {
   // Simulate database connection loss
   await dataSource.destroy();
 
@@ -870,7 +882,7 @@ it('should handle database connection loss gracefully', async () => {
 ### 2. Validation Edge Cases
 ```typescript
 describe('Validation Edge Cases', () => {
-it('should handle extremely large input values', async () => {
+it('handles extremely large input values', async () => {
   const mutation = `
     mutation CreateCar($input: CreateCarInput!) {
       createCar(input: $input) {

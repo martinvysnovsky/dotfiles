@@ -14,7 +14,7 @@ Instructions:
 The following specialized agents are available in `~/.config/opencode/agent/`:
 
 - **api-e2e-tester** - End-to-end testing for NestJS APIs with Testcontainers
-- **api-unit-tester** - Unit testing for NestJS APIs with Jest patterns
+- **api-unit-tester** - Unit testing for NestJS APIs with Jest guides
 - **confluence-specialist** - Confluence documentation and team collaboration
 - **database-guardian** - Database operations with safety validation
 - **documentation-writer** - Technical documentation with proper markdown
@@ -24,7 +24,7 @@ The following specialized agents are available in `~/.config/opencode/agent/`:
 - **git-master** - Git workflows and conventional commits
 - **graphql-specialist** - GraphQL schemas, queries, and resolvers
 - **knowledge-keeper** - Knowledge management and process documentation
-- **react-architect** - React patterns and architecture best practices
+- **react-architect** - React guides and architecture best practices
 - **terraform-engineer** - Infrastructure as code with Terraform
 - **typescript-expert** - TypeScript best practices and type safety
 
@@ -34,7 +34,7 @@ The following specialized agents are available in `~/.config/opencode/agent/`:
 
 Examples of proactive usage:
 - After writing TypeScript code → Use **typescript-expert** to review and improve type safety
-- After creating React components → Use **react-architect** to ensure proper patterns
+- After creating React components → Use **react-architect** to ensure proper guides
 - When git operations are needed → Use **git-master** for all git-related tasks
 - After writing tests → Use **frontend-unit-tester** or **api-unit-tester** as appropriate
 - When working with documentation → Use **documentation-writer** for proper formatting

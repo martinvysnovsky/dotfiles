@@ -47,17 +47,17 @@ describe('CarsService', () => {
   });
 
   describe('findAll', () => {
-    it('should return an array of cars', async () => {
-      const mockCars = [
+    it('returns an array of cars', async () => {
+      const cars = [
         { id: '1', title: 'BMW X5', price: 25000 },
         { id: '2', title: 'Audi A4', price: 20000 },
       ];
 
-      mockRepository.find.mockResolvedValue(mockCars);
+      mockRepository.find.mockResolvedValue(cars);
 
       const result = await service.findAll();
 
-      expect(result).toEqual(mockCars);
+      expect(result).toEqual(cars);
       expect(repository.find).toHaveBeenCalledWith({
         where: { active: true },
         order: { createdAt: 'DESC' },
@@ -101,15 +101,15 @@ describe('CarsService with Mongoose', () => {
     model = module.get<Model<Car>>(getModelToken(Car.name));
   });
 
-  it('should find cars with Mongoose', async () => {
-    const mockCars = [{ _id: '1', title: 'BMW X5' }];
+  it('find cars with Mongoose', async () => {
+    const cars = [{ _id: '1', title: 'BMW X5' }];
     mockModel.find.mockReturnValue({
-      exec: jest.fn().mockResolvedValue(mockCars),
+      exec: jest.fn().mockResolvedValue(cars),
     });
 
     const result = await service.findAll();
 
-    expect(result).toEqual(mockCars);
+    expect(result).toEqual(cars);
     expect(model.find).toHaveBeenCalledWith({ active: true });
   });
 });
@@ -158,9 +158,9 @@ describe('CarsService with QueryBuilder', () => {
     repository = module.get<Repository<Car>>(getRepositoryToken(Car));
   });
 
-  it('should build complex queries', async () => {
-    const mockCars = [{ id: '1', title: 'BMW X5' }];
-    mockQueryBuilder.getMany.mockResolvedValue(mockCars);
+  it('build complex queries', async () => {
+    const cars = [{ id: '1', title: 'BMW X5' }];
+    mockQueryBuilder.getMany.mockResolvedValue(cars);
 
     const result = await service.findWithFilters({ manufacturer: 'BMW' });
 
@@ -204,7 +204,7 @@ describe('CarsService with HTTP Client', () => {
     httpService = module.get<HttpService>(HttpService);
   });
 
-  it('should fetch external car data', async () => {
+  it('fetch external car data', async () => {
     const externalData = { id: 'ext-1', title: 'External Car' };
     mockHttpService.get.mockReturnValue(of({ data: externalData }));
 
@@ -248,7 +248,7 @@ describe('CarsService with Config', () => {
     configService = module.get<ConfigService>(ConfigService);
   });
 
-  it('should use configuration values', async () => {
+  it('uses configuration values', async () => {
     mockConfigService.get.mockReturnValue(10);
 
     const result = await service.findAll();
@@ -263,20 +263,20 @@ describe('CarsService with Config', () => {
 ### Exception Testing
 ```typescript
 describe('Error handling', () => {
-  it('should handle database connection errors', async () => {
+  it('handles database connection errors', async () => {
     mockRepository.find.mockRejectedValue(new Error('Database connection failed'));
 
     await expect(service.findAll()).rejects.toThrow('Database connection failed');
   });
 
-  it('should handle validation errors', async () => {
+  it('handles validation errors', async () => {
     const invalidDto = { price: -1000 };
 
     await expect(service.create(invalidDto as CreateCarDto))
       .rejects.toThrow('Validation failed');
   });
 
-  it('should handle not found errors', async () => {
+  it('handles not found errors', async () => {
     mockRepository.findOne.mockResolvedValue(null);
 
     await expect(service.findOne('999')).rejects.toThrow('Car not found');
@@ -287,7 +287,7 @@ describe('Error handling', () => {
 ### Async Operation Testing
 ```typescript
 describe('Async operations', () => {
-  it('should handle concurrent requests', async () => {
+  it('handles concurrent requests', async () => {
     const promises = Array.from({ length: 10 }, (_, i) => 
       service.findOne(String(i + 1))
     );

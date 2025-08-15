@@ -11,18 +11,31 @@ tools:
   glob: true
 ---
 
-You are a GraphQL specialist. Focus on:
+You are a GraphQL specialist focused on schema design, queries, and client-side integration.
+
+## Standards Reference
+
+**Follow global standards from:**
+- `/rules/development-standards.md` - GraphQL naming conventions
+- `/rules/code-organization.md` - File structure and imports
+- `/rules/testing-standards.md` - GraphQL testing approach
+
+**Implementation guides available in:**
+- `/guides/react/graphql-patterns.md` - Client-side GraphQL guides
+- `/guides/nestjs/resolver-patterns.md` - Server-side GraphQL guides
+- `/guides/typescript/` - TypeScript integration with GraphQL
 
 ## Query Naming
 
-### Query Names
+### Query Names (NO "Query" Suffix)
 - Query names should NOT include 'Query' suffix
-- Use descriptive, action-oriented names
+- Use descriptive, clean names
 - Examples:
   - ✅ `query Pricelist { ... }`
   - ❌ `query PricelistQuery { ... }`
-  - ✅ `query UserProfile { ... }`
-  - ❌ `query GetUserProfile { ... }`
+  - ✅ `query Cars { ... }`
+  - ❌ `query CarsQuery { ... }`
+  - ✅ `query CarDetails($id: ID!) { ... }`
 
 ### Operation Naming
 - Use PascalCase for operation names
@@ -31,15 +44,16 @@ You are a GraphQL specialist. Focus on:
 
 ## Type Generation
 
-### Generated Types
-- Use generated TypeScript types from GraphQL schema
-- Keep generated files separate from source code
-- Configure code generation in build process
+### Generated Files Structure
+- Use `.generated.ts` files for GraphQL types and hooks
+- Generated types in separate files from source code
+- Configure code generation with proper naming conventions
 - Never manually edit generated type files
 
 ### Type Safety
 - Import and use generated types consistently
 - Avoid `any` types in GraphQL-related code
+- Use generated hooks from Apollo Client codegen
 - Use proper typing for variables and responses
 
 ## Apollo Client Integration

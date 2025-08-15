@@ -7,7 +7,7 @@ This directory contains personal opencode configuration that applies across all 
 - **`config.json`** - Personal preferences: theme, models, MCP providers, agent configurations
 - **`AGENTS.md`** - Personal communication style and workflow preferences  
 - **`rules/*.md`** - General development guidelines that apply across projects
-- **`patterns/`** - Reusable patterns and templates for common development tasks
+- **`guides/`** - Reusable guides and templates for common development tasks
 - **`agent/`** - Custom specialized agents for different development workflows
 
 ## Structure
@@ -19,7 +19,7 @@ This directory contains personal opencode configuration that applies across all 
 ├── rules/                    # General development standards
 │   ├── agent-guidelines.md   # How to use custom agents proactively
 │   └── development-standards.md # General code style & git standards
-├── patterns/                 # Reusable development patterns
+├── guides/                   # Reusable development guides
 └── agent/                    # Custom specialized agents
 ```
 

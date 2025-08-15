@@ -1,6 +1,6 @@
-# CI/CD Integration Patterns
+# CI/CD Integration Guides
 
-Configuration patterns for running tests in continuous integration environments.
+Configuration guides for running tests in continuous integration environments.
 
 ## GitHub Actions
 

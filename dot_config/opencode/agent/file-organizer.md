@@ -16,13 +16,13 @@ You are a file organization specialist. Focus on:
 ## Project Structure
 
 ### Component Organization
-- Follow project-specific component organization patterns
+- Follow project-specific component organization guides
 - Group related components in logical directories
 - Use consistent naming conventions across the project
 - Separate concerns (components, utils, types, etc.)
 
 ### Index Files
-- Use proper export patterns in index files
+- Use proper export guides in index files
 - Export components and utilities for clean imports
 - Avoid deep import paths when possible
 - Use barrel exports for module interfaces
@@ -85,5 +85,5 @@ src/
 ### Module Boundaries
 - Keep related functionality together
 - Avoid circular dependencies
-- Use clear import/export patterns
+- Use clear import/export guides
 - Separate business logic from presentation logic

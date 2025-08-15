@@ -40,8 +40,8 @@ This is a **chezmoi** dotfiles repository managing system configuration files.
 - Use template scripts for conditional package installation
 
 ### Configuration Files
-- **Shell scripts**: Use `#!/bin/bash`, follow existing patterns in run scripts
+- **Shell scripts**: Use `#!/bin/bash`, follow existing guides in run scripts
 - **Lua (Neovim)**: Use tabs for indentation, return table syntax for plugins
 - **YAML**: Use 2-space indentation, follow existing package.yaml structure
-- **TOML**: Follow chezmoi configuration patterns in .chezmoi.toml.tmpl
+- **TOML**: Follow chezmoi configuration guides in .chezmoi.toml.tmpl
 - **ZSH**: oh-my-zsh with powerlevel10k theme, vim mode enabled

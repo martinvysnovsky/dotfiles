@@ -14,7 +14,7 @@ describe('CarsController', () => {
   let controller: CarsController;
   let service: CarsService;
 
-  const mockCarsService = {
+  const carsService = {
     findAll: jest.fn(),
     findOne: jest.fn(),
     create: jest.fn(),
@@ -28,7 +28,7 @@ describe('CarsController', () => {
       providers: [
         {
           provide: CarsService,
-          useValue: mockCarsService,
+          useValue: carsService,
         },
       ],
     }).compile();
@@ -42,38 +42,38 @@ describe('CarsController', () => {
   });
 
   describe('findAll', () => {
-    it('should return an array of cars', async () => {
-      const mockCars = [{ id: '1', title: 'BMW X5' }];
-      mockCarsService.findAll.mockResolvedValue(mockCars);
+    it('returns an array of cars', async () => {
+      const cars = [{ id: '1', title: 'BMW X5' }];
+      carsService.findAll.mockResolvedValue(cars);
 
       const result = await controller.findAll();
 
-      expect(result).toEqual(mockCars);
+      expect(result).toEqual(cars);
       expect(service.findAll).toHaveBeenCalled();
     });
   });
 
   describe('findOne', () => {
-    it('should return a single car', async () => {
-      const mockCar = { id: '1', title: 'BMW X5' };
-      mockCarsService.findOne.mockResolvedValue(mockCar);
+    it('returns a single car', async () => {
+      const car = { id: '1', title: 'BMW X5' };
+      carsService.findOne.mockResolvedValue(car);
 
       const result = await controller.findOne('1');
 
-      expect(result).toEqual(mockCar);
+      expect(result).toEqual(car);
       expect(service.findOne).toHaveBeenCalledWith('1');
     });
   });
 
   describe('create', () => {
-    it('should create a new car', async () => {
+    it('creates a new car', async () => {
       const createCarDto = { title: 'BMW X5', price: 25000 };
-      const mockCar = { id: '1', ...createCarDto };
-      mockCarsService.create.mockResolvedValue(mockCar);
+      const car = { id: '1', ...createCarDto };
+      carsService.create.mockResolvedValue(car);
 
       const result = await controller.create(createCarDto);
 
-      expect(result).toEqual(mockCar);
+      expect(result).toEqual(car);
       expect(service.create).toHaveBeenCalledWith(createCarDto);
     });
   });
@@ -105,7 +105,7 @@ describe('Protected Controller', () => {
       providers: [
         {
           provide: CarsService,
-          useValue: mockCarsService,
+          useValue: carsService,
         },
       ],
     })
@@ -118,7 +118,7 @@ describe('Protected Controller', () => {
     controller = module.get<CarsController>(CarsController);
   });
 
-  it('should allow access with valid JWT', async () => {
+  it('allows access with valid JWT', async () => {
     const result = await controller.create(mockCreateCarDto);
     expect(result).toBeDefined();
   });
@@ -128,7 +128,7 @@ describe('Protected Controller', () => {
 ### Role-Based Access Control
 ```typescript
 describe('Admin-only endpoints', () => {
-  it('should allow admin access', async () => {
+  it('allows admin access', async () => {
     const mockRequest = {
       user: { id: '1', role: 'admin' },
     };
@@ -137,7 +137,7 @@ describe('Admin-only endpoints', () => {
     expect(result).toBeDefined();
   });
 
-  it('should deny non-admin access', async () => {
+  it('deny non-admin access', async () => {
     const mockRequest = {
       user: { id: '2', role: 'user' },
     };
@@ -153,19 +153,19 @@ describe('Admin-only endpoints', () => {
 ### Query Parameters
 ```typescript
 describe('GET /cars with query parameters', () => {
-  it('should handle pagination parameters', async () => {
-    const mockCars = [{ id: '1', title: 'BMW X5' }];
+  it('handles pagination parameters', async () => {
+    const cars = [{ id: '1', title: 'BMW X5' }];
     const mockMeta = { page: 1, limit: 10, total: 1 };
     
-    mockCarsService.findAll.mockResolvedValue({
-      data: mockCars,
+    carsService.findAll.mockResolvedValue({
+      data: cars,
       meta: mockMeta,
     });
 
     const query = { page: '1', limit: '10' };
     const result = await controller.findAll(query);
 
-    expect(result.data).toEqual(mockCars);
+    expect(result.data).toEqual(cars);
     expect(result.meta).toEqual(mockMeta);
     expect(service.findAll).toHaveBeenCalledWith({
       page: 1,
@@ -173,14 +173,14 @@ describe('GET /cars with query parameters', () => {
     });
   });
 
-  it('should handle filter parameters', async () => {
-    const mockCars = [{ id: '1', title: 'BMW X5', manufacturer: 'BMW' }];
-    mockCarsService.findAll.mockResolvedValue(mockCars);
+  it('handles filter parameters', async () => {
+    const cars = [{ id: '1', title: 'BMW X5', manufacturer: 'BMW' }];
+    carsService.findAll.mockResolvedValue(cars);
 
     const query = { manufacturer: 'BMW', year: '2020' };
     const result = await controller.findAll(query);
 
-    expect(result).toEqual(mockCars);
+    expect(result).toEqual(cars);
     expect(service.findAll).toHaveBeenCalledWith({
       manufacturer: 'BMW',
       year: 2020,
@@ -192,12 +192,12 @@ describe('GET /cars with query parameters', () => {
 ### Request Body Validation
 ```typescript
 describe('POST /cars validation', () => {
-  it('should validate required fields', async () => {
+  it('validates required fields', async () => {
     const invalidDto = {}; // Missing required fields
 
     // This would typically be handled by ValidationPipe
     // In unit tests, we test the controller logic assuming validation passed
-    mockCarsService.create.mockRejectedValue(
+    carsService.create.mockRejectedValue(
       new BadRequestException('Validation failed')
     );
 
@@ -205,18 +205,18 @@ describe('POST /cars validation', () => {
       .rejects.toThrow('Validation failed');
   });
 
-  it('should handle valid request body', async () => {
+  it('handles valid request body', async () => {
     const validDto = {
       title: 'BMW X5',
       price: 25000,
       year: 2020,
     };
-    const mockCar = { id: '1', ...validDto };
-    mockCarsService.create.mockResolvedValue(mockCar);
+    const car = { id: '1', ...validDto };
+    carsService.create.mockResolvedValue(car);
 
     const result = await controller.create(validDto);
 
-    expect(result).toEqual(mockCar);
+    expect(result).toEqual(car);
     expect(service.create).toHaveBeenCalledWith(validDto);
   });
 });
@@ -229,8 +229,8 @@ describe('POST /cars validation', () => {
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 
 describe('Error handling', () => {
-  it('should handle service exceptions', async () => {
-    mockCarsService.findOne.mockRejectedValue(
+  it('handles service exceptions', async () => {
+    carsService.findOne.mockRejectedValue(
       new NotFoundException('Car not found')
     );
 
@@ -238,8 +238,8 @@ describe('Error handling', () => {
       .rejects.toThrow('Car not found');
   });
 
-  it('should handle validation exceptions', async () => {
-    mockCarsService.create.mockRejectedValue(
+  it('handles validation exceptions', async () => {
+    carsService.create.mockRejectedValue(
       new BadRequestException('Invalid data')
     );
 
@@ -254,8 +254,8 @@ describe('Error handling', () => {
 ### Multipart Form Data
 ```typescript
 describe('File upload', () => {
-  it('should handle file upload', async () => {
-    const mockFile = {
+  it('handles file upload', async () => {
+    const file = {
       fieldname: 'image',
       originalname: 'car.jpg',
       encoding: '7bit',
@@ -264,20 +264,20 @@ describe('File upload', () => {
       size: 1024,
     } as Express.Multer.File;
 
-    const mockResult = {
+    const result = {
       id: '1',
       imageUrl: 'https://example.com/car.jpg',
     };
 
-    mockCarsService.uploadImage.mockResolvedValue(mockResult);
+    carsService.uploadImage.mockResolvedValue(result);
 
-    const result = await controller.uploadImage('1', mockFile);
+    const result = await controller.uploadImage('1', file);
 
-    expect(result).toEqual(mockResult);
-    expect(service.uploadImage).toHaveBeenCalledWith('1', mockFile);
+    expect(result).toEqual(result);
+    expect(service.uploadImage).toHaveBeenCalledWith('1', file);
   });
 
-  it('should handle missing file', async () => {
+  it('handles missing file', async () => {
     await expect(controller.uploadImage('1', undefined))
       .rejects.toThrow('File is required');
   });
@@ -289,15 +289,15 @@ describe('File upload', () => {
 ### Custom Response Format
 ```typescript
 describe('Response transformation', () => {
-  it('should transform response data', async () => {
-    const mockCar = {
+  it('transforms response data', async () => {
+    const car = {
       id: '1',
       title: 'BMW X5',
       price: 25000,
       createdAt: new Date('2023-01-01'),
     };
 
-    mockCarsService.findOne.mockResolvedValue(mockCar);
+    carsService.findOne.mockResolvedValue(car);
 
     const result = await controller.findOne('1');
 
