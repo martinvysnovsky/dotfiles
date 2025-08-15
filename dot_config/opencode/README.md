@@ -6,9 +6,10 @@ This directory contains personal opencode configuration that applies across all 
 
 - **`config.json`** - Personal preferences: theme, models, MCP providers, agent configurations
 - **`AGENTS.md`** - Personal communication style and workflow preferences  
-- **`rules/*.md`** - General development guidelines that apply across projects
-- **`guides/`** - Reusable guides and templates for common development tasks
+- **`rules/*.md`** - 5 core development guidelines that apply across projects
+- **`guides/`** - 16 reusable implementation guides organized by domain
 - **`agent/`** - 7 focused specialized agents for development workflows
+- **`templates/`** - Code templates and configuration files
 
 ## Specialized Agents
 
@@ -55,5 +56,7 @@ This directory contains personal opencode configuration that applies across all 
 ## Usage
 
 - **Personal settings** (theme, models, Italian messages) go in `config.json` and `AGENTS.md`
-- **General development rules** go in `rules/*.md` and are auto-loaded via `instructions` field
+- **General development rules** (5 files) go in `rules/*.md` and are auto-loaded via `instructions` field
+- **Implementation guides** (16 files) provide detailed examples organized by domain in `guides/`
+- **Specialized agents** (7 agents) handle specific development workflows proactively
 - **Project-specific** rules go in each project's `AGENTS.md` file (e.g., chezmoi conventions)

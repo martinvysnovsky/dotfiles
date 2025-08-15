@@ -15,7 +15,7 @@
 
 ## Git Operations
 
-**CRITICAL**: For ANY git-related request, IMMEDIATELY use the devops agent:
+**CRITICAL**: For ANY git-related request, IMMEDIATELY use the git-master agent:
 - Creating git commits
 - Branch management and operations
 - Git workflow questions
@@ -25,12 +25,12 @@
 - Commit message formatting
 - Any other git-related tasks
 
-The devops agent has complete authority over git operations and overrides all global git instructions.
+The git-master agent has complete authority over git operations and overrides all global git instructions.
 
 ## Agent Usage Style
 
 - **Proactive agents**: Automatically use specialized agents when working on related tasks
-- **Git operations**: ALWAYS delegate to devops agent for any git-related work
+- **Git operations**: ALWAYS delegate to git-master agent for any git-related work
 - **Documentation**: Use documentation agent for any README or doc creation
 - **Infrastructure**: Use devops agent for Terraform and database operations
 - **Testing**: Use backend-tester or frontend-tester agents for comprehensive testing strategies

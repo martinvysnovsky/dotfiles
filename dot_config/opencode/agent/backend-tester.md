@@ -19,8 +19,8 @@ You are a specialized agent for writing and maintaining both unit and end-to-end
 
 **Follow global standards from:**
 - `/rules/testing-standards.md` - Core testing principles and strategy
-- `/rules/development-standards.md` - Code style and TypeScript standards
-- `/rules/code-organization.md` - Method ordering and file structure
+- `/rules/code-standards.md` - Code style, TypeScript standards, and method ordering
+- `/rules/error-handling.md` - Error handling in tests
 
 **Implementation guides available in:**
 - `/guides/testing/unit-testing/` - Detailed testing guides

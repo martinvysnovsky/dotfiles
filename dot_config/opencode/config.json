@@ -6,10 +6,10 @@
   "autoupdate": true,
   "instructions": [
     "rules/agent-guidelines.md",
-    "rules/development-standards.md",
-    "guides/testing/**/*.md",
-    "templates/*.js",
-    "templates/*.json"
+    "rules/code-standards.md",
+    "rules/error-handling.md",
+    "rules/frontend-standards.md",
+    "rules/testing-standards.md"
   ],
   "agent": {
     "build": {

@@ -2,7 +2,7 @@
 
 ## External File Loading
 
-**CRITICAL**: When you encounter a file reference (e.g., @rules/development-standards.md), use your Read tool to load it on a need-to-know basis when they're relevant to the SPECIFIC task at hand.
+**CRITICAL**: When you encounter a file reference (e.g., @rules/code-standards.md), use your Read tool to load it on a need-to-know basis when they're relevant to the SPECIFIC task at hand.
 
 Instructions:
 - Do NOT preemptively load all references - use lazy loading based on actual need
@@ -28,7 +28,7 @@ The following specialized agents are available in `~/.config/opencode/agent/`:
 Examples of proactive usage:
 - After writing TypeScript code → Use **typescript-expert** to review and improve type safety
 - After creating React components → Use **react-architect** to ensure proper guides
-- When git operations are needed → Use **devops** for all git-related tasks
+- When git operations are needed → Use **git-master** for all git-related tasks
 - After writing tests → Use **backend-tester** or **frontend-tester** as appropriate
 - When working with documentation → Use **documentation** for proper formatting
 - After database changes → Use **devops** for safety validation
@@ -36,7 +36,7 @@ Examples of proactive usage:
 
 ## Agent Priority Rules
 
-1. **devops** has complete authority over ALL git operations, database modifications, and infrastructure tasks
+1. **git-master** has complete authority over ALL git operations; **devops** handles database modifications and infrastructure tasks
 2. **documentation** should handle any README, documentation creation, or knowledge management
 3. **typescript-expert** should review any significant TypeScript code changes
 4. **backend-tester** and **frontend-tester** provide comprehensive testing strategies for their respective domains
@@ -46,4 +46,4 @@ Examples of proactive usage:
 - Do NOT mention opencode in commit messages
 - Do NOT add Co-Authored-By opencode in commits
 - Follow conventional commit format when appropriate
-- Always use devops agent for any git operations
+- Always use git-master agent for any git operations

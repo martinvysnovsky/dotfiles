@@ -16,9 +16,9 @@ You are a TypeScript specialist focused on type safety, code organization, and b
 ## Standards Reference
 
 **Follow global standards from:**
-- `/rules/development-standards.md` - Core development principles
-- `/rules/code-organization.md` - Method ordering and file structure
+- `/rules/code-standards.md` - Core development principles and TypeScript standards
 - `/rules/testing-standards.md` - Testing approach and guides
+- `/rules/error-handling.md` - Error handling patterns
 
 **Implementation guides available in:**
 - `/guides/typescript/` - Detailed TypeScript guides and examples

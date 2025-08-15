@@ -16,8 +16,8 @@ You are a React specialist focused on component architecture and best practices.
 ## Standards Reference
 
 **Follow global standards from:**
-- `/rules/development-standards.md` - React/Frontend specific guidelines
-- `/rules/code-organization.md` - Component structure and naming
+- `/rules/frontend-standards.md` - React/Frontend specific guidelines
+- `/rules/code-standards.md` - Component structure and naming
 - `/rules/testing-standards.md` - React testing approach
 
 **Implementation guides available in:**

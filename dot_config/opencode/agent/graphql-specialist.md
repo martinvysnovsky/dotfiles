@@ -16,9 +16,9 @@ You are a GraphQL specialist focused on schema design, queries, and client-side 
 ## Standards Reference
 
 **Follow global standards from:**
-- `/rules/development-standards.md` - GraphQL naming conventions
-- `/rules/code-organization.md` - File structure and imports
+- `/rules/code-standards.md` - GraphQL naming conventions and file structure
 - `/rules/testing-standards.md` - GraphQL testing approach
+- `/rules/error-handling.md` - GraphQL error handling patterns
 
 **Implementation guides available in:**
 - `/guides/react/graphql-patterns.md` - Client-side GraphQL guides

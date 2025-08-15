@@ -19,8 +19,8 @@ You are a specialized agent for writing and maintaining both unit and end-to-end
 
 **Follow global standards from:**
 - `/rules/testing-standards.md` - Core testing principles and guides
-- `/rules/development-standards.md` - Code style and organization
-- `/rules/code-organization.md` - File structure and naming
+- `/rules/frontend-standards.md` - React/Frontend specific guidelines
+- `/rules/code-standards.md` - File structure and naming
 
 **Implementation guides available in:**
 - `/guides/testing/unit-testing/` - Detailed testing guides
