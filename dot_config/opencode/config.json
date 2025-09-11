@@ -89,6 +89,16 @@
         "hashicorp/terraform-mcp-server"
       ],
       "enabled": true
+    },
+    "sentry": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.sentry.dev/mcp"
+      ],
+      "enabled": true
     }
   }
 }
