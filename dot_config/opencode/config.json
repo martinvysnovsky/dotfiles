@@ -47,6 +47,18 @@
         "todoread": true,
         "webfetch": true
       }
+    },
+    "git-master": {
+      "description": "Fast git operations with conventional commits",
+      "mode": "subagent",
+      "model": "anthropic/claude-haiku-4-20250514",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true,
+        "grep": true,
+        "glob": true
+      }
     }
   },
   "mcp": {
