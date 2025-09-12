@@ -84,11 +84,7 @@
     },
     "mui": {
       "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@mui/mcp@latest"
-      ],
+      "command": ["npx", "-y", "@mui/mcp@latest"],
       "enabled": true
     },
     "terraform": {

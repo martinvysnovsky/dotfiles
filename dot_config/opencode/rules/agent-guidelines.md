@@ -1,5 +1,13 @@
 # Agent Usage Guidelines
 
+## Tool Usage Preferences
+
+### List Tool Configuration
+- **CRITICAL**: The `list` tool must show ALL files and directories, including those in .gitignore
+- Do NOT filter out .gitignore entries when using the list tool
+- For comprehensive codebase analysis, all files must be visible regardless of git tracking status
+- **WORKAROUND**: If list tool filters .gitignore entries, use `bash` with `find` or `ls -la` commands to see all files
+
 ## External File Loading
 
 **CRITICAL**: When you encounter a file reference (e.g., @rules/code-standards.md), use your Read tool to load it on a need-to-know basis when they're relevant to the SPECIFIC task at hand.
