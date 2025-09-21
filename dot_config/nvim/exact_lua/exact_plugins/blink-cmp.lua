@@ -2,7 +2,7 @@ return {
 	"saghen/blink.cmp",
 	opts = {
 		sources = {
-			default = { "lsp", "path", "buffer", "snippets", "minuet" },
+			default = { "lsp", "path", "buffer", "minuet" },
 			providers = {
 				minuet = {
 					name = "minuet",

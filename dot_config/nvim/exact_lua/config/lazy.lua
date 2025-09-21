@@ -34,7 +34,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.editor.refactoring" },
 		{ import = "lazyvim.plugins.extras.editor.neo-tree" },
 		{ import = "lazyvim.plugins.extras.util.dot" },
-		{ import = "lazyvim.plugins.extras.coding.luasnip" },
+
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},
