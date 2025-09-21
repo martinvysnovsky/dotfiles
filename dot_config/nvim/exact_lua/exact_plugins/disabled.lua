@@ -1,5 +1,5 @@
 return {
 	{ "folke/flash.nvim", enabled = false },
-	{ "echasnovski/mini.pairs", enabled = false },
+	{ "nvim-mini/mini.pairs", enabled = false },
 	{ "folke/tokyonight.nvim", enabled = false },
 }
