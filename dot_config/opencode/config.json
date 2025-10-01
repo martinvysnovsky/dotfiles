@@ -33,7 +33,7 @@
     "plan": {
       "description": "Analysis and planning without making changes",
       "mode": "primary",
-      "model": "anthropic/claude-3-5-haiku-20241022",
+      "model": "anthropic/claude-sonnet-4-5-20250929",
       "tools": {
         "write": false,
         "edit": false,
