@@ -10,6 +10,7 @@ This directory contains personal opencode configuration that applies across all 
 - **`guides/`** - 16 reusable implementation guides organized by domain
 - **`agent/`** - 7 focused specialized agents for development workflows
 - **`templates/`** - Code templates and configuration files
+- **`tool/reference.ts`** - Custom tool for accessing reference code from ~/www/ projects
 
 ## Specialized Agents
 
@@ -43,6 +44,8 @@ This directory contains personal opencode configuration that applies across all 
 │   ├── testing/             # Unit testing, E2E, and shared utilities
 │   └── typescript/          # Import organization and method ordering
 ├── templates/               # Code templates and configurations
+├── tool/                    # Custom tools
+│   └── reference.ts         # Access reference code from ~/www/
 └── agent/                   # 7 focused specialized agents
     ├── typescript-expert.md    # Core: TypeScript best practices
     ├── react-architect.md      # Core: React patterns & architecture
@@ -60,3 +63,24 @@ This directory contains personal opencode configuration that applies across all 
 - **Implementation guides** (16 files) provide detailed examples organized by domain in `guides/`
 - **Specialized agents** (7 agents) handle specific development workflows proactively
 - **Project-specific** rules go in each project's `AGENTS.md` file (e.g., chezmoi conventions)
+- **Reference code access** - Custom tools allow OpenCode to read files from ~/www/ old projects
+
+## Reference Code Tool
+
+The `reference.ts` custom tool provides access to old projects in `~/www/` for reference implementations:
+
+### Available Tools
+- `reference_list_projects` - List all projects in ~/www/
+- `reference_read_file` - Read specific files from old projects
+- `reference_search_files` - Search for files by glob pattern
+- `reference_list_directory` - Show directory structure
+
+### Usage Examples
+```
+"Check my old projects for authentication implementation"
+"Look at EDENcars project for GraphQL examples"
+"Find all TypeScript files in Riwers project"
+"Show me the structure of Ketler's src directory"
+```
+
+OpenCode will automatically use these tools when you mention checking old projects or specific project names.
