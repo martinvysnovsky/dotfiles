@@ -37,7 +37,7 @@
       "tools": {
         "write": false,
         "edit": false,
-        "bash": false,
+        "bash": true,
         "patch": false,
         "read": true,
         "grep": true,
