@@ -40,6 +40,7 @@ packages:
     - imagemagick
     - fd
     - yazi
+    - zoxide
   yay:
     - google-chrome
     - mongodb-compass
