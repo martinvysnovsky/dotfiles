@@ -24,7 +24,7 @@ tooltip {
 
 #workspaces button {
   padding: 5px;
-  color: #313244;
+  color: #6c7086;
   margin-right: 5px;
 }
 
@@ -34,7 +34,7 @@ tooltip {
 
 #workspaces button.focused {
   color: #a6adc8;
-  background: #eba0ac;
+  background: #89b4fa;
   border-radius: 10px;
 }
 

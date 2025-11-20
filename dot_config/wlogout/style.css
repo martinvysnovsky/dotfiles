@@ -30,7 +30,7 @@ button svg {
   background-image: image(url("./icons/lock.svg"));
 }
 #lock:hover {
-  background-color: @teal;
+  background-color: @blue;
 }
 
 #logout {
