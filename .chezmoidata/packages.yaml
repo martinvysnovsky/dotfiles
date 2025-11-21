@@ -36,6 +36,7 @@ packages:
     - zathura-pdf-mupdf
     - python
     - python-pipx
+    - syncthing
     - terraform
     - imagemagick
     - fd

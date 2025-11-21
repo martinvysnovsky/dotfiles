@@ -1,0 +1,12 @@
+#!/bin/bash
+# Enable and start Syncthing user service
+# Hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+
+if command -v syncthing &> /dev/null; then
+    echo "Enabling Syncthing user service..."
+    systemctl --user enable syncthing.service
+    systemctl --user start syncthing.service
+    echo "Syncthing service enabled and started"
+else
+    echo "Syncthing not installed yet, skipping service setup"
+fi
