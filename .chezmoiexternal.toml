@@ -57,6 +57,11 @@ type = "git-repo"
 url = "git@github.com:martinvysnovsky/obsidian-vault"
 refreshPeriod = "24h"
 
+["services"]
+type = "git-repo"
+url = "git@github.com:martinvysnovsky/services.git"
+refreshPeriod = "24h"
+
 ["bin/wofi-pass"]
 type = "file"
 url = "https://raw.githubusercontent.com/schmidtandreas/wofi-pass/main/wofi-pass"
