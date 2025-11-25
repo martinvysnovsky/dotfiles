@@ -26,13 +26,6 @@ eval "$(zoxide init zsh)"
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 
-# User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:$HOME/go/bin:" ]]
-then
-  PATH="$HOME/.local/bin:$HOME/bin:$HOME/go/bin:$PATH"
-fi
-export PATH
-
 # Neovim
 export EDITOR='/usr/bin/nvim'
 
