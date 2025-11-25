@@ -43,6 +43,8 @@ packages:
     - yazi
     - zoxide
     - pre-commit
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions
   yay:
     - google-chrome
     - mongodb-compass
