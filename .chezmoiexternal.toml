@@ -68,12 +68,6 @@ url = "https://raw.githubusercontent.com/schmidtandreas/wofi-pass/main/wofi-pass
 executable = true
 refreshPeriod = "168h"
 
-["bin/bemoji"]
-type = "file"
-url = "https://raw.githubusercontent.com/marty-oehme/bemoji/refs/heads/main/bemoji"
-executable = true
-refreshPeriod = "168h"
-
 [".config/waybar/catppuccin-mocha.css"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/waybar/main/themes/mocha.css"
