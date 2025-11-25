@@ -42,6 +42,7 @@ packages:
     - fd
     - yazi
     - zoxide
+    - pre-commit
   yay:
     - google-chrome
     - mongodb-compass
