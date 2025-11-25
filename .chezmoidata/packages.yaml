@@ -50,6 +50,7 @@ packages:
     - obsidian
     - lazydocker
     - dragon-drop
+    - wofi-pass
   npm:
     - npm-check
     - \@nestjs/cli
