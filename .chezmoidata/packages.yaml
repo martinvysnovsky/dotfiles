@@ -7,6 +7,8 @@ packages:
     - pass
     - pass-otp
     - fzf
+    - git
+    - go # for opencode
     - kitty
     - lazygit
     - hyprland
@@ -54,6 +56,8 @@ packages:
     - lazydocker
     - dragon-drop
     - wofi-pass
+    - bun-bin # for opencode
+    - opencode
   npm:
     - npm-check
     - \@nestjs/cli
