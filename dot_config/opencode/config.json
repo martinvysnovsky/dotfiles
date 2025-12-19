@@ -74,16 +74,6 @@
       "oauth": false,
       "timeout": 10000
     },
-    "canva": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "mcp-remote@latest",
-        "https://mcp.canva.com/mcp"
-      ],
-      "enabled": false
-    },
     "mui": {
       "type": "local",
       "command": ["npx", "-y", "@mui/mcp@latest"],
