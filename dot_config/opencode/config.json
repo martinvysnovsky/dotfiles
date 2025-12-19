@@ -67,15 +67,12 @@
     }
   },
   "mcp": {
-    "atlassian": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "mcp-remote",
-        "https://mcp.atlassian.com/v1/sse"
-      ],
-      "enabled": true
+    "mcp-gateway": {
+      "type": "remote",
+      "url": "http://localhost:8888",
+      "enabled": true,
+      "oauth": false,
+      "timeout": 10000
     },
     "canva": {
       "type": "local",
