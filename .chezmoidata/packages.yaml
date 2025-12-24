@@ -47,6 +47,7 @@ packages:
     - pre-commit
     - zsh-syntax-highlighting
     - zsh-autosuggestions
+    - 7zip
   yay:
     - google-chrome
     - mongodb-compass
