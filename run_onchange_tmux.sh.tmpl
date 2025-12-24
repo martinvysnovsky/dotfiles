@@ -1,6 +1,16 @@
 #!/bin/bash
 
 # dot_tmux.conf hash: {{ include "dot_tmux.conf" | sha256sum }}
+
+# Clone TPM if not present
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+# Install/update tmux plugins
+~/.tmux/plugins/tpm/bin/install_plugins
+
+# Source config in running tmux sessions
 if tmux info &> /dev/null; then 
   tmux source ~/.tmux.conf
 fi
