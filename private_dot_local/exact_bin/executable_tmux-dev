@@ -1,0 +1,154 @@
+#!/bin/bash
+
+# tmux-dev: Context-aware tmux session launcher
+# If .git exists: Creates session with single window for current directory
+# If no .git: Scans subdirectories and creates one window per subdirectory
+# All windows use 3-pane layout with golden ratio (φ=1.618): terminals 38%, editor 62%
+
+# Parse arguments
+RECREATE=false
+VERBOSE=true  # Verbose by default
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --recreate) RECREATE=true; shift ;;
+    --quiet) VERBOSE=false; shift ;;
+    *) TARGET_DIR="$1"; shift ;;
+  esac
+done
+
+# Change to target directory if provided
+if [ -n "$TARGET_DIR" ]; then
+  if ! cd "$TARGET_DIR" 2>/dev/null; then
+    echo "Error: Cannot access directory: $TARGET_DIR" >&2
+    exit 1
+  fi
+fi
+
+# 1. Get session name from current directory basename
+SESSION=$(basename "$PWD")
+
+# 2. Check if session exists
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+  if [ "$RECREATE" = true ]; then
+    [ "$VERBOSE" = true ] && echo "Recreating session: $SESSION"
+    tmux kill-session -t "$SESSION"
+  else
+    [ "$VERBOSE" = true ] && echo "Attaching to existing session: $SESSION"
+    exec tmux attach-session -t "$SESSION"
+  fi
+fi
+
+# 3. Check if this is a git repository and determine window strategy
+if [ -d ".git" ]; then
+  # Git repository: create single window for current directory
+  SUBDIRS="$(basename "$PWD")"
+  [ "$VERBOSE" = true ] && echo "Git repository detected. Creating session for current directory."
+else
+  # Not a git repository: scan for subdirectories
+  SUBDIRS=$(find . -maxdepth 1 -type d \
+    ! -name '.' \
+    ! -name '.git' \
+    ! -name 'node_modules' \
+    ! -name 'target' \
+    ! -name 'dist' \
+    ! -name 'build' \
+    ! -name '.*' \
+    -exec basename {} \; 2>/dev/null | sort)
+
+  # If no subdirectories found, use current directory
+  if [ -z "$SUBDIRS" ]; then
+    SUBDIRS="$(basename "$PWD")"
+    [ "$VERBOSE" = true ] && echo "No subdirectories found. Creating session with root directory."
+  fi
+fi
+
+# 5. Create session with first window
+FIRST_DIR=$(echo "$SUBDIRS" | head -n 1)
+[ "$VERBOSE" = true ] && echo "Creating session '$SESSION' with window: $FIRST_DIR"
+
+# Determine working directory for first window
+if [ "$FIRST_DIR" = "$(basename "$PWD")" ]; then
+  FIRST_PATH="$PWD"
+else
+  FIRST_PATH="$PWD/$FIRST_DIR"
+fi
+
+# Create new session (detached) with first window
+tmux new-session -d -s "$SESSION" -n "$FIRST_DIR" -c "$FIRST_PATH"
+
+# Create 3-pane layout for first window using golden ratio (φ = 1.618)
+# Layout: [term1 62%][term2 38%] (left 38%) | [editor] (right 62%)
+
+# Step 1: Split horizontally to create editor pane on right
+tmux split-window -h -t "$SESSION:$FIRST_DIR" -c "$FIRST_PATH"
+# Step 2: Split left pane vertically to create top and bottom terminals
+tmux split-window -v -t "$SESSION:$FIRST_DIR.1" -c "$FIRST_PATH"
+
+# Wait for panes to fully initialize (fix race condition)
+sleep 0.2
+
+# Step 3: Resize panes to golden ratio proportions using percentage-based resize
+# Resize left pane to 38% width (terminals)
+tmux resize-pane -t "$SESSION:$FIRST_DIR.1" -x 38%
+# Resize top terminal to 62% height
+tmux resize-pane -t "$SESSION:$FIRST_DIR.1" -y 62%
+
+# Wait for resize to take effect
+sleep 0.1
+
+# Focus on editor pane (right side, pane 3)
+tmux select-pane -t "$SESSION:$FIRST_DIR.3"
+
+# 6. Create remaining windows for other subdirectories
+WINDOW_COUNT=1
+for dir in $(echo "$SUBDIRS" | tail -n +2); do
+  [ "$VERBOSE" = true ] && echo "Creating window: $dir"
+  
+  WINDOW_COUNT=$((WINDOW_COUNT + 1))
+  
+  # Determine working directory
+  if [ "$dir" = "$(basename "$PWD")" ]; then
+    DIR_PATH="$PWD"
+  else
+    DIR_PATH="$PWD/$dir"
+  fi
+  
+  # Create new window (let tmux auto-assign index)
+  tmux new-window -t "$SESSION:" -n "$dir" -c "$DIR_PATH"
+  
+  # Create same 3-pane layout using golden ratio
+  # Step 1: Split horizontally to create editor pane on right
+  tmux split-window -h -t "$SESSION:$WINDOW_COUNT" -c "$DIR_PATH"
+  # Step 2: Split left pane vertically to create top and bottom terminals
+  tmux split-window -v -t "$SESSION:$WINDOW_COUNT.1" -c "$DIR_PATH"
+  
+  # Wait for panes to fully initialize
+  sleep 0.2
+  
+  # Step 3: Resize panes to golden ratio proportions using percentage-based resize
+  tmux resize-pane -t "$SESSION:$WINDOW_COUNT.1" -x 38%
+  tmux resize-pane -t "$SESSION:$WINDOW_COUNT.1" -y 62%
+  
+  # Wait for resize to take effect
+  sleep 0.1
+  
+  # Focus on editor pane (right side, pane 3)
+  tmux select-pane -t "$SESSION:$WINDOW_COUNT.3"
+done
+
+# 7. Set up a one-time hook to re-apply layout after attachment (fixes aggressive-resize)
+tmux set-hook -t "$SESSION" -u after-resize-pane
+tmux set-hook -t "$SESSION" client-attached "run-shell '\
+  sleep 0.3; \
+  for i in \$(tmux list-windows -t $SESSION -F \"#{window_index}\"); do \
+    tmux resize-pane -t $SESSION:\$i.1 -x 38% 2>/dev/null || true; \
+    tmux resize-pane -t $SESSION:\$i.1 -y 62% 2>/dev/null || true; \
+  done; \
+  tmux set-hook -t $SESSION -u client-attached'"
+
+# Let tmux handle window selection (don't force select window 1)
+[ "$VERBOSE" = true ] && echo "Session '$SESSION' created with $WINDOW_COUNT window(s). Attaching..."
+
+# Attach to the session
+exec tmux attach-session -t "$SESSION"

@@ -37,3 +37,18 @@ DISABLE_AUTO_UPDATE="true"
 
 # Enable VIM mode
 bindkey -v
+
+# Tmux dev session launcher
+# Add ~/.local/bin to PATH
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Helper function for tmux-dev
+tmux-dev() {
+  if [ -n "$1" ]; then
+    ~/.local/bin/tmux-dev "$1"
+  else
+    ~/.local/bin/tmux-dev
+  fi
+}
