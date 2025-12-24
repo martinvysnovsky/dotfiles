@@ -50,7 +50,7 @@ packages:
     - 7zip
   yay:
     - google-chrome
-    - mongodb-compass
+    - mongodb-compass-bin
     - wlogout
     - slack-desktop
     - obsidian
