@@ -66,7 +66,7 @@
     </device>
     <gui enabled="true" tls="false" sendBasicAuthPrompt="false">
         <address>0.0.0.0:8384</address>
-        <user>{{ (passFields "syncthing").login }}</user>
+        <user>{{ (passFields "syncthing").username }}</user>
         <password>{{ (passFields "syncthing").passwordHash }}</password>
         <metricsWithoutAuth>false</metricsWithoutAuth>
         <apikey>{{ (passFields "syncthing").apiKey }}</apikey>
