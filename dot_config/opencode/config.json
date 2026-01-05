@@ -88,6 +88,15 @@
         "https://mcp.sentry.dev/mcp"
       ],
       "enabled": true
+    },
+    "obsidian": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@mauricio.wolff/mcp-obsidian@latest",
+        "/home/martinvysnovsky/obsidian"
+      ],
+      "enabled": true
     }
   }
 }
