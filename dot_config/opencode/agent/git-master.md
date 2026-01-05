@@ -1,7 +1,7 @@
 ---
 description: Use when creating git commits, managing branches, implementing git workflows, or enforcing conventional commit standards and repository best practices. Use proactively when user requests git commits or git operations.
 mode: subagent
-model: anthropic/claude-haiku-4-20250514
+model: anthropic/claude-haiku-4-5-20251001
 tools:
   read: true
   write: true

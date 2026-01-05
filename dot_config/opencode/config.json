@@ -20,7 +20,7 @@
     "build": {
       "description": "Full development work with all tools enabled",
       "mode": "primary",
-  "model": "anthropic/claude-sonnet-4-5-20250929",
+      "model": "anthropic/claude-sonnet-4-5-20250929",
       "tools": {
         "write": true,
         "edit": true,
@@ -56,7 +56,7 @@
     "git-master": {
       "description": "Fast git operations with conventional commits",
       "mode": "subagent",
-      "model": "anthropic/claude-3-5-haiku-20241022",
+      "model": "anthropic/claude-haiku-4-5-20251001",
       "tools": {
         "read": true,
         "write": true,
