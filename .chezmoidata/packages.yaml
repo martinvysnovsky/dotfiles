@@ -59,6 +59,7 @@ packages:
     - wofi-pass
     - bun-bin # for opencode
     - opencode
+    - redisinsight-bin
   npm:
     - npm-check
     - \@nestjs/cli
