@@ -4,6 +4,7 @@
   "model": "anthropic/claude-sonnet-4-5-20250929",
   "share": "disabled",
   "autoupdate": true,
+  "plugin": ["opencode-gemini-auth@latest"],
   "permission": {
     "edit": "allow",
     "bash": "allow",
@@ -97,6 +98,13 @@
         "/home/martinvysnovsky/obsidian"
       ],
       "enabled": true
+    }
+  },
+  "provider": {
+    "google": {
+      "options": {
+        "projectId": "98761157302"
+      }
     }
   }
 }
