@@ -4,7 +4,10 @@
   "model": "google/gemini-3-pro-preview",
   "share": "disabled",
   "autoupdate": true,
-  "plugin": ["opencode-gemini-auth@latest"],
+  "plugin": [
+    "opencode-gemini-auth@latest",
+    "opencode-anthropic-auth@latest"
+  ],
   "permission": {
     "edit": "allow",
     "bash": "allow",
@@ -77,7 +80,11 @@
     },
     "mui": {
       "type": "local",
-      "command": ["npx", "-y", "@mui/mcp@latest"],
+      "command": [
+        "npx",
+        "-y",
+        "@mui/mcp@latest"
+      ],
       "enabled": true
     },
     "sentry": {
