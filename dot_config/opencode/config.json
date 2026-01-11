@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin",
-  "model": "google/gemini-3-pro-preview",
+  "model": "anthropic/claude-sonnet-4-5-20250929",
   "share": "disabled",
   "autoupdate": true,
   "plugin": [
@@ -24,7 +24,7 @@
     "build": {
       "description": "Full development work with all tools enabled",
       "mode": "primary",
-      "model": "google/gemini-3-pro-preview",
+      "model": "anthropic/claude-sonnet-4-5-20250929",
       "tools": {
         "write": true,
         "edit": true,
@@ -42,7 +42,7 @@
     "plan": {
       "description": "Analysis and planning without making changes",
       "mode": "primary",
-      "model": "google/gemini-3-pro-preview",
+      "model": "anthropic/claude-sonnet-4-5-20250929",
       "tools": {
         "write": false,
         "edit": false,
@@ -60,7 +60,7 @@
     "git-master": {
       "description": "Fast git operations with conventional commits",
       "mode": "subagent",
-      "model": "google/gemini-3-flash-preview",
+      "model": "anthropic/claude-haiku-4-5-20251001",
       "tools": {
         "read": true,
         "write": true,
