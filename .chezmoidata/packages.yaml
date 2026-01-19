@@ -63,3 +63,4 @@ packages:
   npm:
     - npm-check
     - \@nestjs/cli
+    - agent-browser

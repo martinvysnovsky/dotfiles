@@ -1,0 +1,35 @@
+#!/bin/bash
+# Install agent-browser and dependencies
+# Hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+
+set -e
+
+echo "Installing agent-browser..."
+
+# Install agent-browser globally via npm
+if ! command -v agent-browser &> /dev/null; then
+    npm install -g agent-browser
+else
+    echo "agent-browser already installed, checking for updates..."
+    npm update -g agent-browser
+fi
+
+# Install Chromium browser
+if [ ! -d "$HOME/.cache/ms-playwright" ] && [ ! -d "$HOME/Library/Caches/ms-playwright" ]; then
+    echo "Installing Chromium browser..."
+    agent-browser install
+else
+    echo "Chromium already installed"
+fi
+
+# Install system dependencies on Linux
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "Installing system dependencies for Linux..."
+    # This requires sudo, so we'll check if it's already installed
+    if ! agent-browser install --with-deps --dry-run &> /dev/null; then
+        echo "System dependencies may need installation. Run: agent-browser install --with-deps"
+    fi
+fi
+
+echo "agent-browser installation complete!"
+echo "Run 'agent-browser --help' to get started"
