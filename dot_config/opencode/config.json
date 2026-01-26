@@ -88,15 +88,6 @@
       "enabled": true,
       "oauth": false,
       "timeout": 10000
-    },
-    "mui": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@mui/mcp@latest"
-      ],
-      "enabled": true
     }
   },
   "provider": {
