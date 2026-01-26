@@ -97,15 +97,6 @@
         "@mui/mcp@latest"
       ],
       "enabled": true
-    },
-    "obsidian": {
-      "type": "local",
-      "command": [
-        "npx",
-        "@mauricio.wolff/mcp-obsidian@latest",
-        "/home/martinvysnovsky/obsidian"
-      ],
-      "enabled": false
     }
   },
   "provider": {
