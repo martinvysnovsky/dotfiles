@@ -64,3 +64,4 @@ packages:
     - npm-check
     - \@nestjs/cli
     - agent-browser
+    - openskills
