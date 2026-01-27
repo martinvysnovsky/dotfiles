@@ -185,11 +185,13 @@ Follow this strict import order for all TypeScript/JavaScript files:
 
 ### Skills
 Load comprehensive implementation patterns with `openskills read <skill-name>`:
-- **nestjs** - NestJS backend patterns: services, GraphQL resolvers, DI, database operations, pagination, background jobs, custom exceptions, testing
-- **react** - React patterns: components, forms with react-hook-form + Zod, GraphQL with Apollo Client, MUI components, routing, hooks, state management, performance optimization
+- **nestjs** - NestJS backend patterns: services, GraphQL resolvers, DI, database operations, pagination, background jobs, custom exceptions
+- **react** - React patterns: components, forms with react-hook-form + Zod, GraphQL with Apollo Client, MUI components, routing, hooks, state management
+- **testing-nestjs** - NestJS testing: Jest + @suites/unit auto-mocking, Testcontainers E2E, TestDataFactory patterns, database cleanup
+- **testing-react** - React testing: Vitest + Testing Library, component/hook testing, Apollo MockedProvider, browser API mocks
 
 ### Guides
 See detailed code examples and templates in `/guides/` for:
-- Testing patterns (Jest config, unit testing, E2E, database cleanup, test factories)
+- CI/CD integration patterns
 - TypeScript conventions (import organization, method ordering)
 - Error handling (API integrations, background jobs)
