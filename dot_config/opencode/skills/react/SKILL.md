@@ -305,4 +305,4 @@ export default function CarActions({ carId }: CarActionsProps) {
 - Creating reusable fragments
 - Handling GraphQL errors
 
-Note: For React component testing patterns, see `/guides/testing/`.
+Note: For React component testing patterns, see the **testing-react** skill.
