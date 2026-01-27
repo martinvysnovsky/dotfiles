@@ -1,6 +1,6 @@
 ---
 name: nestjs
-description: NestJS patterns for services and GraphQL resolvers including structure, dependency injection, database operations, error handling, background jobs, field resolvers, queries, mutations, subscriptions, and testing. Use when (1) creating NestJS services or resolvers, (2) implementing CRUD operations, (3) working with TypeORM repositories, (4) adding GraphQL field resolvers, (5) implementing queries and mutations, (6) setting up DataLoader patterns, (7) adding authentication/authorization, (8) setting up background jobs or cron tasks, (9) implementing transactions or complex queries, (10) testing services or resolvers with mocked dependencies.
+description: NestJS patterns for services and GraphQL resolvers including structure, dependency injection, error handling, background jobs, field resolvers, queries, mutations, subscriptions, and testing. Use when (1) creating NestJS services or resolvers, (2) implementing CRUD operations with Mongoose, (3) adding GraphQL field resolvers, (4) implementing queries and mutations, (5) setting up DataLoader patterns, (6) adding authentication/authorization, (7) setting up background jobs or cron tasks, (8) testing services or resolvers with mocked dependencies.
 ---
 
 # NestJS Patterns
@@ -10,8 +10,7 @@ description: NestJS patterns for services and GraphQL resolvers including struct
 This skill provides comprehensive NestJS patterns for services and GraphQL resolvers. Load reference files as needed:
 
 **Services:**
-- **[dependency-injection.md](references/dependency-injection.md)** - Repository injection, service dependencies, optional dependencies, configuration injection
-- **[database-operations.md](references/database-operations.md)** - Query builders, transactions, complex joins, repository patterns
+- **[dependency-injection.md](references/dependency-injection.md)** - Model injection, service dependencies, optional dependencies, configuration injection
 - **[pagination-filtering.md](references/pagination-filtering.md)** - Pagination interfaces, filter patterns, search implementation
 - **[background-jobs.md](references/background-jobs.md)** - Cron jobs, queue patterns, error handling in background tasks
 - **[custom-exceptions.md](references/custom-exceptions.md)** - Creating domain-specific exceptions
@@ -20,15 +19,18 @@ This skill provides comprehensive NestJS patterns for services and GraphQL resol
 **GraphQL Resolvers:**
 - **[resolver-patterns.md](references/resolver-patterns.md)** - Field resolvers, queries, mutations, subscriptions, DataLoader integration, authentication, resolver testing
 
+**Database Operations:**
+- See **[mongoose skill](../mongoose/SKILL.md)** for Mongoose patterns (entities, documents, queries, embedded schemas, helpers)
+
 ## Core Service Structure
 
 ```typescript
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectModel } from '@nestjs/mongoose';
 
-import { Repository } from 'typeorm';
-
-import { Car } from 'src/generated/entities';
+import { Car } from './entities/car.entity';
+import { CarDocument } from './interfaces/car-document.interface';
+import { CarModel } from './interfaces/car-model.interface';
 
 import { LoggerService } from 'src/common/logger/logger.service';
 
@@ -39,14 +41,13 @@ import { CreateCarInput, UpdateCarInput, CarFilters } from './car.dto';
 @Injectable()
 export class CarService {
   constructor(
-    @InjectRepository(Car) 
-    private readonly carRepository: Repository<Car>,
+    @InjectModel(Car.name) private readonly carModel: CarModel,
     private readonly carTypeService: CarTypeService,
     private readonly loggerService: LoggerService,
   ) {}
 
   // Business logic methods first
-  calculateAmortization(car: Car): number {
+  calculateAmortization(car: CarDocument): number {
     // Implementation
   }
 
@@ -55,23 +56,23 @@ export class CarService {
   }
 
   // CRUD methods last
-  async findAll(filters?: CarFilters): Promise<Car[]> {
+  async findAll(filters?: CarFilters): Promise<CarDocument[]> {
     // Implementation
   }
 
-  async findOne(id: string): Promise<Car | null> {
+  async findOne(id: string): Promise<CarDocument | null> {
     // Implementation
   }
 
-  async create(data: CreateCarInput): Promise<Car> {
+  async create(data: CreateCarInput): Promise<CarDocument> {
     // Implementation
   }
 
-  async update(id: string, data: UpdateCarInput): Promise<Car> {
+  async update(car: CarDocument, data: UpdateCarInput): Promise<CarDocument> {
     // Implementation
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(car: CarDocument): Promise<CarDocument> {
     // Implementation
   }
 }
@@ -81,9 +82,9 @@ export class CarService {
 
 Follow this strict order:
 1. **Framework imports** (NestJS decorators)
-2. **Third-party packages** (TypeORM)
+2. **Third-party packages** (mongoose, date-fns)
 3. **Generated files** (`src/generated/...`)
-4. **Helper utilities** (`src/helpers/...`)
+4. **Helper utilities** (`src/helpers/...`, `src/database/...`)
 5. **Common modules** (`src/common/...`)
 6. **Application modules** (`src/modules/...`)
 7. **Relative imports** (`./`, `../`)
@@ -105,28 +106,25 @@ Follow this strict order:
 
 ### Find All
 ```typescript
-async findAll(filters?: CarFilters): Promise<Car[]> {
-  const queryBuilder = this.carRepository.createQueryBuilder('car');
+async findAll(filters?: CarFilters): Promise<CarDocument[]> {
+  const query: FilterQuery<Car> = {};
 
-  if (filters?.manufacturer) {
-    queryBuilder.andWhere('car.manufacturer = :manufacturer', {
-      manufacturer: filters.manufacturer
-    });
+  if (filters?.status) {
+    query.status = filters.status;
   }
 
-  return queryBuilder
-    .orderBy('car.createdAt', 'DESC')
-    .getMany();
+  if (filters?.manufacturer) {
+    query.manufacturer = filters.manufacturer;
+  }
+
+  return this.carModel.find(query).sort({ createdAt: -1 }).exec();
 }
 ```
 
 ### Find One
 ```typescript
-async findOne(id: string): Promise<Car | null> {
-  const car = await this.carRepository.findOne({
-    where: { id },
-    relations: ['carType', 'historyEvents']
-  });
+async findOne(id: string): Promise<CarDocument | null> {
+  const car = await this.carModel.findById(id).exec();
 
   if (!car) {
     throw new NotFoundException('Car not found');
@@ -134,11 +132,15 @@ async findOne(id: string): Promise<Car | null> {
 
   return car;
 }
+
+findOneByNumber(number: string): Promise<CarDocument | null> {
+  return this.carModel.findOne({ numbers: number }).exec();
+}
 ```
 
 ### Create
 ```typescript
-async create(data: CreateCarInput): Promise<Car> {
+async create(data: CreateCarInput): Promise<CarDocument> {
   // Validate dependencies
   const carType = await this.carTypeService.findOne(data.carTypeId);
   if (!carType) {
@@ -151,35 +153,29 @@ async create(data: CreateCarInput): Promise<Car> {
   }
 
   // Create and save
-  const car = this.carRepository.create({
+  const car = new this.carModel({
     ...data,
-    carType,
-    status: CarStatus.AVAILABLE,
-    createdAt: new Date(),
+    type: carType._id,
+    status: CarState.ACTIVE,
   });
 
-  return this.carRepository.save(car);
+  return car.save();
 }
 ```
 
 ### Update
 ```typescript
-async update(id: string, data: UpdateCarInput): Promise<Car> {
-  const car = await this.findOne(id);
-  
-  // Apply updates
-  Object.assign(car, data);
-  car.modifiedAt = new Date();
-
-  return this.carRepository.save(car);
+async update(car: CarDocument, data: UpdateCarInput): Promise<CarDocument> {
+  car.set(data);
+  return car.save();
 }
 ```
 
 ### Delete
 ```typescript
-async delete(id: string): Promise<void> {
-  const car = await this.findOne(id);
-  await this.carRepository.remove(car);
+async delete(car: CarDocument): Promise<CarDocument> {
+  await car.deleteOne();
+  return car;
 }
 ```
 
@@ -189,8 +185,8 @@ async delete(id: string): Promise<void> {
 ```typescript
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 
-async findOne(id: string): Promise<Car> {
-  const car = await this.carRepository.findOne({ where: { id } });
+async findOne(id: string): Promise<CarDocument> {
+  const car = await this.carModel.findById(id).exec();
   
   if (!car) {
     throw new NotFoundException('Car not found');
@@ -199,11 +195,9 @@ async findOne(id: string): Promise<Car> {
   return car;
 }
 
-async create(data: CreateCarInput): Promise<Car> {
+async create(data: CreateCarInput): Promise<CarDocument> {
   // Check unique constraints
-  const existing = await this.carRepository.findOne({
-    where: { vin: data.vin }
-  });
+  const existing = await this.carModel.findOne({ vin: data.vin }).exec();
   
   if (existing) {
     throw new BadRequestException('Car with this VIN already exists');
@@ -214,7 +208,8 @@ async create(data: CreateCarInput): Promise<Car> {
     throw new BadRequestException('Invalid year');
   }
 
-  return this.carRepository.save(this.carRepository.create(data));
+  const car = new this.carModel(data);
+  return car.save();
 }
 ```
 
@@ -301,9 +296,8 @@ export class CarResolver {
 - Mutations with validation and auth → [resolver-patterns.md](references/resolver-patterns.md)
 - Subscriptions and real-time updates → [resolver-patterns.md](references/resolver-patterns.md)
 
-**Complex database operations needed?**
-- Multiple joins or complex queries → [database-operations.md](references/database-operations.md)
-- Transactions spanning multiple operations → [database-operations.md](references/database-operations.md)
+**Need Mongoose database operations?**
+- Entity definitions, queries, embedded schemas → Use `openskills read mongoose`
 
 **Implementing search or filtering?**
 - Pagination with metadata → [pagination-filtering.md](references/pagination-filtering.md)

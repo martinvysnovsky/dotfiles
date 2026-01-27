@@ -1,17 +1,32 @@
 # Dependency Injection Patterns
 
-## Repository Injection
+## Model Injection
 
-Standard pattern for injecting TypeORM repositories:
+Standard pattern for injecting Mongoose models:
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+
+import { Car } from './entities/car.entity';
+import { CarModel } from './interfaces/car-model.interface';
+
+@Injectable()
+export class CarService {
+  constructor(
+    @InjectModel(Car.name) private readonly carModel: CarModel,
+  ) {}
+}
+```
+
+### Multiple Models
 
 ```typescript
 @Injectable()
 export class CarService {
   constructor(
-    @InjectRepository(Car) 
-    private readonly carRepository: Repository<Car>,
-    @InjectRepository(HistoryEvent)
-    private readonly historyEventRepository: Repository<HistoryEvent>,
+    @InjectModel(Car.name) private readonly carModel: CarModel,
+    @InjectModel(CarType.name) private readonly carTypeModel: CarTypeModel,
   ) {}
 }
 ```
@@ -24,8 +39,7 @@ Inject other services directly via constructor:
 @Injectable()
 export class CarService {
   constructor(
-    @InjectRepository(Car) 
-    private readonly carRepository: Repository<Car>,
+    @InjectModel(Car.name) private readonly carModel: CarModel,
     private readonly carTypeService: CarTypeService,
     private readonly priceCalculatorService: PriceCalculatorService,
     private readonly notificationService: NotificationService,
@@ -39,11 +53,12 @@ export class CarService {
 Use `@Optional()` decorator for non-critical dependencies:
 
 ```typescript
+import { Injectable, Optional } from '@nestjs/common';
+
 @Injectable()
 export class CarService {
   constructor(
-    @InjectRepository(Car) 
-    private readonly carRepository: Repository<Car>,
+    @InjectModel(Car.name) private readonly carModel: CarModel,
     @Optional() 
     private readonly externalApiService?: ExternalApiService,
   ) {}
@@ -64,17 +79,18 @@ export class CarService {
 Inject configuration objects with custom tokens:
 
 ```typescript
+import { Injectable, Inject } from '@nestjs/common';
+
 @Injectable()
 export class CarService {
   constructor(
-    @InjectRepository(Car) 
-    private readonly carRepository: Repository<Car>,
+    @InjectModel(Car.name) private readonly carModel: CarModel,
     @Inject('CAR_CONFIG') 
     private readonly config: CarConfig,
   ) {}
 
-  calculateDepreciation(car: Car): number {
-    return car.originalPrice * this.config.depreciationRate;
+  calculateDepreciation(car: CarDocument): number {
+    return car.purchasePrice * this.config.depreciationRate;
   }
 }
 ```
@@ -90,7 +106,18 @@ export interface CarConfig {
 }
 
 // car.module.ts
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
+import { Car, CarSchema } from './entities/car.entity';
+import { CarService } from './car.service';
+
 @Module({
+  imports: [
+    MongooseModule.forFeature([
+      { name: Car.name, schema: CarSchema },
+    ]),
+  ],
   providers: [
     CarService,
     {
@@ -102,6 +129,7 @@ export interface CarConfig {
       } as CarConfig,
     },
   ],
+  exports: [CarService],
 })
 export class CarModule {}
 ```
@@ -109,22 +137,21 @@ export class CarModule {}
 ## Constructor Best Practices
 
 **Order of dependencies**:
-1. Repositories (with `@InjectRepository()`)
+1. Models (with `@InjectModel()`)
 2. Required services
 3. Optional services (with `@Optional()`)
 4. Configuration (with `@Inject()`)
 
 **Naming convention**:
 - Use `private readonly` for all injected dependencies
-- Use descriptive names matching the service/repository type
+- Use descriptive names matching the service/model type
 
 ```typescript
 @Injectable()
 export class CarService {
   constructor(
-    // Repositories first
-    @InjectRepository(Car) 
-    private readonly carRepository: Repository<Car>,
+    // Models first
+    @InjectModel(Car.name) private readonly carModel: CarModel,
     
     // Required services
     private readonly carTypeService: CarTypeService,
@@ -139,4 +166,61 @@ export class CarService {
     private readonly config: CarConfig,
   ) {}
 }
+```
+
+## Module Registration
+
+### Basic Module with Model
+
+```typescript
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
+import { Car, CarSchema } from './entities/car.entity';
+import { CarsService } from './cars.service';
+import { CarsResolver } from './cars.resolver';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([
+      { name: Car.name, schema: CarSchema },
+    ]),
+  ],
+  providers: [CarsService, CarsResolver],
+  exports: [CarsService],
+})
+export class CarsModule {}
+```
+
+### Module with Multiple Models
+
+```typescript
+@Module({
+  imports: [
+    MongooseModule.forFeature([
+      { name: Car.name, schema: CarSchema },
+      { name: CarType.name, schema: CarTypeSchema },
+    ]),
+  ],
+  providers: [CarsService, CarTypesService],
+  exports: [CarsService, CarTypesService],
+})
+export class CarsModule {}
+```
+
+### Module with External Dependencies
+
+```typescript
+@Module({
+  imports: [
+    MongooseModule.forFeature([
+      { name: Car.name, schema: CarSchema },
+    ]),
+    CarTypesModule, // Import other modules
+    LoggerModule,
+  ],
+  providers: [CarsService, CarsResolver],
+  exports: [CarsService],
+})
+export class CarsModule {}
 ```
