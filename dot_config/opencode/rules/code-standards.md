@@ -192,8 +192,8 @@ Load comprehensive implementation patterns with `openskills read <skill-name>`:
 - **testing-nestjs** - NestJS testing: Jest + @suites/unit auto-mocking, Testcontainers E2E, TestDataFactory patterns, database cleanup
 - **testing-react** - React testing: Vitest + Testing Library, component/hook testing, Apollo MockedProvider, browser API mocks
 
-### Guides
-See detailed code examples and templates in `/guides/` for:
-- CI/CD integration patterns
-- TypeScript conventions (import organization, method ordering)
-- Error handling (API integrations, background jobs)
+### Additional References
+Advanced patterns are available within relevant skills:
+- **nestjs/references/api-integrations.md** - HTTP clients, WebSocket, file uploads, bulk operations
+- **nestjs/references/background-jobs.md** - Circuit breaker, graceful degradation, job health monitoring
+- **testing-nestjs/references/ci-cd.md** - GitHub Actions, GitLab CI, Docker Compose for tests
