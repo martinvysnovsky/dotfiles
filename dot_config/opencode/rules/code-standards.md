@@ -183,10 +183,13 @@ Follow this strict import order for all TypeScript/JavaScript files:
 
 ## Implementation Examples
 
+### Skills
+Load comprehensive implementation patterns with `openskills read <skill-name>`:
+- **nestjs** - NestJS backend patterns: services, GraphQL resolvers, DI, database operations, pagination, background jobs, custom exceptions, testing
+
+### Guides
 See detailed code examples and templates in `/guides/` for:
-- Framework-specific organization guides (NestJS, React)
-- Complete file structure examples
-- Import organization templates
-- Method ordering implementations
-- Testing patterns and configurations
-- Error handling patterns
+- React component patterns (components, forms, GraphQL integration)
+- Testing patterns (Jest config, unit testing, E2E, database cleanup, test factories)
+- TypeScript conventions (import organization, method ordering)
+- Error handling (API integrations, background jobs)
