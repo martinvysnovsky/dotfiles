@@ -1,5 +1,7 @@
 # GraphQL Patterns in React
 
+> **Related Skills:** For detailed GraphQL Code Generator configuration and near-operation-file preset, see `graphql/codegen`. For GraphQL schema design patterns, see `graphql/schema-design`. For NestJS resolver implementation, see `nestjs/resolver-patterns`.
+
 ## Query Naming Convention
 
 ### NO "Query" Suffix in GraphQL Query Names

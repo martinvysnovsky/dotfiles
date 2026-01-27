@@ -1,5 +1,7 @@
 # NestJS GraphQL Resolver Patterns
 
+> **Related Skills:** For GraphQL schema design patterns, see `graphql/schema-design`. For detailed DataLoader implementation and N+1 prevention, see `graphql/dataloaders`. For GraphQL Code Generator configuration, see `graphql/codegen`.
+
 ## Basic Resolver Structure
 
 ```typescript

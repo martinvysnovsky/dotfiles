@@ -187,6 +187,7 @@ Follow this strict import order for all TypeScript/JavaScript files:
 Load comprehensive implementation patterns with `openskills read <skill-name>`:
 - **nestjs** - NestJS backend patterns: services, GraphQL resolvers, DI, database operations, pagination, background jobs, custom exceptions
 - **react** - React patterns: components, forms with react-hook-form + Zod, GraphQL with Apollo Client, MUI components, routing, hooks, state management
+- **graphql** - GraphQL-specific patterns: schema design (schema-first), code generation (GraphQL Code Generator), DataLoaders (N+1 prevention)
 - **testing-nestjs** - NestJS testing: Jest + @suites/unit auto-mocking, Testcontainers E2E, TestDataFactory patterns, database cleanup
 - **testing-react** - React testing: Vitest + Testing Library, component/hook testing, Apollo MockedProvider, browser API mocks
 
