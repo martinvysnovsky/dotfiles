@@ -2,12 +2,13 @@
 description: Use when creating git commits, managing branches, implementing git workflows, or enforcing conventional commit standards and repository best practices. Use proactively when user requests git commits or git operations.
 mode: subagent
 model: anthropic/claude-haiku-4-5-20251001
+temperature: 0.1
 tools:
-  read: true
-  write: true
-  bash: true
-  grep: true
-  glob: true
+  mcp_*: false
+permission:
+  bash:
+    "*": ask
+    "git *": allow
 ---
 
 # Git Workflow Specialist
