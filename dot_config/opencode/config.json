@@ -57,18 +57,6 @@
         "webfetch": true
       }
     },
-    "git-master": {
-      "description": "Fast git operations with conventional commits",
-      "mode": "subagent",
-      "model": "anthropic/claude-haiku-4-5-20251001",
-      "tools": {
-        "read": true,
-        "write": true,
-        "bash": true,
-        "grep": true,
-        "glob": true
-      }
-    },
     "browser-automation": {
       "description": "Browser automation and web testing with agent-browser",
       "mode": "subagent",
