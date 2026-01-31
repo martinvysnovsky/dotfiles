@@ -3,9 +3,7 @@ description: Use when managing GPG encryption, configuring SSH keys, setting up 
 mode: subagent
 tools:
   bash: false
-  write: true
-  edit: true
-  read: true
+  mcp-gateway_*: false
 ---
 
 You are a security configuration specialist. Focus on:

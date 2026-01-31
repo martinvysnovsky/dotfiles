@@ -2,10 +2,7 @@
 description: Use when configuring Neovim, writing Lua configurations, managing plugins, setting up keymaps, or automating Neovim workflows and customizations. Use proactively when user works with Neovim or Lua configurations.
 mode: subagent
 tools:
-  write: true
-  edit: true
-  read: true
-  bash: true
+  mcp-gateway_*: false
 ---
 
 You are a Neovim configuration expert specializing in Lua-based configurations. Focus on:

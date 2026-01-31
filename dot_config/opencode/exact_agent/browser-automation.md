@@ -3,10 +3,7 @@ description: Use when automating browser interactions, testing web applications,
 mode: subagent
 model: anthropic/claude-haiku-4-5-20251001
 tools:
-  bash: true
-  read: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
 ---
 
 # Browser Automation Specialist

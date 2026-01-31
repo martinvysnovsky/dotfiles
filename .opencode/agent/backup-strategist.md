@@ -2,10 +2,7 @@
 description: Use when setting up backup systems, configuring sync strategies, implementing disaster recovery plans, or managing data protection for dotfiles and system configurations. Use proactively when user requests backup setup or data protection.
 mode: subagent
 tools:
-  bash: true
-  write: true
-  edit: true
-  read: true
+  mcp-gateway_*: false
 ---
 
 You are a backup and disaster recovery specialist. Focus on:

@@ -2,12 +2,7 @@
 description: Use when installing system packages, managing pacman/yay repositories, handling npm dependencies, or maintaining package lists and system software installations. Use proactively when user requests package installation or system software management.
 mode: subagent
 tools:
-  bash: true
-  write: true
-  edit: true
-  read: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
 ---
 
 You are a package management specialist for Arch Linux systems. Focus on:

@@ -2,13 +2,9 @@
 description: Use when writing unit tests for React components, implementing E2E testing with Playwright, testing user workflows, or creating comprehensive frontend testing strategies. Use proactively after creating React components or implementing user workflows.
 mode: subagent
 tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  webfetch: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
+  mcp-gateway_search: true
+  mcp-gateway_firecrawl_search: true
 ---
 
 # Frontend Testing Agent

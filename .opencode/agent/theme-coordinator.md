@@ -2,11 +2,7 @@
 description: Use when applying Catppuccin themes, ensuring color consistency across applications, managing theme configurations, or coordinating visual styling across system components. Use proactively when user works with themes or visual styling.
 mode: subagent
 tools:
-  write: true
-  edit: true
-  read: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
 ---
 
 You are a theme coordination specialist focused on Catppuccin theme management. Focus on:

@@ -2,27 +2,8 @@
 description: Use when writing README files, creating API documentation, writing technical guides, organizing knowledge bases, documenting processes, managing file structures, or implementing documentation workflows and knowledge preservation strategies. Use proactively after creating features or when documentation needs arise.
 mode: subagent
 tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  webfetch: true
-  grep: true
-  glob: true
-  atlassian_atlassianUserInfo: true
-  atlassian_getAccessibleAtlassianResources: true
-  atlassian_getConfluenceSpaces: true
-  atlassian_getConfluencePage: true
-  atlassian_getPagesInConfluenceSpace: true
-  atlassian_getConfluencePageAncestors: true
-  atlassian_getConfluencePageFooterComments: true
-  atlassian_getConfluencePageInlineComments: true
-  atlassian_getConfluencePageDescendants: true
-  atlassian_createConfluencePage: true
-  atlassian_updateConfluencePage: true
-  atlassian_createConfluenceFooterComment: true
-  atlassian_createConfluenceInlineComment: true
-  atlassian_searchConfluenceUsingCql: true
+  mcp-gateway_*: false
+  mcp-gateway_confluence_*: true
 ---
 
 # Documentation Agent

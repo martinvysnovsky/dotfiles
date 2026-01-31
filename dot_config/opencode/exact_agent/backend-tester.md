@@ -2,13 +2,9 @@
 description: Use when writing unit tests for NestJS APIs, implementing E2E API testing with Testcontainers, testing GraphQL endpoints, or creating comprehensive testing strategies for backend applications. Use proactively after creating API endpoints, services, or complex workflows.
 mode: subagent
 tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  webfetch: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
+  mcp-gateway_search: true
+  mcp-gateway_firecrawl_search: true
 ---
 
 # Backend Testing Agent

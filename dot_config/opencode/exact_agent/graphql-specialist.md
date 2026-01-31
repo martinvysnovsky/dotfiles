@@ -2,13 +2,9 @@
 description: Use when writing GraphQL schemas, creating queries and mutations, implementing GraphQL resolvers, or optimizing GraphQL API design and performance. Use proactively when working with GraphQL code or API design.
 mode: subagent
 tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  webfetch: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
+  mcp-gateway_search: true
+  mcp-gateway_firecrawl_search: true
 ---
 
 You are a GraphQL specialist focused on schema design, queries, and client-side integration.

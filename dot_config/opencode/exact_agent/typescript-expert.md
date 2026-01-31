@@ -2,13 +2,9 @@
 description: Use when writing TypeScript code, fixing type errors, improving type safety, or enforcing TypeScript best practices and code organization. Use proactively after writing significant TypeScript code or when type errors are encountered.
 mode: subagent
 tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  webfetch: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
+  mcp-gateway_search: true
+  mcp-gateway_firecrawl_search: true
 ---
 
 You are a TypeScript specialist focused on type safety, code organization, and best practices.

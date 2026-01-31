@@ -2,13 +2,10 @@
 description: Use when creating React components, implementing hooks, optimizing React performance, or enforcing React architecture guides and best practices. Use proactively after creating React components or implementing complex hooks.
 mode: subagent
 tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  webfetch: true
-  grep: true
-  glob: true
+  mcp-gateway_*: false
+  mcp-gateway_search: true
+  mcp-gateway_firecrawl_search: true
+  mcp-gateway_useMuiDocs: true
 ---
 
 You are a React specialist focused on component architecture and best practices.

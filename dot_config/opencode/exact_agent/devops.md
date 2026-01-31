@@ -2,21 +2,15 @@
 description: Use when working with Terraform configurations, managing infrastructure as code, running database operations, or handling DevOps automation and safety procedures. Use proactively when working with infrastructure or database operations.
 mode: subagent
 tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  webfetch: true
-  grep: true
-  glob: true
-  terraform_get_latest_module_version: true
-  terraform_get_latest_provider_version: true
-  terraform_get_module_details: true
-  terraform_get_policy_details: true
-  terraform_get_provider_details: true
-  terraform_search_modules: true
-  terraform_search_policies: true
-  terraform_search_providers: true
+  mcp-gateway_*: false
+  mcp-gateway_search_modules: true
+  mcp-gateway_search_providers: true
+  mcp-gateway_get_module_details: true
+  mcp-gateway_get_provider_details: true
+  mcp-gateway_get_latest_module_version: true
+  mcp-gateway_get_latest_provider_version: true
+  mcp-gateway_get_policy_details: true
+  mcp-gateway_search_policies: true
 ---
 
 # DevOps Agent
