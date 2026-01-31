@@ -1,5 +1,21 @@
 # Chezmoi Dotfiles Repository
 
+## Agent Usage
+
+**CRITICAL**: For ANY chezmoi or dotfiles-related operation, IMMEDIATELY use the dotfiles-manager agent:
+
+- Chezmoi command workflows (`apply`, `diff`, `add`, `edit`, `encrypt`)
+- File naming conventions and template creation
+- GPG encryption and secrets management
+- Script execution and package installation
+- Cross-platform configuration
+- Troubleshooting and debugging
+- Any other dotfiles or chezmoi tasks
+
+The dotfiles-manager agent has complete authority over chezmoi operations and has access to the comprehensive chezmoi skill with detailed reference documentation.
+
+**Do NOT attempt chezmoi operations directly** - always delegate to the dotfiles-manager agent.
+
 ## Commands
 
 - **Test**: `chezmoi diff` (preview changes before applying)

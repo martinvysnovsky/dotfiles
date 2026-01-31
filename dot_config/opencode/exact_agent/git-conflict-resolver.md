@@ -5,7 +5,7 @@ model: anthropic/claude-sonnet-4-5-20250929
 temperature: 0.2
 hidden: true
 tools:
-  mcp-*: false
+  mcp-gateway_*: false
 permission:
   bash:
     "*": ask
