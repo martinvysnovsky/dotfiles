@@ -1,5 +1,32 @@
 # Ecommerce Tracking
 
+## Contents
+
+- [GA4 Ecommerce Funnel](#ga4-ecommerce-funnel)
+- [Item Object Structure](#item-object-structure)
+- [TypeScript Types](#typescript-types)
+- [Tracking Functions](#tracking-functions)
+  - [clearEcommerce()](#clearecommerce)
+  - [trackViewItemList()](#trackviewitemlist)
+  - [trackSelectItem()](#trackselectitem)
+  - [trackViewItem()](#trackviewitem)
+  - [trackAddToCart()](#trackaddtocart)
+  - [trackRemoveFromCart()](#trackremovefromcart)
+  - [trackViewCart()](#trackviewcart)
+  - [trackBeginCheckout()](#trackbegincheckout)
+  - [trackAddShippingInfo()](#trackaddshippinginfo)
+  - [trackAddPaymentInfo()](#trackaddpaymentinfo)
+  - [trackPurchase()](#trackpurchase)
+  - [trackRefund()](#trackrefund)
+- [Usage Examples](#usage-examples)
+  - [Product List Page](#product-list-page)
+  - [Product Detail Page](#product-detail-page)
+  - [Checkout Flow](#checkout-flow)
+  - [Order Confirmation](#order-confirmation)
+- [GTM Configuration](#gtm-configuration)
+- [Important: Clear Ecommerce Data](#important-clear-ecommerce-data)
+- [Debugging](#debugging)
+
 ## GA4 Ecommerce Funnel
 
 ```

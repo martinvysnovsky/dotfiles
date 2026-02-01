@@ -1,5 +1,18 @@
 # GTM Libraries Comparison
 
+## Contents
+
+- [Quick Selection Guide](#quick-selection-guide)
+- [react-gtm-module](#react-gtm-module)
+- [@next/third-parties (Next.js)](#nextthird-parties-nextjs)
+- [Manual Implementation](#manual-implementation)
+- [@builder.io/partytown](#builderiopartytown)
+- [@analytics/google-tag-manager](#analyticsgoogle-tag-manager)
+- [Comparison Table](#comparison-table)
+- [Migration Guide](#migration-guide)
+  - [From react-gtm-module to @next/third-parties](#from-react-gtm-module-to-nextthird-parties)
+  - [From any library to Manual](#from-any-library-to-manual)
+
 ## Quick Selection Guide
 
 | Framework | Recommended | Alternative |
