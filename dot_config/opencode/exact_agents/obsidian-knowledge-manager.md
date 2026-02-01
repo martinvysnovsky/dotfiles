@@ -111,6 +111,7 @@ When user wants to store knowledge:
 4. **Add wiki-links** - Connect to related existing notes
 5. **Update MOC** - Add entry to relevant Map of Content if applicable
 6. **Confirm** - Report: location, links added, MOC updated
+7. **Commit changes** - Delegate to git-master agent to commit the new/updated note to the vault repository
 
 ## Operations
 
@@ -126,6 +127,12 @@ created: 2026-02-01
 
 Content goes here with [[wiki-links]] to related notes.
 ```
+
+**After creating/updating any note, ALWAYS commit the changes:**
+- Use the Task tool to invoke the git-master subagent
+- Set `subagent_type="git-master"` and `prompt="Create a git commit for the obsidian vault changes"`
+- The git-master agent will create a conventional commit (e.g., `docs(obsidian): add note about [topic]`)
+- This ensures the vault repository stays synchronized
 
 ### Searching Knowledge
 
