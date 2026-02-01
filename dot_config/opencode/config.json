@@ -23,6 +23,7 @@
       "mode": "primary",
       "model": "anthropic/claude-sonnet-4-5-20250929",
       "tools": {
+        "*": false,
         "write": true,
         "edit": true,
         "bash": true,
@@ -42,6 +43,7 @@
       "mode": "primary",
       "model": "anthropic/claude-sonnet-4-5-20250929",
       "tools": {
+        "*": false,
         "write": false,
         "edit": false,
         "bash": true,
@@ -53,7 +55,9 @@
         "todowrite": true,
         "todoread": true,
         "webfetch": true,
-        "mcp-gateway_*": false
+        "mcp-gateway_*": false,
+        "mcp-gateway_jira_*": true,
+        "mcp-gateway_firecrawl_*": true
       }
     },
     "browser-automation": {
@@ -61,6 +65,7 @@
       "mode": "subagent",
       "model": "anthropic/claude-haiku-4-5-20251001",
       "tools": {
+        "*": false,
         "bash": true,
         "read": true,
         "grep": true,
