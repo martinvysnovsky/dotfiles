@@ -16,6 +16,12 @@ description: Google Tag Manager integration for React, Remix, React Router v7, a
 - **[events.md](references/events.md)** - Custom events, GA4 recommended events, dataLayer patterns, TypeScript types
 - **[ecommerce.md](references/ecommerce.md)** - Full ecommerce funnel: view_item → add_to_cart → purchase
 
+## Critical: SPA Pageview Tracking
+
+For SPAs (Remix, React Router, Next.js), **GTM's "All Pages" trigger only fires on full page loads**. You MUST configure a **History Change trigger** in GTM for client-side navigations.
+
+**No custom code needed** - GTM's built-in History Change listener handles SPA tracking automatically. See [spa-tracking.md](references/spa-tracking.md) for configuration steps.
+
 ## Core Pattern (react-gtm-module)
 
 ```typescript
@@ -30,13 +36,14 @@ export function initializeGTM() {
   }
 }
 
+// For custom events only - NOT for pageviews (use GTM History Change trigger instead)
 export function trackEvent(event: string, data?: Record<string, unknown>) {
   TagManager.dataLayer({ dataLayer: { event, ...data } });
 }
 ```
 
 ```typescript
-// root.tsx or _app.tsx
+// root.tsx or _app.tsx - Initialize only, no pageview tracking code needed
 import { useEffect } from "react";
 import { initializeGTM } from "~/utils/gtm";
 

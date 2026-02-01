@@ -1,12 +1,24 @@
 # GTM Setup & Installation
 
+## SPA Setup Checklist
+
+For SPAs (Remix, React Router, Next.js), complete these steps:
+
+- [ ] Install GTM library or add script manually
+- [ ] Initialize GTM in root component
+- [ ] **Create History Change trigger in GTM** (critical for SPAs)
+- [ ] Add History Change trigger to: Google Tag, Cookie Consent, Conversion Linker
+- [ ] Test with GTM Tag Assistant - verify tags fire on navigation
+
+See [spa-tracking.md](spa-tracking.md) for detailed History Change trigger configuration.
+
 ## GTM Container Structure
 
 ```
 Google Tag Manager Account
 └── Container (GTM-XXXXXXX)
     ├── Tags (what to track: GA4, Facebook Pixel, etc.)
-    ├── Triggers (when to fire: page view, clicks, custom events)
+    ├── Triggers (when to fire: page view, clicks, custom events, History Change)
     └── Variables (data to use: dataLayer values, URL, etc.)
 ```
 
