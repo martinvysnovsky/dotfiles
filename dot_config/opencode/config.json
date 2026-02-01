@@ -4,10 +4,7 @@
   "model": "anthropic/claude-sonnet-4-5-20250929",
   "share": "disabled",
   "autoupdate": true,
-  "plugin": [
-    "opencode-gemini-auth@latest",
-    "opencode-anthropic-auth@latest"
-  ],
+  "plugin": ["opencode-gemini-auth@latest", "opencode-anthropic-auth@latest"],
   "permission": {
     "edit": "allow",
     "bash": "allow",
@@ -36,7 +33,8 @@
         "patch": true,
         "todowrite": true,
         "todoread": true,
-        "webfetch": true
+        "webfetch": true,
+        "mcp-gateway_*": false
       }
     },
     "plan": {
@@ -54,7 +52,8 @@
         "list": true,
         "todowrite": true,
         "todoread": true,
-        "webfetch": true
+        "webfetch": true,
+        "mcp-gateway_*": false
       }
     },
     "browser-automation": {
@@ -65,7 +64,8 @@
         "bash": true,
         "read": true,
         "grep": true,
-        "glob": true
+        "glob": true,
+        "mcp-gateway_*": false
       }
     }
   },
