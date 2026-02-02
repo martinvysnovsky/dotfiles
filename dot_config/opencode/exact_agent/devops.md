@@ -268,6 +268,520 @@ fi
 
 ---
 
+## Bitbucket Pipelines CI/CD
+
+### Pipeline Artifacts Overview
+
+Artifacts are files produced during pipeline steps that can be shared with subsequent steps or stored for debugging. Use the modern `upload` syntax with artifact types for optimal build performance.
+
+#### Artifact Types
+
+| Type | Purpose | Cross-Step Access | Storage | Use Case |
+|------|---------|-------------------|---------|----------|
+| `shared` | Pass data between steps | ✅ Yes | 14 days | Build outputs, coverage reports |
+| `scoped` | Debug info per-step | ❌ No | 14 days | Screenshots, videos, logs |
+| `test-reports` | JUnit XML ingestion | ❌ No | 14 days | Bitbucket Test Management UI |
+
+**Important Limits:**
+- Maximum artifact size: **1 GB**
+- Retention period: **14 days**
+- For longer storage, use external solutions (S3, Artifactory)
+
+### Test Artifact Storage
+
+Configure test results as artifacts to enable Bitbucket's Test Management UI and preserve failure evidence.
+
+#### Default Auto-Detected Test Report Paths
+
+Bitbucket automatically detects JUnit XML reports in these locations (depth: 3 levels):
+```
+./**/surefire-reports/**/*.xml
+./**/failsafe-reports/**/*.xml
+./**/test-results/**/*.xml
+./**/test-reports/**/*.xml
+./**/TestResults/**/*.xml
+```
+
+#### Basic Test Artifacts Configuration
+
+```yaml
+pipelines:
+  default:
+    - step:
+        name: Run tests
+        script:
+          - npm test
+        artifacts:
+          upload:
+            - name: test-results
+              type: test-reports
+              paths:
+                - test-results/**/*.xml
+```
+
+#### Advanced Test Artifacts with Failure Evidence
+
+```yaml
+- step:
+    name: E2E Tests
+    script:
+      - npm run test:e2e
+    artifacts:
+      upload:
+        # Test reports for Bitbucket Test Management
+        - name: test-results
+          type: test-reports
+          paths:
+            - test-results/**/*.xml
+        
+        # Failure evidence (only on failure)
+        - name: failure-evidence
+          type: scoped
+          paths:
+            - cypress/screenshots/**
+            - cypress/videos/**
+            - logs/**
+          capture-on: failed
+        
+        # Coverage reports (shared with deploy step)
+        - name: coverage
+          type: shared
+          paths:
+            - coverage/**
+          ignore-paths:
+            - coverage/**/*.tmp
+```
+
+### Framework-Specific Examples
+
+#### Cypress (E2E Testing)
+
+Based on your existing `auto-sklad` project pattern, enhanced with artifact types:
+
+```yaml
+- step:
+    name: E2E Tests
+    image: cypress/base:14.16.0
+    caches:
+      - node
+      - cypress
+    script:
+      - source .env
+      - npx start-server-and-test start:test 3000 'cypress run --record --parallel --reporter mocha-junit-reporter --reporter-options mochaFile=test-results/results-[hash].xml --ci-build-id $BITBUCKET_BUILD_NUMBER'
+    after-script:
+      - mkdir -p reports
+      - cp coverage/coverage-final.json reports/$BITBUCKET_PARALLEL_STEP.json
+    artifacts:
+      upload:
+        # JUnit XML for test management
+        - name: cypress-test-results
+          type: test-reports
+          paths:
+            - test-results/**/*.xml
+        
+        # Videos/screenshots only on failure
+        - name: cypress-failure-evidence
+          type: scoped
+          paths:
+            - cypress/screenshots/**
+            - cypress/videos/**
+          capture-on: failed
+        
+        # Coverage for merge step
+        - name: coverage-reports
+          type: shared
+          paths:
+            - reports/**
+```
+
+#### Mocha / Node.js API Tests
+
+Enhanced pattern from your `dotapp-api` project:
+
+```yaml
+- step:
+    name: API Tests
+    caches:
+      - node
+    script:
+      - npm install
+      - npm test -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test-reports/junit.xml
+    artifacts:
+      upload:
+        - name: mocha-test-results
+          type: test-reports
+          paths:
+            - test-reports/junit.xml
+        
+        - name: test-logs
+          type: scoped
+          paths:
+            - logs/**/*.log
+          capture-on: failed
+```
+
+#### Jest (React/TypeScript)
+
+```yaml
+- step:
+    name: Jest Unit Tests
+    caches:
+      - node
+    script:
+      - npm ci
+      - npm test -- --reporters=default --reporters=jest-junit --coverage
+    artifacts:
+      upload:
+        - name: jest-test-results
+          type: test-reports
+          paths:
+            - junit.xml
+        
+        - name: coverage-report
+          type: shared
+          paths:
+            - coverage/**
+```
+
+#### Playwright (E2E Testing)
+
+```yaml
+- step:
+    name: Playwright E2E
+    caches:
+      - node
+    script:
+      - npm ci
+      - npx playwright install --with-deps
+      - npx playwright test
+    artifacts:
+      upload:
+        - name: playwright-test-results
+          type: test-reports
+          paths:
+            - test-results/junit.xml
+        
+        - name: playwright-traces
+          type: scoped
+          paths:
+            - test-results/**/*.zip
+            - playwright-report/**
+          capture-on: failed
+```
+
+#### Maven / Java
+
+```yaml
+- step:
+    name: Maven Tests
+    caches:
+      - maven
+    script:
+      - mvn clean test
+    artifacts:
+      upload:
+        - name: surefire-reports
+          type: test-reports
+          paths:
+            - target/surefire-reports/*.xml
+            - target/failsafe-reports/*.xml
+```
+
+#### PHPUnit
+
+```yaml
+- step:
+    name: PHPUnit Tests
+    script:
+      - composer install
+      - vendor/bin/phpunit --log-junit test-reports/junit.xml
+    artifacts:
+      upload:
+        - name: phpunit-test-results
+          type: test-reports
+          paths:
+            - test-reports/junit.xml
+```
+
+#### Pytest (Python)
+
+```yaml
+- step:
+    name: Pytest
+    caches:
+      - pip
+    script:
+      - pip install pytest pytest-html
+      - pytest --junit-xml=test-results/junit.xml --html=test-results/report.html
+    artifacts:
+      upload:
+        - name: pytest-results
+          type: test-reports
+          paths:
+            - test-results/junit.xml
+        
+        - name: html-report
+          type: scoped
+          paths:
+            - test-results/report.html
+          capture-on: always
+```
+
+#### .NET (C#)
+
+```yaml
+- step:
+    name: dotnet Tests
+    script:
+      - dotnet restore
+      - dotnet test --logger "junit;LogFilePath=TestResults/junit.xml"
+    artifacts:
+      upload:
+        - name: dotnet-test-results
+          type: test-reports
+          paths:
+            - TestResults/*.xml
+```
+
+### Artifact Best Practices
+
+#### 1. Optimize Build Minutes with Selective Downloads
+
+```yaml
+pipelines:
+  default:
+    - step:
+        name: Build
+        script:
+          - npm run build
+        artifacts:
+          upload:
+            - name: build-output
+              type: shared
+              paths:
+                - dist/**
+    
+    - step:
+        name: Test
+        artifacts:
+          download: false  # Don't download any artifacts
+        script:
+          - npm test
+    
+    - step:
+        name: Deploy
+        artifacts:
+          download:
+            - build-output  # Only download what's needed
+        script:
+          - ./deploy.sh
+```
+
+#### 2. Capture Failure Evidence Only When Needed
+
+```yaml
+artifacts:
+  upload:
+    - name: debug-artifacts
+      type: scoped
+      paths:
+        - logs/**
+        - screenshots/**
+        - "*.log"
+      capture-on: failed  # Only upload when step fails
+```
+
+#### 3. Exclude Unnecessary Files
+
+```yaml
+artifacts:
+  upload:
+    - name: test-results
+      type: shared
+      paths:
+        - test-results/**
+      ignore-paths:
+        - test-results/**/*.tmp
+        - test-results/**/*.cache
+        - test-results/**/node_modules/**
+```
+
+#### 4. Control Search Depth for Performance
+
+```yaml
+artifacts:
+  upload:
+    - name: reports
+      type: shared
+      paths:
+        - reports/**
+      depth: 3  # Limit file hierarchy search depth
+```
+
+#### 5. Parallel Steps with Artifacts
+
+```yaml
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: Unit Tests
+            script:
+              - npm run test:unit
+            artifacts:
+              upload:
+                - name: unit-test-results
+                  type: test-reports
+                  paths:
+                    - test-results/unit/*.xml
+        
+        - step:
+            name: Integration Tests
+            script:
+              - npm run test:integration
+            artifacts:
+              upload:
+                - name: integration-test-results
+                  type: test-reports
+                  paths:
+                    - test-results/integration/*.xml
+    
+    - step:
+        name: Generate Report
+        script:
+          - ./generate-combined-report.sh
+        # Both unit and integration artifacts available here
+```
+
+### Build Artifacts for Deployment
+
+Pattern used in your `ppe-center-web` and `vibration-sensor-api` projects:
+
+```yaml
+pipelines:
+  branches:
+    master:
+      - parallel:
+          - step:
+              name: Build client
+              caches:
+                - node
+              script:
+                - npm run build
+              artifacts:
+                upload:
+                  - name: client-build
+                    type: shared
+                    paths:
+                      - build/**
+          
+          - step:
+              name: Build server
+              caches:
+                - node
+              script:
+                - npm run build:server
+              artifacts:
+                upload:
+                  - name: server-build
+                    type: shared
+                    paths:
+                      - server/build/**
+      
+      - step:
+          name: Create deployment artifact
+          script:
+            - mv ./build ./server/build-client
+            - cd server
+            - tar czfv ../application.tgz ./build-client ./build ./index.js ./package.json
+          artifacts:
+            upload:
+              - name: deployment-package
+                type: shared
+                paths:
+                  - application.tgz
+      
+      - step:
+          name: Deploy to Heroku
+          deployment: production
+          script:
+            - pipe: atlassian/heroku-deploy:1.0.1
+              variables:
+                HEROKU_API_KEY: $HEROKU_API_KEY
+                HEROKU_APP_NAME: $HEROKU_APP_NAME
+                ZIP_FILE: "application.tgz"
+```
+
+### Pipeline Best Practices Summary
+
+#### When to Use Each Artifact Type
+
+**Use `test-reports` for:**
+- JUnit XML test results
+- Files that should appear in Bitbucket Test Management UI
+- Test reports that don't need to be downloaded in later steps
+
+**Use `scoped` for:**
+- Debug information (logs, screenshots, videos)
+- Large files only needed for failure investigation
+- Files that shouldn't be shared with other steps
+
+**Use `shared` for:**
+- Build outputs needed in deployment steps
+- Coverage reports needed for merging
+- Any artifacts needed across multiple steps
+
+#### Performance Optimization
+
+1. **Use `type: scoped` for large debug artifacts** to avoid unnecessary downloads
+2. **Use `capture-on: failed`** for debug artifacts to save storage and build minutes
+3. **Use selective downloads** with `artifacts.download` array
+4. **Set `download: false`** for steps that don't need any artifacts
+5. **Use `ignore-paths`** to exclude cache and temporary files
+
+#### Common Patterns
+
+```yaml
+# Pattern: Test → Build → Deploy
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Test
+          artifacts:
+            upload:
+              - name: test-results
+                type: test-reports
+                paths:
+                  - test-results/**/*.xml
+              - name: coverage
+                type: shared
+                paths:
+                  - coverage/**
+      
+      - step:
+          name: Build
+          artifacts:
+            download:
+              - coverage  # For coverage badge/report
+            upload:
+              - name: build-output
+                type: shared
+                paths:
+                  - dist/**
+      
+      - step:
+          name: Deploy
+          deployment: production
+          artifacts:
+            download:
+              - build-output  # Only need build, not coverage
+          script:
+            - ./deploy.sh
+```
+
+---
+
 ## Integrated DevOps Workflows
 
 ### Infrastructure Deployment Pipeline
