@@ -58,11 +58,19 @@
         "reference_*": true,
         "mcp-gateway_*": false,
         "mcp-gateway_jira_*": true,
-        "mcp-gateway_firecrawl_*": true
+        "mcp-gateway_firecrawl_*": true,
+        "mcp-gateway_read_note": true,
+        "mcp-gateway_search_notes": true,
+        "mcp-gateway_list_directory": true,
+        "mcp-gateway_get_vault_stats": true,
+        "mcp-gateway_get_frontmatter": true,
+        "mcp-gateway_read_multiple_notes": true,
+        "mcp-gateway_get_notes_info": true
       },
       "permission": {
         "external_directory": {
-          "~/www/**": "allow"
+          "~/www/**": "allow",
+          "~/obsidian/**": "allow"
         }
       }
     },
