@@ -37,24 +37,31 @@ When the browser's History API is used (pushState/replaceState), GTM automatical
 
 ### 1. Create History Change Trigger
 
-1. Go to **Triggers** → **New**
-2. Trigger Configuration → **History Change**
-3. Name: `History Change - All Pages`
-4. This trigger fires on: **All History Changes**
-5. Save
+1. Navigate to **Triggers** in the left sidebar → click **New**
+2. Name your trigger at the top: "History Change - All Pages"
+3. In the **Trigger Configuration** panel, select **History Change**
+4. Set "This trigger fires on" to **All History Changes**
+5. Click **Save**
 
 ### 2. Add Trigger to Tags
 
 For each tag that should fire on navigation, add the History Change trigger **in addition to** existing triggers.
 
-Example for Google Tag (GA4):
-- Triggering → Add Trigger
-- Select `History Change - All Pages`
-- Keep existing "All Pages" trigger (for initial load)
+For your Google Tag (GA4 Configuration):
+1. Open your GA4 Configuration tag
+2. Scroll to the **Triggering** section
+3. Click the **+** to add a trigger
+4. Select your `History Change - All Pages` trigger
+5. Keep the existing "All Pages" trigger (for initial load)
+6. Click **Save**
+
+Repeat for Cookie Consent, Conversion Linker, and other navigation-related tags.
 
 ### 3. Publish Changes
 
-Preview and test before publishing to production.
+1. Click **Preview** to test with Tag Assistant
+2. Navigate between pages and verify tags fire on `gtm.historyChange-v2` events
+3. Once verified, click **Submit** to publish
 
 ## Tags That Need History Change Trigger
 

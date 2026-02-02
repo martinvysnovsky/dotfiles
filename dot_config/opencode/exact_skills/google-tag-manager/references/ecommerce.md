@@ -449,21 +449,27 @@ function OrderConfirmation({ order }) {
 
 ### Enable GA4 Ecommerce
 
-In GA4 Config tag:
-1. Enable "Send e-commerce data"
-2. Data source: Data Layer
+In your GA4 Configuration tag:
+1. Open your Google Tag (GA4 Configuration)
+2. Expand **More Settings** → **Ecommerce**
+3. Enable "Send Ecommerce data"
+4. Data source: **Data Layer**
 
-### Create Ecommerce Trigger
+### Create Ecommerce Event Trigger
 
-For each ecommerce event:
-1. Triggers → New → Custom Event
-2. Event name: `view_item|add_to_cart|purchase|...`
-3. Use regex to match multiple events
+1. Navigate to **Triggers** → click **New**
+2. Name your trigger at the top (e.g., "Ecommerce - All Events")
+3. In the **Trigger Configuration** panel, select **Custom Event**
+4. In **Event name**, use regex to match all ecommerce events:
+   `view_item_list|select_item|view_item|add_to_cart|remove_from_cart|view_cart|begin_checkout|add_shipping_info|add_payment_info|purchase|refund`
+5. Enable **Use regex matching**
+6. Click **Save**
 
-### Or Use Built-in Variables
+### Enable Built-in Ecommerce Variables
 
-Enable built-in ecommerce variables:
-- Variables → Configure → Check ecommerce variables
+1. Navigate to **Variables** in the left sidebar
+2. Click **Configure** in the Built-In Variables section
+3. Scroll down and enable ecommerce-related variables as needed
 
 ## Important: Clear Ecommerce Data
 

@@ -6,11 +6,25 @@ For SPAs (Remix, React Router, Next.js), complete these steps:
 
 - [ ] Install GTM library or add script manually
 - [ ] Initialize GTM in root component
+- [ ] **Create GA4 Measurement ID variable** (best practice - see below)
 - [ ] **Create History Change trigger in GTM** (critical for SPAs)
 - [ ] Add History Change trigger to: Google Tag, Cookie Consent, Conversion Linker
 - [ ] Test with GTM Tag Assistant - verify tags fire on navigation
 
 See [spa-tracking.md](spa-tracking.md) for detailed History Change trigger configuration.
+
+## GA4 Measurement ID Variable (Required)
+
+**Why:** Instead of typing your GA4 Measurement ID (G-XXXXXXXXXX) in every tag, create a reusable Constant variable. This reduces errors and makes updates easier.
+
+1. Navigate to **Variables** in the left sidebar
+2. Scroll to **User-Defined Variables** → click **New**
+3. Name your variable at the top: "GA4 Measurement ID"
+4. In the **Variable Configuration** panel, select **Constant**
+5. In the **Value** field, enter your Measurement ID (e.g., `G-XXXXXXXXXX`)
+6. Click **Save**
+
+**Usage:** In any tag requiring a Measurement ID, use `{{GA4 Measurement ID}}` instead of typing the ID directly.
 
 ## GTM Container Structure
 

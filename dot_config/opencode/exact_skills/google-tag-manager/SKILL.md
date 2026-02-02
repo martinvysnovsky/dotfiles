@@ -16,6 +16,20 @@ description: Google Tag Manager integration for React, Remix, React Router v7, a
 - **[events.md](references/events.md)** - Custom events, GA4 recommended events, dataLayer patterns, TypeScript types
 - **[ecommerce.md](references/ecommerce.md)** - Full ecommerce funnel: view_item → add_to_cart → purchase
 
+## GTM UI Quick Reference
+
+When documenting GTM configuration steps, use this terminology:
+
+| Element | Correct Term |
+|---------|-------------|
+| Tag/Trigger/Variable editor | **[Type] Configuration** panel |
+| Selecting type | "In the **[Type] Configuration** panel, select [type]" |
+| Naming | "Name your [tag/trigger/variable] at the top" (do this FIRST) |
+| Save button | "Click **Save**" |
+| Adding triggers to tags | "In the **Triggering** section..." |
+
+**Key workflow:** Always name first, then configure. The GTM UI shows "Untitled [Type]" at the top which should be replaced immediately.
+
 ## Critical: SPA Pageview Tracking
 
 For SPAs (Remix, React Router, Next.js), **GTM's "All Pages" trigger only fires on full page loads**. You MUST configure a **History Change trigger** in GTM for client-side navigations.

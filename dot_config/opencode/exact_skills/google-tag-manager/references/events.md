@@ -287,25 +287,37 @@ function ContactForm() {
 
 ## GTM Configuration for Custom Events
 
-### Create Trigger
+### Create Custom Event Trigger
 
-1. Triggers → New → Custom Event
-2. Event name: Enter your event name (e.g., `form_submit`)
-3. Use regex for multiple events: `form_submit|button_click|modal_view`
+1. Navigate to **Triggers** in the left sidebar → click **New**
+2. Name your trigger at the top (e.g., "Custom - Form Submit")
+3. In the **Trigger Configuration** panel, select **Custom Event**
+4. In the **Event name** field, enter your event name (e.g., `form_submit`)
+5. For multiple events, use regex matching: `form_submit|button_click|modal_view`
+6. Click **Save**
 
 ### Create Data Layer Variables
 
-For each parameter you want to use:
-1. Variables → New → Data Layer Variable
-2. Variable Name: `eventCategory`, `eventAction`, etc.
-3. Data Layer Version: Version 2
+For each dataLayer parameter you want to use in tags:
+
+1. Navigate to **Variables** in the left sidebar
+2. Scroll to **User-Defined Variables** → click **New**
+3. Name your variable at the top (e.g., "DLV - eventCategory")
+4. In the **Variable Configuration** panel, select **Data Layer Variable**
+5. Enter the variable name exactly as pushed to dataLayer (e.g., `eventCategory`)
+6. Set Data Layer Version to **Version 2**
+7. Click **Save**
 
 ### Create GA4 Event Tag
 
-1. Tags → New → Google Analytics: GA4 Event
-2. Configuration Tag: Your GA4 Config tag
-3. Event Name: Use variable `{{Event}}` or hardcode
-4. Event Parameters: Add your custom parameters
+1. Navigate to **Tags** in the left sidebar → click **New**
+2. Name your tag at the top (e.g., "GA4 Event - Form Submit")
+3. In the **Tag Configuration** panel, select **Google Analytics: GA4 Event**
+4. For **Measurement ID**, use the `{{GA4 Measurement ID}}` variable (see setup.md for creating this)
+5. Set **Event Name** using `{{Event}}` variable or hardcode the event name
+6. Expand **Event Parameters** to add custom parameters from your Data Layer Variables
+7. In the **Triggering** section, select your custom event trigger
+8. Click **Save**
 
 ## Debugging Events
 
