@@ -71,6 +71,31 @@ React → MUI → @ packages → ~ alias → relative
 - **Services/Loaders**: Real database via Testcontainers
 - **Resolvers/Controllers**: Mocked dependencies
 
+## Enum Usage
+
+### Golden Rule
+**ALWAYS reuse generated enums from `src/generated/graphql`. NEVER create duplicate enums or use string literals.**
+
+### Import Pattern
+```typescript
+// ✅ CORRECT
+import { CarState, RentalType } from 'src/generated/graphql';
+const car = await this.carModel.findOne({ status: CarState.ACTIVE });
+
+// ❌ WRONG - String literal
+const car = await this.carModel.findOne({ status: 'ACTIVE' });
+
+// ❌ WRONG - Duplicate enum
+enum CarStatus { ACTIVE = 'ACTIVE' }
+```
+
+### Workflow
+1. Check `src/generated/graphql.ts` for existing enums
+2. Import from generated types
+3. Use enum values everywhere (services, DTOs, schemas, tests)
+
+**Details**: See `graphql/enum-patterns` for comprehensive patterns
+
 ## Error Handling
 
 ### Automatic (framework handles)

@@ -23,6 +23,7 @@ For these topics, refer to the existing skills:
 |-------|----------------|-------------|
 | Schema design | `graphql/schema-design` | Type definitions, enums, directives, extend patterns |
 | Code generation | `graphql/codegen` | GraphQL Code Generator setup with near-operation-file preset |
+| Enum patterns | `graphql/enum-patterns` | **CRITICAL**: Always reuse generated enums, never create duplicates |
 | DataLoaders | `graphql/dataloaders` | N+1 query prevention with request-scoped loaders |
 | Resolvers | `nestjs/resolver-patterns` | Query/mutation/field resolver implementation |
 | Apollo Client | `react/graphql` | Client-side GraphQL with React hooks |
@@ -96,6 +97,24 @@ Batch and cache data fetching to prevent N+1 queries:
 2. Run code generator to create TypeScript types
 3. Import generated hooks in components
 4. Use TypedDocumentNode for type safety
+
+## Enum Usage (NestJS Backend)
+
+**CRITICAL**: Always import and use enums from `src/generated/graphql`:
+
+```typescript
+// ✅ CORRECT
+import { CarState } from 'src/generated/graphql';
+const car = await this.carModel.findOne({ status: CarState.ACTIVE });
+
+// ❌ WRONG - String literals
+const car = await this.carModel.findOne({ status: 'ACTIVE' });
+
+// ❌ WRONG - Duplicate enums
+enum CarStatus { ACTIVE = 'ACTIVE' }
+```
+
+**See `graphql/enum-patterns` for comprehensive usage patterns.**
 
 ## Common Patterns
 

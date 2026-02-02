@@ -78,12 +78,28 @@ export class CarService {
 }
 ```
 
+## Enum Usage
+
+**CRITICAL**: Always use enums from `src/generated/graphql`. Never create duplicate enums or use string literals.
+
+```typescript
+// ✅ CORRECT
+import { CarState } from 'src/generated/graphql';
+car.status = CarState.ACTIVE;
+
+// ❌ WRONG
+car.status = 'ACTIVE';
+enum CarStatus { ACTIVE = 'ACTIVE' }
+```
+
+**See `graphql/enum-patterns` for comprehensive patterns.**
+
 ## Import Organization
 
 Follow this strict order:
 1. **Framework imports** (NestJS decorators)
 2. **Third-party packages** (mongoose, date-fns)
-3. **Generated files** (`src/generated/...`)
+3. **Generated files** (`src/generated/...`) - **Import enums here**
 4. **Helper utilities** (`src/helpers/...`, `src/database/...`)
 5. **Common modules** (`src/common/...`)
 6. **Application modules** (`src/modules/...`)
@@ -289,6 +305,10 @@ export class CarResolver {
 4. **Subscriptions** (@Subscription) - Real-time updates (if needed)
 
 ## When to Load Reference Files
+
+**Using GraphQL enums?**
+- Always reuse generated enums → Use `openskills read graphql/enum-patterns`
+- Services, DTOs, schemas, tests → Use `openskills read graphql/enum-patterns`
 
 **Working with GraphQL resolvers?**
 - Field resolvers and DataLoader integration → [resolver-patterns.md](references/resolver-patterns.md)
