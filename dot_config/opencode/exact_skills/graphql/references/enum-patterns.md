@@ -236,6 +236,7 @@ export class CarResolver {
 
 ```typescript
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
 
 import { CarState, RentalType } from 'src/generated/graphql';
 
@@ -244,22 +245,20 @@ export class Car {
   @Prop({ required: true })
   number: string;
 
-  @Prop({
-    type: String,
-    enum: Object.values(CarState),
-    default: CarState.ACTIVE,
-  })
+  @Prop({ type: mongoose.Schema.Types.String, enum: CarState, default: CarState.ACTIVE })
   status: CarState;
 
-  @Prop({
-    type: String,
-    enum: Object.values(RentalType),
-  })
+  @Prop({ type: mongoose.Schema.Types.String, enum: RentalType })
   rentalType?: RentalType;
 }
 
 export const CarSchema = SchemaFactory.createForClass(Car);
 ```
+
+**Key points:**
+- Use `type: mongoose.Schema.Types.String` for explicit typing
+- Pass enum directly (not `Object.values(EnumName)`)
+- Mongoose handles enum validation automatically
 
 ## Enum Comparison and Conditionals
 
@@ -476,7 +475,7 @@ When working with enums in NestJS:
 3. **Import correctly**: Always use `import { EnumName } from 'src/generated/graphql';`
 4. **Use enum values**: Never use string literals - always `EnumName.VALUE`
 5. **Validate with class-validator**: Use `@IsEnum(EnumName)` in DTOs
-6. **Define in Mongoose schemas**: Use `enum: Object.values(EnumName)` in `@Prop()`
+6. **Define in Mongoose schemas**: Use `type: mongoose.Schema.Types.String, enum: EnumName` in `@Prop()`
 7. **Test with enum values**: Use enum constants in test cases and factories
 
 ## Integration with GraphQL Code Generator
