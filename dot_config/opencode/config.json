@@ -55,9 +55,15 @@
         "todowrite": true,
         "todoread": true,
         "webfetch": true,
+        "reference_*": true,
         "mcp-gateway_*": false,
         "mcp-gateway_jira_*": true,
         "mcp-gateway_firecrawl_*": true
+      },
+      "permission": {
+        "external_directory": {
+          "~/www/**": "allow"
+        }
       }
     },
     "browser-automation": {
