@@ -702,6 +702,8 @@ const config: Config = {
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/../test/setup.ts'],
+  // Fail fast in CI to save pipeline minutes
+  bail: process.env.CI ? 1 : undefined,
 };
 
 export default config;
@@ -722,6 +724,8 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/setup-e2e.ts'],
   testTimeout: 60000, // 60 seconds for container startup
   maxWorkers: 1, // Run tests sequentially to avoid port conflicts
+  // Fail fast in CI to save pipeline minutes
+  bail: process.env.CI ? 1 : undefined,
 };
 
 export default config;
@@ -734,9 +738,10 @@ export default config;
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
+    "test:ci": "jest --ci --bail",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.config.ts",
-    "test:e2e:ci": "node --max-old-space-size=3072 node_modules/.bin/jest --ci --config ./test/jest-e2e.config.ts",
+    "test:e2e:ci": "node --max-old-space-size=3072 node_modules/.bin/jest --ci --bail --config ./test/jest-e2e.config.ts",
     "test:e2e:watch": "jest --config ./test/jest-e2e.config.ts --watch"
   }
 }

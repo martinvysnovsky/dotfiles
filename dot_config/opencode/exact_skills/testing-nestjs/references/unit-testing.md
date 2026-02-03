@@ -53,7 +53,7 @@ process.env.LOG_LEVEL = process.env.LOG_LEVEL || 'silent';
 ```json
 {
   "test": "jest",
-  "test:ci": "node --max-old-space-size=3072 node_modules/.bin/jest --ci --reporters=default --reporters=jest-junit",
+  "test:ci": "node --max-old-space-size=3072 node_modules/.bin/jest --ci --bail --reporters=default --reporters=jest-junit",
   "test:watch": "jest --watch",
   "test:cov": "jest --coverage",
   "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"

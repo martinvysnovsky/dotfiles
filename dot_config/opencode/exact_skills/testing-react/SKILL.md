@@ -10,6 +10,30 @@ Testing React components with Vitest and Testing Library.
 - **@apollo/client/testing** - GraphQL mock provider
 - **jsdom** - Browser environment simulation
 
+## CI Configuration
+
+For CI pipelines, configure Vitest to fail fast:
+
+```typescript
+// vitest.config.ts
+export default defineConfig({
+  test: {
+    // Fail fast in CI to save pipeline minutes
+    bail: process.env.CI ? 1 : undefined,
+    // ... other config
+  },
+});
+```
+
+Add CI-specific script:
+```json
+{
+  "scripts": {
+    "test:ci": "vitest run --bail 1"
+  }
+}
+```
+
 ## Quick Start
 
 ### Basic Component Test

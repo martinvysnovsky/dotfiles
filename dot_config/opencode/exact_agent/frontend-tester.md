@@ -243,6 +243,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
+  // Fail fast in CI to save pipeline minutes
+  maxFailures: process.env.CI ? 1 : undefined,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
@@ -670,6 +672,8 @@ export default defineConfig({
     setupFiles: ["./tests/utils/setup.ts"],
     include: ["app/**/*.{test,spec}.{ts,tsx}"],
     exclude: ["node_modules", "build", "tests/e2e"],
+    // Fail fast in CI to save pipeline minutes
+    bail: process.env.CI ? 1 : undefined,
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
@@ -723,8 +727,10 @@ Object.defineProperty(window, "matchMedia", {
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "test:ci": "vitest run --bail 1",
     "test:ui": "vitest --ui",
     "test:e2e": "docker run --rm --init --ipc=host --network=host --user $(id -u):$(id -g) -v $(pwd):/work -w /work mcr.microsoft.com/playwright:v1.54.0-noble npx playwright test",
+    "test:e2e:ci": "docker run --rm --init --ipc=host --network=host --user $(id -u):$(id -g) -v $(pwd):/work -w /work mcr.microsoft.com/playwright:v1.54.0-noble npx playwright test --max-failures=1",
     "test:e2e:ui": "docker run --rm --init --ipc=host --network=host --user $(id -u):$(id -g) -v $(pwd):/work -w /work -p 9323:9323 mcr.microsoft.com/playwright:v1.54.0-noble sh -c 'npx playwright test --ui --ui-host=0.0.0.0 --ui-port=9323'",
     "test:e2e:headed": "npx playwright test --headed",
     "test:e2e:debug": "npx playwright test --debug"

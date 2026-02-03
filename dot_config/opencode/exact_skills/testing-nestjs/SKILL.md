@@ -43,6 +43,8 @@ const config: Config = {
   setupFiles: ['<rootDir>/../test/setup/jest-env.ts'],
   globalSetup: '<rootDir>/../test/setup/global-setup.ts',
   globalTeardown: '<rootDir>/../test/setup/global-teardown.ts',
+  // Fail fast in CI to save pipeline minutes
+  bail: process.env.CI ? 1 : undefined,
 };
 
 export default config;

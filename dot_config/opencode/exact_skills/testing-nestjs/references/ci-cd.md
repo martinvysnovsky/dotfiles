@@ -202,6 +202,8 @@ module.exports = {
   ...require('./jest.config.js'),
   collectCoverage: true,
   coverageReporters: ['text', 'lcov', 'html'],
+  // Fail fast in CI to save pipeline minutes
+  bail: 1,
   reporters: [
     'default',
     ['jest-junit', {
@@ -217,8 +219,8 @@ module.exports = {
 ```json
 {
   "scripts": {
-    "test:ci": "jest --config jest.config.ci.js --ci --coverage --watchAll=false",
-    "test:e2e:ci": "jest --config test/jest-e2e.config.js --ci --watchAll=false --maxWorkers=1"
+    "test:ci": "jest --config jest.config.ci.js --ci --bail --coverage --watchAll=false",
+    "test:e2e:ci": "jest --config test/jest-e2e.config.js --ci --bail --watchAll=false --maxWorkers=1"
   }
 }
 ```
