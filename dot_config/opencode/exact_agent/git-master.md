@@ -10,7 +10,7 @@ permission:
     "*": ask
     "git *": allow
   task:
-    git-conflict-resolver: allow
+    "*": allow
 ---
 
 # Git Workflow Specialist
