@@ -65,7 +65,9 @@
       "permission": {
         "external_directory": {
           "~/www/**": "allow",
-          "~/obsidian/**": "allow"
+          "~/obsidian/**": "allow",
+          "/tmp/**": "allow",
+          "~/.local/share/opencode/tool-output/**": "allow"
         }
       }
     },

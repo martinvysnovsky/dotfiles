@@ -359,6 +359,33 @@ Directory structure:
 
 **Rule Precedence**: Last matching rule wins
 
+**External Directory Permissions**:
+```json
+{
+  "permission": {
+    "external_directory": {
+      "*": "deny",                   // Default: deny all external directories
+      "~/www/**": "allow",           // Allow home-relative paths
+      "~/obsidian/**": "allow",
+      "/tmp/**": "allow",            // Allow absolute paths
+      "~/.local/share/opencode/tool-output/**": "allow"
+    }
+  }
+}
+```
+
+Controls access to directories outside the current working directory. Useful for:
+- Accessing MCP tool outputs (e.g., downloaded attachments in `/tmp`)
+- Reading files from multiple project directories
+- Restricting agents to specific safe locations
+
+**Path Formats**:
+- Absolute paths: `/tmp/**`, `/var/log/**`
+- Home-relative: `~/www/**`, `~/.config/**`
+- Wildcards: `**` matches any subdirectory depth
+
+**Note**: This permission is typically configured per-agent rather than globally.
+
 ## Instructions (Rules)
 
 ```json

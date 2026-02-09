@@ -488,6 +488,34 @@ Controls which subagents can be invoked via Task tool.
 }
 ```
 
+### External Directory Permissions
+```json
+{
+  "agent": {
+    "plan": {
+      "permission": {
+        "external_directory": {
+          "~/www/**": "allow",              // Project directories
+          "~/obsidian/**": "allow",          // Documentation
+          "/tmp/**": "allow",                // Temporary files (MCP downloads)
+          "~/.local/share/opencode/tool-output/**": "allow"
+        }
+      }
+    }
+  }
+}
+```
+
+Controls access to directories outside the working directory. Essential for:
+- Reading MCP tool outputs (attachments, downloads)
+- Accessing multiple project directories
+- Reading from system temporary directories
+
+**Common Use Cases**:
+- Plan agent needs to read Jira attachments downloaded to `/tmp`
+- Agent accessing tool outputs from `~/.local/share/opencode/tool-output`
+- Multi-project agents reading from `~/www/project-*/**`
+
 ## Agent Usage
 
 ### Switching Primary Agents
