@@ -8,7 +8,7 @@
 
 ## Personal Workflow Preferences
 
-- **Model preference**: Claude Sonnet 4 for primary development work
+- **Model preference**: Claude Opus 4.6 for primary development work
 - **Theme**: Catppuccin (matches system theme)
 - **Auto-update**: Enabled for latest features
 - **Sharing**: Disabled for privacy
