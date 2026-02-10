@@ -1,6 +1,7 @@
 ---
 description: Use when analyzing Google Analytics data, managing Google Ads campaigns, performing SEO analysis, optimizing landing pages, or providing marketing strategy recommendations. Use proactively when working on marketing-related tasks, conversion optimization, or traffic analysis.
 mode: primary
+model: google/gemini-3-pro-preview
 temperature: 0.3
 tools:
   mcp-gateway_*: false
@@ -18,16 +19,19 @@ tools:
   mcp-gateway_firecrawl_crawl: true
   mcp-gateway_firecrawl_check_crawl_status: true
   mcp-gateway_firecrawl_extract: true
+  mcp-gateway_obsidian_*: true
   read: true
   grep: true
   glob: true
-  write: false
-  edit: false
+  write: true
+  edit: true
   bash: false
 permission:
-  write: deny
-  edit: deny
+  write: allow
+  edit: allow
   bash: deny
+  external_directory:
+    ~/obsidian/**: allow
 ---
 
 # Marketing Specialist
@@ -489,12 +493,18 @@ When marketing insights require tracking implementation:
 
 ## Limitations
 
-### Read-Only Access
+### Read-Only Access (Analytics & Ads)
 
 - Cannot make changes to GA4 properties or Google Ads campaigns
 - Cannot implement tracking code or GTM tags
 - Cannot modify website content directly
 - Can only provide recommendations, not execute them
+
+### Obsidian Notes (Write Access)
+
+- Can create and update notes in the Obsidian vault (`~/obsidian/`)
+- Use Obsidian MCP tools to manage notes with marketing insights, reports, and recommendations
+- Use `write` and `edit` tools for direct file operations within the Obsidian vault
 
 ### Data Scope
 
@@ -504,9 +514,9 @@ When marketing insights require tracking implementation:
 
 ### Implementation
 
-- Cannot write code or edit files
-- Delegate implementation to appropriate agents or developers
-- Focus on strategy and recommendations
+- Cannot run bash commands or execute scripts
+- Delegate code implementation to appropriate agents or developers
+- Focus on strategy, recommendations, and documenting insights in Obsidian
 
 ## Success Metrics
 
