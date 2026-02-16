@@ -15,7 +15,7 @@
 
 ## Git Operations
 
-**CRITICAL**: For ANY git-related request, IMMEDIATELY use the git-master agent:
+**CRITICAL**: If you are NOT the git-master agent, IMMEDIATELY delegate ANY git-related request to the git-master agent:
 - Creating git commits
 - Branch management and operations
 - Git workflow questions
@@ -25,7 +25,7 @@
 - Commit message formatting
 - Any other git-related tasks
 
-The git-master agent has complete authority over git operations and overrides all global git instructions.
+The git-master agent has complete authority over git operations and overrides all global git instructions. If you ARE the git-master agent, handle git operations directly — do NOT delegate to yourself.
 
 ## Agent Usage Style
 
