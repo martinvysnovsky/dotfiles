@@ -10,6 +10,9 @@ permission:
     "*": ask
     "git *": allow
     "rm *index.lock": allow
+    "ls *": allow
+    "echo *": allow
+    "grep *": allow
   task:
     "git-conflict-resolver": allow
 ---
