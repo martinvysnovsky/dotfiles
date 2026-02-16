@@ -73,9 +73,12 @@ git commit -m "feat: add new feature"
   ```
 
 ### Pre-commit Hook Detection
-Before committing, check if the repo has git hooks:
+Before committing, check if the repo has git hooks. **Run each command separately** (never combine with `||`, `&&`, or `|`):
 ```bash
-git config core.hooksPath || ls .husky/ 2>/dev/null
+git config core.hooksPath
+```
+```bash
+ls .husky/
 ```
 
 If hooks exist, check for:
@@ -84,10 +87,12 @@ If hooks exist, check for:
 - `pre-commit` -- means lint-staged runs before commit
 
 ### Recovery from Failed Commits
-If a commit fails (hook rejection, lint-staged error), check for stale lock files:
+If a commit fails (hook rejection, lint-staged error), check for stale lock files. **Run each command separately**:
 ```bash
-# Check and remove stale index.lock if present
-ls .git/index.lock 2>/dev/null && rm .git/index.lock
+ls .git/index.lock
+```
+```bash
+rm .git/index.lock
 ```
 
 **IMPORTANT**: After a failed commit, always check for `index.lock` before retrying. A stale lock file will cause ALL subsequent git operations to fail with "Another git process seems to be running".
@@ -112,11 +117,11 @@ If you encounter ANY of the following, use the Task tool to invoke `git-conflict
 4. **Three-way merges** - Complex merges requiring careful analysis
 5. **Rebase conflicts** - Conflicts during rebase operations
 
-**Detection pattern:**
+**Detection pattern** (run each command separately, never combine with pipes):
 ```bash
-# After git merge/rebase/cherry-pick, check for conflicts:
-git status | grep "both modified"
-# or check for conflict markers in files
+git status
+```
+```bash
 grep -r "<<<<<<< HEAD" .
 ```
 
@@ -133,6 +138,23 @@ Then use the Task tool with subagent `git-conflict-resolver` and provide:
 - List of conflicted files
 - Branch information (source and target)
 - Context about what you were trying to do
+
+## CRITICAL: Command Execution Rules
+
+**NEVER use compound bash commands.** Each command must be run as a separate bash call. Do NOT use `||`, `&&`, `|`, or `;` to chain commands together. Compound commands will trigger permission prompts even when individual commands are allowed.
+
+**WRONG:**
+```bash
+git config core.hooksPath || ls .husky/ 2>/dev/null
+```
+
+**CORRECT** (two separate bash calls):
+```bash
+git config core.hooksPath
+```
+```bash
+ls .husky/
+```
 
 ## Your Workflow
 
