@@ -1,0 +1,19 @@
+#!/bin/bash
+# Wrapper script to find and run the Pencil MCP server binary
+# from the running Pencil AppImage mount point.
+
+MOUNT_DIR=$(find /tmp -maxdepth 1 -name ".mount_Pencil*" -type d 2>/dev/null | head -1)
+
+if [ -z "$MOUNT_DIR" ]; then
+  echo '{"jsonrpc":"2.0","error":{"code":-1,"message":"Pencil is not running. Please start the Pencil desktop app first."},"id":null}' >&2
+  exit 1
+fi
+
+MCP_BIN="$MOUNT_DIR/resources/app.asar.unpacked/out/mcp-server-linux-x64"
+
+if [ ! -x "$MCP_BIN" ]; then
+  echo '{"jsonrpc":"2.0","error":{"code":-1,"message":"Pencil MCP server binary not found at '"$MCP_BIN"'"},"id":null}' >&2
+  exit 1
+fi
+
+exec "$MCP_BIN" --app desktop "$@"

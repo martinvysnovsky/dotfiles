@@ -92,6 +92,11 @@
       "enabled": true,
       "oauth": false,
       "timeout": 10000
+    },
+    "pencil": {
+      "type": "local",
+      "command": ["pencil-mcp"],
+      "enabled": true
     }
   },
   "provider": {
