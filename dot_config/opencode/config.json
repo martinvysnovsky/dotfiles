@@ -92,11 +92,6 @@
       "enabled": true,
       "oauth": false,
       "timeout": 10000
-    },
-    "pencil": {
-      "type": "local",
-      "command": ["npx", "-y", "pencil-mcp"],
-      "enabled": true
     }
   },
   "provider": {
