@@ -81,6 +81,7 @@ Check these file types specifically:
 Beyond Snyk scanning:
 - Check for outdated dependencies with known CVEs
 - Verify dependency lock files are committed
+- Update package.json dependency versions, not just lock files — ensure fixed versions propagate correctly
 - Review transitive dependency chains
 - Identify unnecessarily broad dependency permissions
 - Check for typosquatting in package names
