@@ -94,6 +94,7 @@ The following specialized agents are available in `~/.config/opencode/agent/`:
 - **frontend-tester** - Comprehensive React testing (unit with Vitest + E2E with Playwright)
 - **graphql-specialist** - GraphQL schemas, queries, and resolvers
 - **react-architect** - React guides and architecture best practices
+- **security** - Security scanning (Snyk CLI), vulnerability detection, OWASP Top 10, code security review
 - **typescript-expert** - TypeScript best practices and type safety
 
 ## Proactive Agent Usage
@@ -109,6 +110,7 @@ Examples of proactive usage:
 - When working with documentation → Use **documentation** for proper formatting
 - After database changes → Use **devops** for safety validation
 - When working with infrastructure → Use **devops** for Terraform configurations
+- Before deployments or security reviews → Use **security** for Snyk scans and vulnerability detection
 
 ## Agent Priority Rules
 
@@ -116,6 +118,7 @@ Examples of proactive usage:
 2. **documentation** should handle any README, documentation creation, or knowledge management
 3. **typescript-expert** should review any significant TypeScript code changes
 4. **backend-tester** and **frontend-tester** provide comprehensive testing strategies for their respective domains
+5. **security** should handle any security scanning, vulnerability assessment, or Snyk CLI operations
 
 ## Git Standards
 

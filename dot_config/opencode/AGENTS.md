@@ -34,4 +34,5 @@ The git-master agent has complete authority over git operations and overrides al
 - **Documentation**: Use documentation agent for any README or doc creation
 - **Infrastructure**: Use devops agent for Terraform and database operations
 - **Testing**: Use backend-tester or frontend-tester agents for comprehensive testing strategies
+- **Security**: Use security agent for Snyk scans, vulnerability detection, and security reviews
 - **Agent creation**: Use agent-builder agent when creating new specialized agents or skills

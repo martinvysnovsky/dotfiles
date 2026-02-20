@@ -117,6 +117,7 @@ permission:
 - **backend-tester** - NestJS unit/E2E tests with Testcontainers
 - **frontend-tester** - React testing, Playwright E2E
 - **devops** - Terraform, database safety, infrastructure
+- **security** - Security scanning (Snyk CLI), vulnerability detection, OWASP Top 10, code review
 - **browser-automation** - Playwright browser automation
 
 ### Available Skills
@@ -129,6 +130,7 @@ Skills are reusable knowledge modules loaded on-demand:
 - **testing-react** - Component testing, hooks, E2E
 - **bitbucket-pipelines** - CI/CD patterns, caching, deployments
 - **google-tag-manager** - GTM integration for React/Next.js
+- **snyk** - Snyk CLI security scanning (SCA, SAST, container, IaC)
 
 ## Agent Creation Workflow
 
