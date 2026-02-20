@@ -5,10 +5,7 @@ temperature: 0.1
 tools:
   mcp-gateway_*: false
 permission:
-  bash:
-    "*": ask
-    "snyk *": allow
-    "npm audit *": allow
+  bash: allow
 ---
 
 # Security Agent
