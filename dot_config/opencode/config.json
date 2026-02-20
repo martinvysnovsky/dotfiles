@@ -35,7 +35,8 @@
         "todowrite": true,
         "todoread": true,
         "webfetch": true,
-        "mcp-gateway_*": false
+        "mcp-gateway_*": false,
+        "pencil_*": false
       }
     },
     "plan": {
@@ -60,7 +61,8 @@
         "mcp-gateway_jira_*": true,
         "mcp-gateway_sentry_*": true,
         "mcp-gateway_firecrawl_*": true,
-        "mcp-gateway_obsidian_*": true
+        "mcp-gateway_obsidian_*": true,
+        "pencil_*": false
       },
       "permission": {
         "external_directory": {
@@ -81,7 +83,8 @@
         "read": true,
         "grep": true,
         "glob": true,
-        "mcp-gateway_*": false
+        "mcp-gateway_*": false,
+        "pencil_*": false
       }
     }
   },
