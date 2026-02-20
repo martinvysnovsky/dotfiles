@@ -4,6 +4,8 @@ mode: primary
 temperature: 0.1
 tools:
   mcp-gateway_*: false
+  mcp-gateway_jira_*: true
+  mcp-gateway_sentry_*: true
 permission:
   bash: allow
 ---
