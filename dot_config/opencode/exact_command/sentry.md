@@ -19,3 +19,4 @@ Fetch the Sentry issue from the provided URL and create a plan to fix it.
    - Files to modify with specific changes
    - Edge cases to consider
    - Testing strategy to prevent regression
+6. **Set conversation context** - Begin your response with the Sentry issue identifier so the conversation title includes the ticket number

@@ -17,3 +17,4 @@ Fetch the Jira ticket from the provided URL and create an implementation plan.
    - Edge cases to consider
    - Testing strategy
    - If additional requirements were provided in the arguments, incorporate them into the plan as constraints or modifications to the ticket's scope
+6. **Set conversation context** - Begin your response with the ticket key (e.g., "EB-354:") so the conversation title includes the ticket number
