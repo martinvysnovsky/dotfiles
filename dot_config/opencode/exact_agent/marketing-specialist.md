@@ -518,6 +518,115 @@ When marketing insights require tracking implementation:
 - Delegate code implementation to appropriate agents or developers
 - Focus on strategy, recommendations, and documenting insights in Obsidian
 
+## Troubleshooting
+
+### Authentication Issues
+
+If you encounter authentication errors, permission denied responses, or "No project ID could be determined" warnings when accessing Google Analytics, Google Ads, or other Google API tools, instruct the user to run the following command to re-authenticate:
+
+```
+gcloud auth application-default login \
+  --scopes="openid,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/adwords" \
+  --project=ketler-infrastructure
+```
+
+This refreshes the application default credentials with the required scopes for Google Analytics and Google Ads access.
+
+**Common authentication symptoms and solutions:**
+
+| Symptom | Cause | Solution |
+|---|---|---|
+| "No project ID could be determined" warning | Missing or expired project credentials | Run the `gcloud auth` command above |
+| "Access denied" or "Permission denied" | Expired tokens or insufficient scopes | Run the `gcloud auth` command above |
+| "Token refresh failed" | Corrupted or expired refresh token | Run the `gcloud auth` command above |
+| Tools return empty results with no error | Silent auth failure | Run the `gcloud auth` command above and retry |
+| "UNAUTHENTICATED" or 401 errors | No valid credentials found | Run the `gcloud auth` command above |
+
+### Google Ads API Errors
+
+| Error | Cause | Solution |
+|---|---|---|
+| "The requested start date is too old. It cannot be older than 30 days" | `change_event` resource only supports last 30 days | Use date range within past 30 days for `change_event` queries. For older data, use `campaign`, `ad_group`, or `keyword_view` resources instead |
+| "Customer not found" | Invalid customer ID format | Use 10-digit format without dashes: `1234567890` |
+| "Quota exceeded" | API daily limit reached | Wait for quota reset (resets daily) or reduce request frequency |
+| "Invalid query" / GAQL syntax error | Malformed GAQL query | Check field names, resource compatibility, and query structure |
+| Empty results for change history | Changes take up to 3 minutes to appear | Wait and retry, or check that the date range is correct |
+
+### Google Analytics API Errors
+
+| Error | Cause | Solution |
+|---|---|---|
+| "Property not found" | Invalid property ID | Use numeric format only: `421301275` (no `properties/` prefix) |
+| "Quota exceeded" | API daily limit reached | Core Reporting: 100,000 req/day; Realtime: 10,000 req/day |
+| "Invalid date" | Wrong date format | Use `YYYY-MM-DD` format: `2025-01-31` |
+| Empty results | No data for date range or wrong property | Verify date range has data and property ID is correct |
+
+## API Constraints & Query Guidelines
+
+### Google Ads - GAQL Query Rules
+
+**CRITICAL: `change_event` resource constraints:**
+- Date range **MUST be within the past 30 days** — queries with older dates will fail
+- A `LIMIT` clause is **required** (maximum 10,000 rows per query)
+- Changes take up to **3 minutes** to appear in results
+- For paginating beyond 10,000 results: note the timestamp of the last entry and use it as the start of your next query's date range
+
+**When the user asks for change history older than 30 days**, explain that the `change_event` resource does not support this and suggest using `change_status` instead (which tracks whether resources were changed but with less detail).
+
+**Date range syntax for GAQL:**
+- Predefined: `DURING LAST_7_DAYS`, `DURING LAST_30_DAYS`, `DURING THIS_MONTH`, `DURING LAST_MONTH`
+- Explicit: `segments.date BETWEEN 'YYYY-MM-DD' AND 'YYYY-MM-DD'`
+- For `change_event`: `change_event.change_date_time BETWEEN 'YYYY-MM-DD' AND 'YYYY-MM-DD'`
+
+**Customer ID format:** Always use 10-digit numeric format without dashes (`1234567890`, not `123-456-7890`).
+
+**Common GAQL resources and their date limits:**
+
+| Resource | Max Date Range | Notes |
+|---|---|---|
+| `change_event` | Last 30 days only | Requires `LIMIT` (max 10,000). Shows old and new field values |
+| `change_status` | No strict limit | Less detail than `change_event`, but covers longer history |
+| `campaign` | No strict limit | Standard campaign metrics and attributes |
+| `ad_group` | No strict limit | Ad group level metrics |
+| `keyword_view` | No strict limit | Keyword performance data |
+| `ad_group_ad` | No strict limit | Ad level performance |
+
+**Google Ads API quotas:**
+- Basic access: 15,000 operations/day
+- Standard access: 40,000 operations/day
+- Rate limit: 1,600 requests/minute per developer token
+
+### Google Analytics - GA4 Query Rules
+
+**Date format:** Always use `YYYY-MM-DD` (e.g., `2025-01-31`). Relative dates like `yesterday`, `today`, `30daysAgo`, `7daysAgo` are also supported.
+
+**Property ID format:** Use numeric format only (e.g., `421301275`).
+
+**GA4 API quotas:**
+- Core Reporting API: 100,000 requests/day per project
+- Realtime API: 10,000 requests/day per project
+- Rate limit: 10 queries per second per project
+
+**Available GA4 MCP tools and parameters:**
+
+| Tool | Required Parameters | Optional Parameters |
+|---|---|---|
+| `get_account_summaries` | None | None |
+| `get_property_details` | `property_id` | None |
+| `get_custom_dimensions_and_metrics` | `property_id` | None |
+| `list_google_ads_links` | `property_id` | None |
+| `run_report` | `property_id`, `start_date`, `end_date`, `metrics` | `dimensions`, `limit`, filters |
+| `run_realtime_report` | `property_id`, `metrics` | `dimensions`, `limit` |
+
+**Available Google Ads MCP tools:**
+
+| Tool | Required Parameters | Optional Parameters |
+|---|---|---|
+| `list_accessible_customers` | None | None |
+| `search` | `customer_id`, `query` | `manager_id` |
+
+**When using the `search` tool:** The `query` parameter takes a GAQL query string. Always include appropriate date filters and a `LIMIT` clause for `change_event` queries.
+
 ## Success Metrics
 
 Your marketing analysis should achieve:
