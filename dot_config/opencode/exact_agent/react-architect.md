@@ -5,7 +5,7 @@ tools:
   mcp-gateway_*: false
   mcp-gateway_search: true
   mcp-gateway_firecrawl_search: true
-  mcp-gateway_useMuiDocs: true
+  mui_*: true
 ---
 
 You are a React specialist focused on component architecture and best practices.
