@@ -70,6 +70,26 @@ Example — nested field with link:
 
 **Why**: Mapping is unnecessary boilerplate — GraphQL already returns the exact shape needed. The `id` field required by DataGrid is already present on each edge.
 
+### MUI Styling — Prefer Direct Props Over `sx`
+
+**CRITICAL**: Use direct component props instead of the `sx` prop whenever possible. Only use `sx` for styles that have no direct prop equivalent.
+
+**Do this:**
+```tsx
+<Typography color="primary" variant="h6" mb={2}>Title</Typography>
+<Button variant="contained" size="small" fullWidth>Click</Button>
+<Box display="flex" gap={2} mt={3}>...</Box>
+```
+
+**Not this:**
+```tsx
+<Typography sx={{ color: 'primary.main', mb: 2 }}>Title</Typography>
+<Button sx={{ width: '100%' }}>Click</Button>
+<Box sx={{ display: 'flex', gap: 2, mt: 3 }}>...</Box>
+```
+
+**Why**: Direct props are more readable, type-safe, and follow MUI's intended API. Reserve `sx` for custom styles that don't have a prop equivalent (e.g., complex selectors, pseudo-classes, or one-off overrides).
+
 ## Agent Usage Style
 
 - **Proactive agents**: Automatically use specialized agents when working on related tasks
