@@ -36,7 +36,8 @@
         "todoread": true,
         "webfetch": true,
         "mcp-gateway_*": false,
-        "pencil_*": false
+        "pencil_*": false,
+        "mui_*": true
       }
     },
     "plan": {
@@ -58,6 +59,7 @@
         "webfetch": true,
         "reference_*": true,
         "mcp-gateway_*": false,
+        "mui_*": true,
         "mcp-gateway_jira_*": true,
         "mcp-gateway_sentry_*": true,
         "mcp-gateway_firecrawl_*": true,
