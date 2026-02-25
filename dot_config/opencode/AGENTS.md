@@ -27,6 +27,49 @@
 
 The git-master agent has complete authority over git operations and overrides all global git instructions. If you ARE the git-master agent, handle git operations directly — do NOT delegate to yourself.
 
+## Frontend Coding Conventions
+
+### MUI DataGrid — No Row Mapping
+
+**CRITICAL**: Never map or transform GraphQL query results into a separate row interface/type for MUI DataGrid. Instead:
+
+1. **Pass query data directly as rows** — e.g., `rows={data?.cars.edges || []}`
+2. **Use `valueGetter` / `renderCell`** on column definitions to access nested fields (e.g., `params.row.mainCategory.slug`)
+3. **Use generated GraphQL types** as the row type — no manual `XxxRow` interface
+4. **Access nested data via `params.row`** in `renderCell` for custom rendering
+
+Example — derived value:
+```tsx
+{
+  field: "year",
+  headerName: "Dátum výroby",
+  sortable: false,
+  renderCell: (params) => {
+    const { year, month } = params.row;
+    return year ? `${year}${month ? `/${month}` : ""}` : "-";
+  },
+}
+```
+
+Example — nested field with link:
+```tsx
+{
+  field: "fullTitle",
+  headerName: "Vozidlo",
+  sortable: false,
+  renderCell: (params) => (
+    <MuiLink
+      component={Link}
+      to={`/vozidla-na-predaj/${params.row.mainCategory.slug}/${params.row.slug}`}
+    >
+      {params.row.fullTitle}
+    </MuiLink>
+  ),
+}
+```
+
+**Why**: Mapping is unnecessary boilerplate — GraphQL already returns the exact shape needed. The `id` field required by DataGrid is already present on each edge.
+
 ## Agent Usage Style
 
 - **Proactive agents**: Automatically use specialized agents when working on related tasks
