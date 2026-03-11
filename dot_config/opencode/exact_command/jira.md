@@ -3,18 +3,25 @@ description: Fetch Jira ticket and plan implementation
 agent: plan
 ---
 
-Fetch the Jira ticket from the provided URL and create an implementation plan.
+Implement Jira ticket $1
 
-## Instructions
+Fetch the Jira ticket $1 using `jira_get_issue` and create a detailed implementation plan.
 
-1. **Parse the arguments** - The first part of `$ARGUMENTS` is the Jira URL or issue key (e.g., `EB-354` or `https://ketler.atlassian.net/browse/EB-354`). Any text after the URL/key is treated as additional requirements or changes that should be incorporated into the plan.
-2. **Fetch ticket details** - Use `jira_get_issue` to get full ticket information including description, acceptance criteria, priority, status, and linked issues
-3. **Analyze requirements** - Break down the ticket into clear technical requirements
-4. **Explore the codebase** - Search for relevant files, patterns, and existing implementations related to the ticket
-5. **Create implementation plan** - Propose a detailed step-by-step plan with:
-   - Files to create or modify
-   - Technical approach
-   - Edge cases to consider
-   - Testing strategy
-   - If additional requirements were provided in the arguments, incorporate them into the plan as constraints or modifications to the ticket's scope
-6. **Set conversation context** - Begin your response with the ticket key (e.g., "EB-354:") so the conversation title includes the ticket number
+$1 can be an issue key (e.g., `EB-354`) or full URL (e.g., `https://ketler.atlassian.net/browse/EB-354`). Parse it accordingly.
+
+Additional requirements from the user: $2
+
+## Plan should include
+
+- Files to create or modify
+- Technical approach
+- Edge cases to consider
+- Testing strategy
+- Incorporate any additional requirements provided above as constraints or modifications to the ticket's scope
+
+## Steps
+
+1. Fetch ticket details - description, acceptance criteria, priority, status, linked issues
+2. Analyze and break down requirements
+3. Explore the codebase for relevant files, patterns, and existing implementations
+4. Create step-by-step implementation plan
