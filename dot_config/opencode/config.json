@@ -61,6 +61,7 @@
         "mcp-gateway_*": false,
         "mui_*": true,
         "mcp-gateway_jira_*": true,
+        "mcp-gateway_confluence_*": true,
         "mcp-gateway_sentry_*": true,
         "mcp-gateway_firecrawl_*": true,
         "mcp-gateway_obsidian_*": true,
