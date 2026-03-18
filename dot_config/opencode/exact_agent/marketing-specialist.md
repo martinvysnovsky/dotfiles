@@ -1,7 +1,7 @@
 ---
 description: Use when analyzing Google Analytics data, managing Google Ads campaigns, performing SEO analysis, optimizing landing pages, or providing marketing strategy recommendations. Use proactively when working on marketing-related tasks, conversion optimization, or traffic analysis.
 mode: primary
-model: google/gemini-3-pro-preview
+model: anthropic/claude-opus-4-6
 temperature: 0.3
 tools:
   mcp-gateway_*: false
