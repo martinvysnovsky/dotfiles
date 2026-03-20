@@ -4,7 +4,10 @@
   "model": "anthropic/claude-opus-4-6",
   "share": "disabled",
   "autoupdate": true,
-  "plugin": ["opencode-gemini-auth@latest", "opencode-anthropic-auth@latest"],
+  "plugin": [
+    "opencode-gemini-auth@latest"
+    // "opencode-anthropic-auth@latest"
+  ],
   "permission": {
     "edit": "allow",
     "bash": "allow",
