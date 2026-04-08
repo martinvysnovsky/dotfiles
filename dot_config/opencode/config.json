@@ -3,7 +3,7 @@
   "model": "anthropic/claude-sonnet-4-6",
   "share": "disabled",
   "autoupdate": true,
-  "plugin": ["opencode-gemini-auth@latest", "opencode-claude-auth"],
+  "plugin": ["opencode-gemini-auth@latest", "opencode-claude-auth@latest"],
   "permission": {
     "edit": "allow",
     "bash": "allow",
@@ -20,6 +20,7 @@
     "build": {
       "description": "Full development work with all tools enabled",
       "mode": "primary",
+      "enable1mContext": true,
       "model": "anthropic/claude-sonnet-4-6",
       "prompt": "You are Claude Code, Anthropic's official CLI for Claude.",
       "tools": {
