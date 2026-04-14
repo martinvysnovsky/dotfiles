@@ -86,15 +86,21 @@ When user mentions these project names, use the corresponding directory path. Th
 
 ## Available Custom Agents
 
-The following specialized agents are available in `~/.config/opencode/agent/`:
+The following specialized agents are available in `~/.config/opencode/agents/`:
 
 - **backend-tester** - Comprehensive testing for NestJS APIs (unit + E2E with Testcontainers)
+- **browser-automation** - Playwright browser automation via agent-browser CLI
+- **design** - Pencil design files, design systems, design-to-code with MUI
 - **devops** - Infrastructure as code (Terraform), database safety, and git workflows
 - **documentation** - Technical writing, knowledge management, file organization, and Confluence
 - **frontend-tester** - Comprehensive React testing (unit with Vitest + E2E with Playwright)
 - **graphql-specialist** - GraphQL schemas, queries, and resolvers
+- **marketing-specialist** - Google Analytics, Google Ads, SEO analysis, Obsidian notes
+- **obsidian-knowledge-manager** - Obsidian vault operations, note creation, knowledge organization
 - **react-architect** - React guides and architecture best practices
+- **sales** - B2B prospecting, lead research, LinkedIn outreach, Obsidian CRM pipeline
 - **security** - Security scanning (Snyk CLI), vulnerability detection, OWASP Top 10, code security review
+- **test-manager** - Detects project type, coordinates backend-tester and frontend-tester
 - **typescript-expert** - TypeScript best practices and type safety
 
 ## Proactive Agent Usage

@@ -99,3 +99,4 @@ Example — nested field with link:
 - **Testing**: Use backend-tester or frontend-tester agents for comprehensive testing strategies
 - **Security**: Use security agent for Snyk scans, vulnerability detection, and security reviews
 - **Agent creation**: Use agent-builder agent when creating new specialized agents or skills
+- **Sales & prospecting**: Use sales agent for lead research, LinkedIn outreach, and pipeline management

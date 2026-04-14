@@ -51,8 +51,8 @@ Only when:
 
 ### File Locations
 **Global agents** (managed by chezmoi):
-- `/home/martinvysnovsky/.local/share/chezmoi/dot_config/opencode/exact_agent/`
-- Use `exact_agent` prefix for chezmoi managed directory
+- `/home/martinvysnovsky/.local/share/chezmoi/dot_config/opencode/exact_agents/`
+- Use `exact_agents` prefix for chezmoi managed directory
 - Files auto-sync via chezmoi apply
 
 **Project-specific agents**:
@@ -119,6 +119,11 @@ permission:
 - **devops** - Terraform, database safety, infrastructure
 - **security** - Security scanning (Snyk CLI), vulnerability detection, OWASP Top 10, code review
 - **browser-automation** - Playwright browser automation
+- **marketing-specialist** - Google Analytics, Google Ads, SEO analysis, Obsidian notes
+- **design** - Pencil design files, design systems, design-to-code with MUI
+- **obsidian-knowledge-manager** - Obsidian vault operations, note creation, knowledge organization
+- **test-manager** - Detects project type, coordinates backend-tester and frontend-tester
+- **sales** - B2B prospecting, lead research, LinkedIn outreach, Obsidian CRM pipeline
 
 ### Available Skills
 Skills are reusable knowledge modules loaded on-demand:
@@ -664,4 +669,4 @@ A well-designed agent should:
 5. Explain key decisions
 6. Suggest testing approach
 
-Always create agents in chezmoi global config: `/home/martinvysnovsky/.local/share/chezmoi/dot_config/opencode/exact_agent/`
+Always create agents in chezmoi global config: `/home/martinvysnovsky/.local/share/chezmoi/dot_config/opencode/exact_agents/`
