@@ -44,6 +44,9 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Bun
+export PATH="/home/martinvysnovsky/.bun/bin:$PATH"
+
 # Helper function for tmux-dev
 tmux-dev() {
   if [ -n "$1" ]; then
