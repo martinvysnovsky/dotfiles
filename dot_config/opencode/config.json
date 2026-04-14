@@ -100,7 +100,7 @@
       "url": "http://localhost:8888",
       "enabled": true,
       "oauth": false,
-      "timeout": 10000
+      "timeout": 60000
     },
     "pencil": {
       "type": "local",
