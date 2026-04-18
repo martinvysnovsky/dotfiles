@@ -49,9 +49,5 @@ export PATH="/home/martinvysnovsky/.bun/bin:$PATH"
 
 # Helper function for tmux-dev
 tmux-dev() {
-  if [ -n "$1" ]; then
-    ~/.local/bin/tmux-dev "$1"
-  else
-    ~/.local/bin/tmux-dev
-  fi
+  ~/.local/bin/tmux-dev "$@"
 }
