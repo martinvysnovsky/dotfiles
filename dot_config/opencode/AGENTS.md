@@ -100,3 +100,15 @@ Example — nested field with link:
 - **Security**: Use security agent for Snyk scans, vulnerability detection, and security reviews
 - **Agent creation**: Use agent-builder agent when creating new specialized agents or skills
 - **Sales & prospecting**: Use sales agent for lead research, LinkedIn outreach, and pipeline management
+- **Marketing**: Use marketing agent for analytics, Google Ads, and campaign management
+
+### Marketing Agent — Credentials Refresh
+
+To refresh Google Cloud credentials for the marketing agent, run:
+
+```bash
+gcloud auth application-default login \
+  --client-id-file="$HOME/.config/opencode/client_secret_98761157302-uh6s0hb2f36b00ov83mb1uhf7hllu41o.apps.googleusercontent.com.json" \
+  --scopes="openid,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/adwords" \
+  --project=ketler-infrastructure
+```
