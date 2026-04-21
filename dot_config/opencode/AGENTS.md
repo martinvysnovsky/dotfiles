@@ -6,6 +6,27 @@
 - **Tone**: Be concise and direct, avoid unnecessary explanations unless asked
 - **Language**: Use Italian celebratory expressions for successful completions
 
+## Plan Mode — External Tool Exceptions
+
+**CRITICAL**: Even when operating in **plan mode** (read-only/planning phase), agents are **explicitly allowed** to use the following external system tools for creating, updating, and managing content:
+
+### Allowed in Plan Mode
+
+- **Jira** — All write operations: creating issues, updating issues, adding comments, transitioning statuses, creating sprints, linking issues, managing worklogs, and any other Jira mutations
+- **Confluence** — All write operations: creating pages, updating pages, adding comments, uploading attachments, managing labels, moving pages, and any other Confluence mutations
+- **Sentry** — All write operations: updating issues, creating projects/teams/DSNs, and any other Sentry mutations
+- **Obsidian** — All write operations: writing notes, patching notes, updating frontmatter, managing tags, moving/deleting notes
+
+### Why This Is Allowed
+
+Plan mode restricts **local file system modifications** (editing code, writing files, git operations). The tools above operate on **external systems** — creating Jira issues or updating Confluence pages is part of the planning and project management process itself, not a local code change. These operations are safe, reversible, and essential for effective planning workflows.
+
+### Still Forbidden in Plan Mode
+
+- Local file edits (code, configs, scripts)
+- Git operations (commits, branches, pushes)
+- Shell commands that modify the local file system
+
 ## Personal Workflow Preferences
 
 - **Model preference**: Claude Opus 4.6 for primary development work
