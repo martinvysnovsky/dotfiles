@@ -152,6 +152,11 @@ IMPORTANT: The contents of `.pen` files are encrypted and can ONLY be accessed v
 - Keep batch_design calls to max 25 operations
 - Commit `.pen` files to Git — they are text-based and diff-friendly
 
+### Reusable Components & Slides
+- Do NOT place reusable components directly onto the canvas as standalone items
+- Instead, use reusable components in-place within the actual design where they are first needed, then reuse (instance) them elsewhere via `ref` nodes
+- **Why**: Placing reusable components as separate top-level canvas frames clutters the Slides feature — standalone component definitions appear as unwanted slides
+
 ## Design to Code with MUI
 
 You are responsible for implementing design changes in React code using Material UI v7. You read designs from Pencil and translate them into MUI components.
