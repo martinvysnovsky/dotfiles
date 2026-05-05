@@ -1,16 +1,14 @@
 ---
 description: Capture findings and knowledge from current session into Obsidian
-agent: obsidian-knowledge-manager
-subtask: true
 ---
 
-Review the current conversation and capture any valuable knowledge, findings, or patterns into the Obsidian vault.
+Review the current conversation and identify knowledge worth preserving.
 
 Topic focus or specific findings to capture: $ARGUMENTS
 
-## What to Capture
+## Step 1: Extract Knowledge
 
-Analyze the full conversation (and user-specified topic if `$ARGUMENTS` provided) for:
+Analyze the full conversation (and `$ARGUMENTS` topic if provided) for:
 
 - **Technical discoveries** — patterns, gotchas, solutions, configurations
 - **Problem-solution pairs** — errors encountered and how they were fixed
@@ -20,36 +18,29 @@ Analyze the full conversation (and user-specified topic if `$ARGUMENTS` provided
 
 **Skip:** trivial changes, obvious things, temporary debugging steps, user-specific context that won't be useful later.
 
-## Process
+## Step 2: Delegate to Knowledge Manager
 
-1. **Identify** all distinct pieces of knowledge worth preserving from the conversation
-2. **Search** the vault for each topic — check if existing notes already cover it
-3. **Update** existing notes with new information (preferred over creating new), OR create new notes where nothing exists
-4. **Reorganize** — if you encounter related notes that are duplicated, misplaced, or messy, fix them proactively
-5. **Link** — ensure wiki-links connect related notes in both directions
-6. **Update MOCs** — if new notes were added to categories that have Maps of Content
-7. **Report** — print a clear summary of all vault changes made
-
-## Output Format
-
-After all changes are made, print:
+Format the extracted findings as a structured handoff and invoke `@obsidian-knowledge-manager` with this message:
 
 ```
-📝 Knowledge captured:
+@obsidian-knowledge-manager
 
-  ✅ Created:  Programming/New Topic.md
-  ✏️  Updated:  Programming/Docker.md  (added volume mount gotcha)
-  🔀 Moved:    Knowledge/Docker.md → Programming/Docker.md
-  🗑️  Merged:   Programming/Docker Containers.md → Programming/Docker.md
-  📋 MOC:      Programming MOC.md  (+1 entry)
-  🔗 Linked:   Docker.md ↔ Terraform.md
+## Findings to Capture
 
-  ℹ️  No changes: [topic] already well-documented in [note]
+### 1. [Topic Name]
+**Category:** Programming | Work | Knowledge | Health | etc.
+**Content:**
+[Concise, self-contained description with code examples or commands if relevant]
+**Related to:** [existing concepts, technologies, or notes that might be connected]
+
+### 2. [Topic Name]
+...
+
+Please search the vault for existing notes on each topic, update them if they exist, or create new ones if they don't. Actively reorganize if you encounter duplicates or misplaced notes. Update MOCs as needed.
 ```
 
-## Guidelines
+The knowledge manager handles all vault operations — it knows the vault structure, MOC conventions, tag taxonomy, and reorganization logic.
 
-- **Quality over quantity** — only capture genuinely reusable knowledge
-- **Atomic notes** — one clear topic per note; don't fragment excessively
-- **Practical focus** — include code examples, commands, configs when relevant
-- **Update > Create** — always prefer extending existing notes over creating new ones for the same topic
+## Step 3: Report
+
+After the knowledge manager finishes, confirm to the user what was captured with a brief summary.
