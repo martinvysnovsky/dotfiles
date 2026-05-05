@@ -1,6 +1,7 @@
 ---
 description: Capture findings and knowledge from current session into Obsidian
 agent: obsidian-knowledge-manager
+subtask: true
 ---
 
 Review the current conversation and capture any valuable knowledge, findings, or patterns into the Obsidian vault.
