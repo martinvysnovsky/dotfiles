@@ -69,7 +69,7 @@ React → MUI → @ packages → ~ alias → relative
 
 ### Strategy
 - **Services/Loaders**: Real database via Testcontainers
-- **Resolvers/Controllers**: Mocked dependencies
+- **Resolvers/Controllers**: `TestBed.solitary()` from `@suites/unit` (auto-mocked dependencies)
 
 ## Enum Usage
 
