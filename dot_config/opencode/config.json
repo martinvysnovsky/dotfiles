@@ -38,7 +38,8 @@
         "webfetch": true,
         "mcp-gateway_*": false,
         "pencil_*": false,
-        "mui_*": true
+        "mui_*": true,
+        "worktree_*": true
       }
     },
     "plan": {
