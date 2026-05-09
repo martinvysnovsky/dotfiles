@@ -24,10 +24,11 @@ worktree_create:
 ```
 
 What happens:
-1. Creates git worktree at `~/.local/share/opencode/worktree/<project-id>/<branch>/`
-2. Syncs files based on `.opencode/worktree.jsonc` config
-3. Runs `postCreate` hooks (e.g. `pnpm install`)
-4. Opens new Kitty window with OpenCode running
+1. Reads `.opencode/worktree.jsonc` config
+2. Copies files (`sync.copyFiles`) and symlinks dirs (`sync.symlinkDirs`) from main worktree
+3. Runs `postCreate` hooks (e.g. `npm install`) in the worktree directory
+4. Creates git worktree at `~/.local/share/opencode/worktree/<project-id>/<branch>/`
+5. Opens new Kitty/tmux window with OpenCode running
 
 ### worktree_delete
 
@@ -44,17 +45,17 @@ What happens:
 
 ## Configuration
 
-Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `worktree_create` if missing.
+Create `.opencode/worktree.jsonc` in each project root **before** calling `worktree_create` — hooks and sync only apply if the config exists at creation time.
 
 ```jsonc
 {
   "$schema": "https://registry.kdco.dev/schemas/worktree.json",
 
   "sync": {
-    // Files to copy from main worktree into each new worktree
+    // Files to copy from main worktree into each new worktree (e.g. .env)
     "copyFiles": [],
 
-    // Directories to symlink (avoids duplicating large dirs)
+    // Directories to symlink (avoids duplicating large dirs like node_modules)
     "symlinkDirs": [],
 
     // Patterns to exclude from sync
@@ -62,7 +63,8 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
   },
 
   "hooks": {
-    // Commands to run after worktree creation
+    // Shell commands to run in the worktree dir after creation (e.g. npm install)
+    // Note: postCreate runs BEFORE the terminal spawns — do not use tmux commands here
     "postCreate": [],
 
     // Commands to run before worktree deletion
@@ -73,7 +75,7 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
 
 ## Common Configurations
 
-### Node.js / pnpm project
+### Node.js / npm project
 
 ```jsonc
 {
@@ -82,7 +84,7 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["npm install", "tmux-dev --panes"]
+    "postCreate": ["npm install"]
   }
 }
 ```
@@ -95,7 +97,7 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
     "copyFiles": [".env"]
   },
   "hooks": {
-    "postCreate": ["docker compose up -d", "tmux-dev --panes"],
+    "postCreate": ["docker compose up -d"],
     "preDelete": ["docker compose down"]
   }
 }
@@ -110,18 +112,30 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["npm install", "tmux-dev --panes"]
+    "postCreate": ["npm install"]
   }
 }
 ```
 
+## 3-Pane Layout (tmux-dev --panes)
+
+After `worktree_create` returns, apply the standard golden ratio 3-pane layout to the new tmux window by sending a command to it:
+
+```bash
+# Send tmux-dev --panes to the newly created worktree window
+tmux send-keys -t "$(tmux list-windows -F '#{window_index}' | tail -1)" 'tmux-dev --panes' Enter
+```
+
+This applies the layout **after** the terminal is ready, avoiding timing issues with `postCreate`.
+
 ## Key Details
 
 - **Worktree location**: `~/.local/share/opencode/worktree/<project-id>/<branch>/` (outside the repo)
-- **Terminal**: Auto-detects Kitty on Linux — spawns new Kitty window per worktree
+- **Config must exist before create**: `.opencode/worktree.jsonc` is read at `worktree_create` time
+- **postCreate timing**: hooks run before the terminal spawns — no tmux commands there
+- **Terminal**: Auto-detects Kitty on Linux — spawns new Kitty window per worktree; inside tmux creates new tmux window
 - **Multiple worktrees**: Fully supported, each gets its own terminal and OpenCode session
 - **Standard git**: Worktrees are normal git worktrees — `git worktree list` shows them, branches merge normally
-- **Forgotten worktrees**: Changes remain in the worktree directory and branch until manually cleaned up
 
 ## Installation
 

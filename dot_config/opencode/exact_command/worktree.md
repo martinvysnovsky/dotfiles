@@ -21,9 +21,14 @@ Create or manage a git worktree using the opencode-worktree plugin.
 ### Execute
 
 - **Delete**: if the user said "delete" — call `worktree_delete` with the reason
-- **Create**:
-  1. **Before calling `worktree_create`**, ensure `.opencode/worktree.jsonc` exists. If it doesn't, create it based on the detected project type — this is critical so `postCreate` hooks run when the worktree is spawned. Always include `tmux-dev --panes` as the last `postCreate` hook:
-     - **Node.js / npm**: copy `.env`, `.env.local`, symlink `node_modules`, run `npm install`, then `tmux-dev --panes`
-     - **Docker**: copy `.env`, run `docker compose up -d` on create / `docker compose down` on delete, then `tmux-dev --panes`
-     - **Other**: blank config with `postCreate: ["tmux-dev --panes"]`
-  2. Call `worktree_create` with the branch name and optional base branch (default: current branch)
+
+- **Create** (in this exact order):
+  1. **Ensure `.opencode/worktree.jsonc` exists** — if not, create it based on the detected project type. Use `sync.copyFiles` for env files and `sync.symlinkDirs` for large directories — do NOT put file copying in `postCreate` hooks:
+     - **Node.js / npm**: `copyFiles: [".env", ".env.local"]`, `symlinkDirs: ["node_modules"]`, `postCreate: ["npm install"]`
+     - **Docker**: `copyFiles: [".env"]`, `postCreate: ["docker compose up -d"]`, `preDelete: ["docker compose down"]`
+     - **Other**: blank config with empty `postCreate`
+  2. **Call `worktree_create`** with the branch name and optional base branch (default: current branch)
+  3. **Apply 3-pane layout** to the new tmux window by running:
+     ```bash
+     tmux send-keys -t "$(tmux list-windows -F '#{window_index}' | tail -1)" 'tmux-dev --panes' Enter
+     ```
