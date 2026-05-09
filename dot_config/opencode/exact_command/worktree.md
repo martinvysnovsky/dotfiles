@@ -28,7 +28,3 @@ Create or manage a git worktree using the opencode-worktree plugin.
      - **Docker**: `copyFiles: [".env"]`, `postCreate: ["docker compose up -d"]`, `preDelete: ["docker compose down"]`
      - **Other**: blank config with empty `postCreate`
   2. **Call `worktree_create`** with the branch name and optional base branch (default: current branch)
-  3. **REQUIRED — Apply 3-pane layout**: Immediately after `worktree_create` returns successfully, run this bash command to apply the 3-pane golden ratio layout to the newly created tmux window:
-     ```bash
-     sleep 1 && tmux send-keys -t "$(tmux list-windows -F '#{window_index}' | tail -1)" 'tmux-dev --panes' Enter
-     ```

@@ -117,17 +117,6 @@ Create `.opencode/worktree.jsonc` in each project root **before** calling `workt
 }
 ```
 
-## 3-Pane Layout (tmux-dev --panes)
-
-After `worktree_create` returns, apply the standard golden ratio 3-pane layout to the new tmux window by sending a command to it:
-
-```bash
-# Send tmux-dev --panes to the newly created worktree window
-tmux send-keys -t "$(tmux list-windows -F '#{window_index}' | tail -1)" 'tmux-dev --panes' Enter
-```
-
-This applies the layout **after** the terminal is ready, avoiding timing issues with `postCreate`.
-
 ## Key Details
 
 - **Worktree location**: `~/.local/share/opencode/worktree/<project-id>/<branch>/` (outside the repo)
