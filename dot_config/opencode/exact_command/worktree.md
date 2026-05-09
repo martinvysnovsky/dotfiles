@@ -1,5 +1,7 @@
 ---
 description: Create or manage a git worktree for isolated development
+agent: general
+subtask: true
 ---
 
 Create or manage a git worktree using the opencode-worktree plugin.

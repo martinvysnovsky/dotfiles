@@ -16,11 +16,10 @@
 - **Confluence** — All write operations: creating pages, updating pages, adding comments, uploading attachments, managing labels, moving pages, and any other Confluence mutations
 - **Sentry** — All write operations: updating issues, creating projects/teams/DSNs, and any other Sentry mutations
 - **Obsidian** — All write operations: writing notes, patching notes, updating frontmatter, managing tags, moving/deleting notes
-- **Worktree** — Creating and deleting git worktrees via the opencode-worktree plugin (`worktree_create`, `worktree_delete`). These are workflow and session management operations — spinning up an isolated environment is part of the planning process, not a code modification. The actual code changes happen inside the spawned worktree session.
 
 ### Why This Is Allowed
 
-Plan mode restricts **local file system modifications** (editing code, writing files, git operations). The tools above operate on **external systems or session management** — creating Jira issues, updating Confluence pages, or spawning a new worktree session is part of the planning and project management process itself, not a local code change. These operations are safe, reversible, and essential for effective planning workflows.
+Plan mode restricts **local file system modifications** (editing code, writing files, git operations). The tools above operate on **external systems** — creating Jira issues or updating Confluence pages is part of the planning and project management process itself, not a local code change. These operations are safe, reversible, and essential for effective planning workflows.
 
 ### Still Forbidden in Plan Mode
 
