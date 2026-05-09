@@ -41,15 +41,25 @@ create_pane_layout() {
   local win="$2"
   local dir="$3"
 
-  # Step 1: Split horizontally to create editor pane on right
-  tmux split-window -h -t "$sess:$win" -c "$dir"
-  # Step 2: Split left pane vertically to create top and bottom terminals
-  tmux split-window -v -t "$sess:$win.1" -c "$dir"
+  local pane_count
+  pane_count=$(tmux list-panes -t "$sess:$win" | wc -l)
 
-  # Wait for panes to fully initialize (fix race condition)
-  sleep 0.2
+  if [ "$pane_count" -eq 1 ]; then
+    # Create full 3-pane layout from scratch
+    # Step 1: Split horizontally to create editor pane on right
+    tmux split-window -h -t "$sess:$win" -c "$dir"
+    # Step 2: Split left pane vertically to create top and bottom terminals
+    tmux split-window -v -t "$sess:$win.1" -c "$dir"
+    # Wait for panes to fully initialize (fix race condition)
+    sleep 0.2
+  elif [ "$pane_count" -eq 2 ]; then
+    # Missing vertical split on left — add it
+    tmux split-window -v -t "$sess:$win.1" -c "$dir"
+    sleep 0.2
+  fi
+  # 3+ panes: skip creation, just resize
 
-  # Step 3: Resize panes to golden ratio proportions using percentage-based resize
+  # Resize panes to golden ratio proportions
   # Resize left pane to 38% width (terminals)
   tmux resize-pane -t "$sess:$win.1" -x 38%
   # Resize top terminal to 62% height
