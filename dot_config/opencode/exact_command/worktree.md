@@ -2,6 +2,7 @@
 description: Create or manage a git worktree for isolated development
 agent: general
 subtask: true
+model: anthropic/claude-sonnet-4-6
 ---
 
 Create or manage a git worktree using the opencode-worktree plugin.
