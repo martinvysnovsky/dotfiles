@@ -1,8 +1,5 @@
 ---
 description: Create or manage a git worktree for isolated development
-agent: general
-subtask: true
-model: anthropic/claude-sonnet-4-6
 ---
 
 Create or manage a git worktree using the opencode-worktree plugin.
@@ -11,12 +8,15 @@ Create or manage a git worktree using the opencode-worktree plugin.
 
 ### Determine the branch name
 
-1. **If arguments provided**: use them directly (e.g. `/worktree delete` or `/worktree feature/my-branch main`)
-2. **If no arguments**: look at the conversation context for a Jira ticket key (e.g. `EB-448`, `PROJ-123`)
-   - If found, fetch the Jira issue summary using the Jira MCP tool
+1. **If arguments provided with a full branch name** (e.g. `/worktree feature/my-branch main`): use it directly
+2. **If a Jira ticket key is provided** (e.g. `/worktree EB-448`):
+   - Fetch the issue summary using the Jira MCP tool
    - Build branch name as `<TICKET-KEY>-<slugified-summary>` (lowercase, spaces replaced with dashes, special chars removed)
    - Confirm the branch name with the user before creating
-3. **If no ticket found in context**: ask the user for a branch name
+3. **If no arguments**: look at the conversation context for a Jira ticket key
+   - If found, fetch the summary and build the branch name
+   - Confirm with the user before creating
+4. **If no ticket found anywhere**: ask the user for a branch name
 
 ### Execute
 
