@@ -25,7 +25,8 @@ Create or manage a git worktree using the opencode-worktree plugin.
 
 ### Post-create
 
-After creating a worktree, check if `.opencode/worktree.jsonc` exists in the project. If not, suggest creating one based on the detected project type:
-- **Node.js / pnpm**: copy `.env`, `.env.local`, symlink `node_modules`, run `pnpm install`
-- **Docker**: copy `.env`, run `docker compose up -d` on create / `docker compose down` on delete
-- **Other**: offer a blank config template
+After creating a worktree, check if `.opencode/worktree.jsonc` exists in the project. If not, suggest creating one based on the detected project type. Always include `tmux-dev --panes` as the last `postCreate` hook — it applies the standard 3-pane golden ratio layout to the new worktree terminal:
+
+- **Node.js / pnpm**: copy `.env`, `.env.local`, symlink `node_modules`, run `pnpm install`, then `tmux-dev --panes`
+- **Docker**: copy `.env`, run `docker compose up -d` on create / `docker compose down` on delete, then `tmux-dev --panes`
+- **Other**: offer a blank config template with `postCreate: ["tmux-dev --panes"]`

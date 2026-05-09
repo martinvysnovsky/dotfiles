@@ -82,7 +82,7 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["pnpm install"]
+    "postCreate": ["pnpm install", "tmux-dev --panes"]
   }
 }
 ```
@@ -95,7 +95,7 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
     "copyFiles": [".env"]
   },
   "hooks": {
-    "postCreate": ["docker compose up -d"],
+    "postCreate": ["docker compose up -d", "tmux-dev --panes"],
     "preDelete": ["docker compose down"]
   }
 }
@@ -110,7 +110,7 @@ Create `.opencode/worktree.jsonc` in each project root. Auto-created on first `w
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["pnpm install"]
+    "postCreate": ["pnpm install", "tmux-dev --panes"]
   }
 }
 ```

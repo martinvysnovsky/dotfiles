@@ -9,12 +9,14 @@
 RECREATE=false
 VERBOSE=true  # Verbose by default
 ADD_DIR=""
+PANES_ONLY=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
     --recreate) RECREATE=true; shift ;;
     --quiet) VERBOSE=false; shift ;;
     --add) ADD_DIR="$2"; shift 2 ;;
+    --panes) PANES_ONLY=true; shift ;;
     *) TARGET_DIR="$1"; shift ;;
   esac
 done
@@ -59,6 +61,24 @@ create_pane_layout() {
   # Focus on editor pane (right side, pane 3)
   tmux select-pane -t "$sess:$win.3"
 }
+
+# ---------------------------------------------------------------------------
+# --panes mode: apply 3-pane golden-ratio layout to the current tmux window
+# ---------------------------------------------------------------------------
+if [ "$PANES_ONLY" = true ]; then
+  DIR="${TARGET_DIR:-$PWD}"
+
+  if [ -z "$TMUX" ]; then
+    echo "Error: --panes requires an active tmux session" >&2
+    exit 1
+  fi
+
+  SESS=$(tmux display-message -p '#{session_name}')
+  WIN=$(tmux display-message -p '#{window_index}')
+
+  create_pane_layout "$SESS" "$WIN" "$DIR"
+  exit 0
+fi
 
 # ---------------------------------------------------------------------------
 # --add mode: add a new window for <ADD_DIR> into an existing session
