@@ -53,8 +53,11 @@ create_pane_layout() {
     # Wait for panes to fully initialize (fix race condition)
     sleep 0.2
   elif [ "$pane_count" -eq 2 ]; then
-    # Missing vertical split on left — add it
-    tmux split-window -v -t "$sess:$win.1" -c "$dir"
+    # Missing vertical split on left — add it using pane 1's current path
+    local pane1_dir
+    pane1_dir=$(tmux display-message -t "$sess:$win.1" -p '#{pane_current_path}' 2>/dev/null)
+    pane1_dir="${pane1_dir:-$dir}"
+    tmux split-window -v -t "$sess:$win.1" -c "$pane1_dir"
     sleep 0.2
   fi
   # 3+ panes: skip creation, just resize
@@ -76,15 +79,17 @@ create_pane_layout() {
 # --panes mode: apply 3-pane golden-ratio layout to the current tmux window
 # ---------------------------------------------------------------------------
 if [ "$PANES_ONLY" = true ]; then
-  DIR="${TARGET_DIR:-$PWD}"
+  SESS=$(tmux display-message -p '#{session_name}' 2>/dev/null)
+  WIN=$(tmux display-message -p '#{window_index}' 2>/dev/null)
 
-  if [ -z "$TMUX" ]; then
+  if [ -z "$SESS" ] || [ -z "$WIN" ]; then
     echo "Error: --panes requires an active tmux session" >&2
     exit 1
   fi
 
-  SESS=$(tmux display-message -p '#{session_name}')
-  WIN=$(tmux display-message -p '#{window_index}')
+  # Use explicitly provided dir, else fall back to pane 1's current path
+  DIR="${TARGET_DIR:-$(tmux display-message -t "$SESS:$WIN.1" -p '#{pane_current_path}' 2>/dev/null)}"
+  DIR="${DIR:-$PWD}"
 
   create_pane_layout "$SESS" "$WIN" "$DIR"
   exit 0
