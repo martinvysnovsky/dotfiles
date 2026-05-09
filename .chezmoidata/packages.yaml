@@ -65,3 +65,4 @@ packages:
     - \@nestjs/cli
     - agent-browser
     - openskills
+    - ocx
