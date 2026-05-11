@@ -3,7 +3,7 @@ description: Reply to PR comments and mark them as resolved
 agent: plan
 ---
 
-For each review comment on the current branch's PR: reply with what was done (or why it was skipped), then mark the comment as resolved.
+For each review comment on the current branch's PR: reply with what was done (or why it was skipped).
 
 ## Instructions
 
@@ -22,9 +22,7 @@ For each review comment on the current branch's PR: reply with what was done (or
      - Fixed: `"Fixed — <brief description of what was changed>"`
      - Skipped: `"Not fixed — <brief reason>"`
      - Partial: `"Partially fixed — <what was done and what remains>"`
-   - After replying, mark the comment as resolved using `bitbucket_resolve_comment`
-
-7. **Summary** — Report which comments were replied to and resolved, and which (if any) could not be resolved
+7. **Summary** — Report which comments were replied to. Note: Bitbucket doesn't have a "resolve comment" API — the replies serve as the resolution signal. Thread authors or PR reviewers can mark them as resolved in the UI.
 
 If no PR is found for the current branch, inform the user.
 
