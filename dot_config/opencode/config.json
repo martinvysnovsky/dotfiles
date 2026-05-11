@@ -68,6 +68,7 @@
         "mcp-gateway_sentry_*": true,
         "mcp-gateway_firecrawl_*": true,
         "mcp-gateway_obsidian_*": true,
+        "mcp-gateway_bitbucket_*": true,
         "pencil_*": false
       },
       "permission": {

@@ -16,6 +16,7 @@
 - **Confluence** — All write operations: creating pages, updating pages, adding comments, uploading attachments, managing labels, moving pages, and any other Confluence mutations
 - **Sentry** — All write operations: updating issues, creating projects/teams/DSNs, and any other Sentry mutations
 - **Obsidian** — All write operations: writing notes, patching notes, updating frontmatter, managing tags, moving/deleting notes
+- **Bitbucket** — All operations: browsing repositories, viewing pull requests, reading commits, checking pipelines, creating/approving/declining PRs, adding comments, triggering builds, and any other Bitbucket operations
 
 ### Why This Is Allowed
 
