@@ -15,9 +15,18 @@ Create a Bitbucket pull request for the current branch.
    - Extract Jira ticket key from branch name if present (e.g., `EB-448-some-description` → `EB-448`)
    - If Jira key found, fetch the ticket summary using `jira_get_issue` for context
    - Run `git log origin/master..HEAD --oneline` to see all commits
-   - Create a concise PR title following pattern: `feat/fix/chore: <description>`
-   - Create a description with a summary section listing key changes as bullet points
-6. **Create the PR** — Use `bitbucket_create_pull_request` with the built title, description, source and destination branches
+   - Create a concise PR title following pattern: `<TICKET-KEY>: <type>: <description>`
+   - Create the description in **proper Markdown with real newlines** (not escaped `\n`). Use a multi-line string to preserve formatting. Structure:
+     ```
+     ## Summary
+     **Jira**: [EB-448](https://ketler.atlassian.net/browse/EB-448) — <ticket summary>
+
+     ## Changes
+     - <change 1>
+     - <change 2>
+     - <change 3>
+     ```
+6. **Create the PR** — Use `bitbucket_create_pull_request` with the built title, description, source and destination branches. Set `close_source_branch: true` to auto-delete the branch after merge
 7. **Return the PR URL** to the user
 
 Additional context from user: $ARGUMENTS
