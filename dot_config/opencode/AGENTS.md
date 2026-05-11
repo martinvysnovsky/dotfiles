@@ -25,7 +25,7 @@ Plan mode restricts **local file system modifications** (editing code, writing f
 ### Still Forbidden in Plan Mode
 
 - Local file edits (code, configs, scripts)
-- Git operations (commits, branches, pushes)
+- Git operations (commits, branches, rebases) — exception: `git push` is allowed since it only sends to a remote
 - Shell commands that modify the local file system
 
 ## Personal Workflow Preferences
