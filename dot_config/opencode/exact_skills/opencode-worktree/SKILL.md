@@ -84,7 +84,7 @@ Create `.opencode/worktree.jsonc` in each project root **before** calling `workt
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["npm install", "npm run prepare --if-present", "git push -u origin HEAD"]
+    "postCreate": ["npm install", "npm run prepare --if-present", "git push --set-upstream origin HEAD"]
   }
 }
 ```
@@ -97,7 +97,7 @@ Create `.opencode/worktree.jsonc` in each project root **before** calling `workt
     "copyFiles": [".env"]
   },
   "hooks": {
-    "postCreate": ["docker compose up -d", "git push -u origin HEAD"],
+    "postCreate": ["docker compose up -d", "git push --set-upstream origin HEAD"],
     "preDelete": ["docker compose down"]
   }
 }
@@ -112,7 +112,7 @@ Create `.opencode/worktree.jsonc` in each project root **before** calling `workt
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["npm install", "npm run prepare --if-present", "git push -u origin HEAD"]
+    "postCreate": ["npm install", "npm run prepare --if-present", "git push --set-upstream origin HEAD"]
   }
 }
 ```
