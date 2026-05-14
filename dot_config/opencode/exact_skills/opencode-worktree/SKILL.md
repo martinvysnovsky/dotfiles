@@ -84,7 +84,7 @@ Create `.opencode/worktree.jsonc` in each project root **before** calling `workt
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["npm install", "git push -u origin HEAD"]
+    "postCreate": ["npm install", "npm run prepare --if-present", "git push -u origin HEAD"]
   }
 }
 ```
@@ -112,7 +112,7 @@ Create `.opencode/worktree.jsonc` in each project root **before** calling `workt
     "symlinkDirs": ["node_modules"]
   },
   "hooks": {
-    "postCreate": ["npm install", "git push -u origin HEAD"]
+    "postCreate": ["npm install", "npm run prepare --if-present", "git push -u origin HEAD"]
   }
 }
 ```

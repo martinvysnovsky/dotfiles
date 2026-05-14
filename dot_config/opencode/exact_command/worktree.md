@@ -25,7 +25,7 @@ Create or manage a git worktree using the opencode-worktree plugin.
 
 - **Create** (in this exact order):
   1. **Ensure `.opencode/worktree.jsonc` exists** — if not, create it based on the detected project type. Use `sync.copyFiles` for env files and `sync.symlinkDirs` for large directories — do NOT put file copying in `postCreate` hooks:
-     - **Node.js / npm**: `copyFiles: [".env", ".env.local"]`, `symlinkDirs: ["node_modules"]`, `postCreate: ["npm install", "git push -u origin HEAD"]`
+     - **Node.js / npm**: `copyFiles: [".env", ".env.local"]`, `symlinkDirs: ["node_modules"]`, `postCreate: ["npm install", "npm run prepare --if-present", "git push -u origin HEAD"]`
      - **Docker**: `copyFiles: [".env"]`, `postCreate: ["docker compose up -d", "git push -u origin HEAD"]`, `preDelete: ["docker compose down"]`
      - **Other**: blank config with `postCreate: ["git push -u origin HEAD"]`
   2. **Call `worktree_create`** with the branch name and optional base branch (default: current branch)
