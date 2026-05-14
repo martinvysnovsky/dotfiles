@@ -28,7 +28,7 @@ Fio banka CSV export with semicolon delimiter, UTF-8 with BOM, columns:
 4. **Remove company payments**: Remove rows where Správa pre príjemcu contains `Ketler` or `Kelter` (case-insensitive) — both spelling variants exist in the data. This covers all payroll (vyplata), insurance (odvody), tax advances (dan-preddavok), DPH payments, and invoice payments (uhrada faktury)
 5. **Categorize** remaining rows into 3 sections:
    - **Transakčná daň**: rows where Typ contains `Transakčná daň` — **only from the specified month** (not until today)
-   - **Pohonné hmoty (Shell)**: rows where Správa pre príjemcu contains `SHELL` (case-insensitive) — **only from the specified month** (not until today)
+   - **Pohonné hmoty**: rows where Správa pre príjemcu contains `SHELL` or `ORLEN` (case-insensitive) — **only from the specified month** (not until today)
    - **Regular costs**: everything else — from the specified month **until today**
 
 ## Output format
@@ -58,6 +58,7 @@ Extract vendor from the `Správa pre príjemcu` field (usually starts with `Nák
 | `Google CLOUD` | Google Cloud |
 | `MUI.COM` | Mui Licence |
 | `SHELL` | Shell |
+| `ORLEN` | Orlen |
 | `MOJEO2` or `O2` | O2 |
 | `DIRECT DEBIT` | O2 |
 | `BITBUCKET` | Bitbucket |
@@ -96,7 +97,7 @@ Separate the 3 sections with a label row followed by the header row:
 ...
 "";"";"Spolu";"9,43"
 
-"POHONNÉ HMOTY (SHELL)"
+"POHONNÉ HMOTY"
 "Dátum";"Mesiac";"Popis";"Suma"
 "18.1.2026";"2026/1";"Shell január";"99,77"
 ...
@@ -108,5 +109,5 @@ Separate the 3 sections with a label row followed by the header row:
 Print a summary:
 - Number of regular costs, their total
 - Number of transakčná daň entries, their total
-- Number of Shell entries, their total
+- Number of fuel entries (Shell + Orlen), their total
 - Grand total of all costs
