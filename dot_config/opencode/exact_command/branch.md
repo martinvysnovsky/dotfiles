@@ -11,6 +11,6 @@ Create a new git branch from a Jira ticket and push it to origin.
 2. **Fetch issue summary** — Use `jira_get_issue` to get the ticket summary
 3. **Build branch name** — Format: `<TICKET-KEY>-<slugified-summary>` (lowercase, spaces → dashes, remove special chars, max ~60 chars total)
 4. **Confirm with user** — Show the proposed branch name before creating
-5. **Create and push** — Run `git checkout -b <branch-name>` then `git push -u origin HEAD`
+5. **Create and push** — Run `git checkout -b <branch-name>` then `git push --set-upstream origin HEAD`
 
 Additional context from user: $ARGUMENTS
