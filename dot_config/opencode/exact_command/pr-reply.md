@@ -5,6 +5,10 @@ agent: plan
 
 For each review comment on the current branch's PR: reply with what was done (or why it was skipped).
 
+## Rules
+
+**CRITICAL**: ALWAYS reply within the original comment thread by setting `parent_comment_id` to the original comment's `id`. NEVER create new top-level PR comments. Every single reply MUST be threaded under its original comment.
+
 ## Instructions
 
 1. **Get current branch** — Run `git branch --show-current`
@@ -18,7 +22,7 @@ For each review comment on the current branch's PR: reply with what was done (or
      - ✅ **Fixed** — issue was addressed in the code
      - ⏭️ **Skipped** — issue was intentionally not fixed (with a reason)
      - 🔄 **Partially fixed** — issue was partially addressed
-   - Reply using `bitbucket_add_comment` with `parent_comment_id` set to the comment's `id`:
+   - **ALWAYS** reply using `bitbucket_add_comment` with `parent_comment_id` set to the original comment's `id` — this keeps the reply in the same thread. **NEVER** omit `parent_comment_id` or create a new top-level comment:
      - Fixed: `"Fixed — <brief description of what was changed>"`
      - Skipped: `"Not fixed — <brief reason>"`
      - Partial: `"Partially fixed — <what was done and what remains>"`
