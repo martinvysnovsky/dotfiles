@@ -55,6 +55,11 @@ You are a specialized agent for writing and maintaining both unit and end-to-end
 
 ## E2E Testing Strategy
 
+### E2E Testing Philosophy
+- **Wiring verification, not edge cases**: E2E tests verify that the full stack is wired correctly — endpoints resolve, services connect to real databases, auth guards work, and data flows end-to-end. They are NOT for testing every business logic edge case (that's what unit tests are for).
+- **Happy path + critical failures only**: Test the main success path and a few critical failure scenarios (e.g., unauthenticated request returns 401). Leave detailed validation, boundary conditions, and error permutations to unit tests.
+- **Minimal but meaningful**: Each E2E test should answer: "Is this feature properly connected and working as a whole?" — not "Does every input permutation produce the correct output?"
+
 ### API Integration Testing
 - **Full integration testing**: Test complete request-response cycles with real dependencies
 - **Database integration**: Use real databases (containerized) for authentic data persistence
@@ -234,6 +239,9 @@ describe('Cars E2E with MySQL', () => {
 ```typescript
 import * as request from 'supertest';
 
+// E2E tests verify the stack is wired correctly — happy paths and critical auth/error
+// scenarios only. Detailed validation and edge cases belong in unit tests.
+
 describe('GraphQL Cars API', () => {
   const graphqlEndpoint = '/graphql';
 
@@ -267,35 +275,10 @@ describe('GraphQL Cars API', () => {
         price: testCars[0].price,
       });
     });
-
-    it('filters cars by manufacturer', async () => {
-      await carsFactory.create({ manufacturer: 'BMW' });
-      await carsFactory.create({ manufacturer: 'Audi' });
-
-      const query = `
-        query GetCarsByManufacturer($manufacturer: String!) {
-          cars(manufacturer: $manufacturer) {
-            id
-            manufacturer
-          }
-        }
-      `;
-
-      const response = await request(app.getHttpServer())
-        .post(graphqlEndpoint)
-        .send({
-          query,
-          variables: { manufacturer: 'BMW' },
-        })
-        .expect(200);
-
-      expect(response.body.data.cars).toHaveLength(1);
-      expect(response.body.data.cars[0].manufacturer).toBe('BMW');
-    });
   });
 
   describe('createCar mutation', () => {
-    it('creates new car', async () => {
+    it('creates new car and persists to database', async () => {
       const mutation = `
         mutation CreateCar($input: CreateCarInput!) {
           createCar(input: $input) {
@@ -328,39 +311,30 @@ describe('GraphQL Cars API', () => {
       expect(response.body.data.createCar).toMatchObject(carData);
       expect(response.body.data.createCar.id).toBeDefined();
 
-      // Verify car was actually saved to database
+      // Verify car was actually saved to database — this is the key wiring check
       const savedCar = await carsRepository.findOne({
         where: { id: response.body.data.createCar.id },
       });
       expect(savedCar).toBeDefined();
     });
 
-    it('validates required fields', async () => {
+    it('rejects unauthenticated requests', async () => {
+      // Critical auth wiring check — unit tests cover detailed validation rules
       const mutation = `
         mutation CreateCar($input: CreateCarInput!) {
           createCar(input: $input) {
             id
-            title
           }
         }
       `;
 
-      const invalidCarData = {
-        title: '', // Empty title should fail validation
-        price: -1000, // Negative price should fail
-      };
-
       const response = await request(app.getHttpServer())
         .post(graphqlEndpoint)
-        .set('Authorization', `Bearer ${validAuthToken}`)
-        .send({
-          mutation,
-          variables: { input: invalidCarData },
-        })
+        .send({ mutation, variables: { input: { title: 'BMW X5', price: 45000 } } })
         .expect(200);
 
       expect(response.body.errors).toBeDefined();
-      expect(response.body.errors[0].message).toContain('validation');
+      expect(response.body.errors[0].message).toContain('Unauthorized');
     });
   });
 });
@@ -368,35 +342,23 @@ describe('GraphQL Cars API', () => {
 
 ### REST API E2E Testing
 ```typescript
+// E2E tests verify the stack is wired correctly — happy paths and critical auth/error
+// scenarios only. Detailed filtering logic and edge cases belong in unit tests.
+
 describe('REST Cars API', () => {
   describe('GET /cars', () => {
-    it('returns paginated list of cars', async () => {
-      await carsFactory.createMany(15);
+    it('returns list of cars', async () => {
+      await carsFactory.createMany(3);
 
       const response = await request(app.getHttpServer())
-        .get('/cars?page=1&limit=10')
+        .get('/cars')
         .expect(200);
 
-      expect(response.body.data).toHaveLength(10);
-      expect(response.body.meta).toMatchObject({
-        page: 1,
-        limit: 10,
-        total: 15,
-        totalPages: 2,
+      expect(response.body.data).toHaveLength(3);
+      expect(response.body.data[0]).toMatchObject({
+        id: expect.any(String),
+        title: expect.any(String),
       });
-    });
-
-    it('filters cars by query parameters', async () => {
-      await carsFactory.create({ manufacturer: 'BMW', year: 2020 });
-      await carsFactory.create({ manufacturer: 'Audi', year: 2021 });
-
-      const response = await request(app.getHttpServer())
-        .get('/cars?manufacturer=BMW&year=2020')
-        .expect(200);
-
-      expect(response.body.data).toHaveLength(1);
-      expect(response.body.data[0].manufacturer).toBe('BMW');
-      expect(response.body.data[0].year).toBe(2020);
     });
   });
 
@@ -420,14 +382,10 @@ describe('REST Cars API', () => {
     });
 
     it('rejects unauthenticated requests', async () => {
-      const carData = {
-        title: 'BMW X5',
-        price: 45000,
-      };
-
+      // Critical auth wiring check — verify the guard is actually connected
       await request(app.getHttpServer())
         .post('/cars')
-        .send(carData)
+        .send({ title: 'BMW X5', price: 45000 })
         .expect(401);
     });
   });
@@ -645,66 +603,16 @@ export default config;
 }
 ```
 
-## Error Handling and Edge Cases
-
-### Network Failures
-```typescript
-describe('External API Integration', () => {
-  it('handles network timeouts gracefully', async () => {
-    // Mock external service timeout
-    jest.spyOn(httpService, 'get').mockImplementation(() => {
-      throw new Error('ECONNREFUSED');
-    });
-
-    const response = await request(app.getHttpServer())
-      .get('/cars/sync')
-      .expect(503);
-
-    expect(response.body.message).toContain('Service temporarily unavailable');
-  });
-});
-```
-
-### Database Connection Failures
-```typescript
-describe('Database Failures', () => {
-  it('handles database connection loss gracefully', async () => {
-    // Simulate database connection loss
-    await dataSource.destroy();
-
-    const query = `
-      query GetCars {
-        cars {
-          id
-          title
-        }
-      }
-    `;
-
-    const response = await request(app.getHttpServer())
-      .post('/graphql')
-      .send({ query })
-      .expect(200);
-
-    expect(response.body.errors).toBeDefined();
-    expect(response.body.errors[0].message).toContain('Database connection');
-
-    // Restore connection for cleanup
-    await dataSource.initialize();
-  });
-});
-```
-
 ## Best Practices
 
 ### ✅ Do's
-- **Unit Tests**: Mock all external dependencies, test business logic, use descriptive test names
-- **E2E Tests**: Use real databases with Testcontainers, test complete request-response cycles, verify data persistence
-- **Both**: Test edge cases and error conditions, keep tests fast and isolated, use factories for test data
+- **Unit Tests**: Mock all external dependencies, test business logic, use descriptive test names, cover edge cases and error permutations here
+- **E2E Tests**: Use real databases with Testcontainers, test happy paths and critical auth/error scenarios, verify data persistence and layer wiring
+- **Both**: Keep tests fast and isolated, use factories for test data, write clear failure messages
 
 ### ❌ Don'ts
 - **Unit Tests**: Don't test private methods directly, don't use real databases, don't test implementation details
-- **E2E Tests**: Don't use mocked databases, don't test every possible combination, don't ignore test cleanup
+- **E2E Tests**: Don't test every validation rule or edge case (unit tests own that), don't use mocked databases, don't test every input permutation, don't ignore test cleanup
 - **Both**: Don't make tests dependent on each other, don't ignore failing tests, don't test third-party library functionality
 
 ## Success Criteria
@@ -718,4 +626,4 @@ Backend tests should achieve:
 5. **Full integration coverage**: Critical API workflows tested end-to-end
 6. **Clear feedback**: Failures clearly indicate the problem
 
-Remember: Unit tests provide fast feedback on business logic, while E2E tests ensure all components work together correctly. Use both strategically to build confidence in your API's reliability and correctness.
+Remember: Unit tests provide fast feedback on business logic and own edge cases/validation — E2E tests verify the full stack is wired correctly via happy paths and critical auth scenarios. Keep E2E tests lean; if you're tempted to test an edge case in E2E, write a unit test instead.
