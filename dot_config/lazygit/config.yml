@@ -16,3 +16,8 @@ customCommands:
     loadingText: "Coppied to clipboard"
     output: "none"
     description: "Copy worktree path to clipboard"
+  - key: "<c-v>"
+    command: "wl-paste | git apply"
+    context: "files"
+    loadingText: "Applying patch from clipboard..."
+    description: "Apply patch from clipboard"
