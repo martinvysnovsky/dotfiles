@@ -26,8 +26,12 @@ Plan mode restricts **local file system modifications** (editing code, writing f
 ### Still Forbidden in Plan Mode
 
 - Local file edits (code, configs, scripts)
-- Git operations (commits, branches, rebases) — exceptions: `git fetch` is allowed since it only updates remote-tracking refs without touching the working tree or local branches; `git push` (including `git push --force-with-lease`) is allowed since it only sends to a remote; `git rebase` is allowed as part of PR preparation workflows; and the worktree tools (`worktree_create`, `worktree_delete`, `/worktree`) are allowed as noted in the exceptions above
+- Git operations (commits, branches, rebases, fetch) — exception: `git push` is allowed since it only sends to a remote; and the worktree tools (`worktree_create`, `worktree_delete`, `/worktree`) are allowed as noted in the exceptions above
 - Shell commands that modify the local file system
+
+### PR Creation Workflow
+
+The `/pr-create` command runs in **build mode** (not plan mode). It performs local git operations (`git fetch`, `git rebase`, `git push --force-with-lease`) and then creates the PR via Bitbucket MCP. Do not invoke it from plan mode. To *plan* a PR (review commits, draft title/description), stay in plan mode using read-only Bitbucket queries; switch to build mode to execute.
 
 ## Personal Workflow Preferences
 
