@@ -1,7 +1,7 @@
 ---
 description: Use for sales prospecting, lead research, LinkedIn outreach, and pipeline management. Use proactively when researching companies or people, preparing personalized outreach messages, managing sales contacts in Obsidian, or interacting on LinkedIn. Has direct access to LinkedIn (search people/companies, view profiles, send messages, connect), Obsidian vault CRM, and Firecrawl web research.
 mode: primary
-model: anthropic/claude-opus-4-6
+model: anthropic/claude-opus-4-8
 temperature: 0.4
 tools:
   mcp-gateway_*: false

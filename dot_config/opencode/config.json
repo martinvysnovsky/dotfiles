@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "anthropic/claude-opus-4-6",
+  "model": "anthropic/claude-opus-4-8",
   "share": "disabled",
   "autoupdate": true,
   "plugin": ["opencode-gemini-auth@latest", "opencode-claude-auth@latest"],
@@ -21,7 +21,7 @@
       "description": "Full development work with all tools enabled",
       "mode": "primary",
       "enable1mContext": true,
-      "model": "anthropic/claude-opus-4-6",
+      "model": "anthropic/claude-opus-4-8",
       "prompt": "You are Claude Code, Anthropic's official CLI for Claude.",
       "tools": {
         "*": false,
@@ -45,7 +45,7 @@
     "plan": {
       "description": "Analysis and planning without making changes",
       "mode": "primary",
-      "model": "anthropic/claude-opus-4-6",
+      "model": "anthropic/claude-opus-4-8",
       "prompt": "You are Claude Code, Anthropic's official CLI for Claude.",
       "tools": {
         "*": false,

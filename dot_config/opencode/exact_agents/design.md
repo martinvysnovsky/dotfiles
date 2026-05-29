@@ -1,7 +1,7 @@
 ---
 description: Design specialist using Pencil MCP for creating, modifying, and managing .pen design files, design systems, and implementing design-to-code with React and Material UI v7. Use when working with .pen files, design systems, or translating designs into MUI-based React components.
 mode: primary
-model: anthropic/claude-opus-4-6
+model: anthropic/claude-opus-4-8
 temperature: 0.3
 color: "#e879f9"
 tools:
