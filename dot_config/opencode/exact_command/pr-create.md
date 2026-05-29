@@ -1,6 +1,6 @@
 ---
 description: Create a Bitbucket PR for the current branch
-agent: plan
+agent: build
 ---
 
 Create a Bitbucket pull request for the current branch.
