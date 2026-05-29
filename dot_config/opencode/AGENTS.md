@@ -26,7 +26,7 @@ Plan mode restricts **local file system modifications** (editing code, writing f
 ### Still Forbidden in Plan Mode
 
 - Local file edits (code, configs, scripts)
-- Git operations (commits, branches, rebases) — exceptions: `git push` is allowed since it only sends to a remote, and the worktree tools (`worktree_create`, `worktree_delete`, `/worktree`) are allowed as noted in the exceptions above
+- Git operations (commits, branches, rebases) — exceptions: `git fetch` is allowed since it only updates remote-tracking refs without touching the working tree or local branches; `git push` (including `git push --force-with-lease`) is allowed since it only sends to a remote; `git rebase` is allowed as part of PR preparation workflows; and the worktree tools (`worktree_create`, `worktree_delete`, `/worktree`) are allowed as noted in the exceptions above
 - Shell commands that modify the local file system
 
 ## Personal Workflow Preferences
