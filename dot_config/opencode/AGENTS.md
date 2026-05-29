@@ -17,6 +17,7 @@
 - **Sentry** — All write operations: updating issues, creating projects/teams/DSNs, and any other Sentry mutations
 - **Obsidian** — All write operations: writing notes, patching notes, updating frontmatter, managing tags, moving/deleting notes
 - **Bitbucket** — All operations: browsing repositories, viewing pull requests, reading commits, checking pipelines, creating/approving/declining PRs, adding comments, triggering builds, and any other Bitbucket operations
+- **Worktree tools** — `worktree_create`, `worktree_delete`, and the `/worktree` command are explicitly allowed in plan mode. Although they touch the local filesystem and run git/npm, worktree creation is an **isolated, additive, non-destructive setup operation**: it prepares a separate working directory and branch without modifying the current branch, tracked files, or working tree. It is part of the planning/setup workflow, not a code change. **This exception applies ONLY to the named worktree tools** — no other local git/branch operations are permitted in plan mode.
 
 ### Why This Is Allowed
 
@@ -25,7 +26,7 @@ Plan mode restricts **local file system modifications** (editing code, writing f
 ### Still Forbidden in Plan Mode
 
 - Local file edits (code, configs, scripts)
-- Git operations (commits, branches, rebases) — exception: `git push` is allowed since it only sends to a remote
+- Git operations (commits, branches, rebases) — exceptions: `git push` is allowed since it only sends to a remote, and the worktree tools (`worktree_create`, `worktree_delete`, `/worktree`) are allowed as noted in the exceptions above
 - Shell commands that modify the local file system
 
 ## Personal Workflow Preferences
