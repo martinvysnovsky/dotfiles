@@ -37,6 +37,8 @@
         "todoread": true,
         "webfetch": true,
         "mcp-gateway_*": false,
+        "mcp-gateway_jira_*": true,
+        "mcp-gateway_bitbucket_*": true,
         "pencil_*": false,
         "mui_*": true,
         "worktree_*": true
