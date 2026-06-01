@@ -7,6 +7,7 @@ packages:
     - pass
     - pass-otp
     - fzf
+    - jq
     - git
     - go # for opencode
     - kitty
