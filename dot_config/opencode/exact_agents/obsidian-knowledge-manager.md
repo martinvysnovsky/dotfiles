@@ -6,6 +6,9 @@ temperature: 0.2
 tools:
   mcp-gateway_*: false
   mcp-gateway_obsidian_*: true
+permission:
+  skill:
+    "*": deny
 ---
 
 # Obsidian Knowledge Manager

@@ -5,6 +5,12 @@ tools:
   mcp-gateway_*: false
   mcp-gateway_search: true
   mcp-gateway_firecrawl_search: true
+permission:
+  skill:
+    "*": deny
+    graphql: allow
+    nestjs: allow
+    react: allow
 ---
 
 You are a GraphQL specialist focused on schema design, queries, and client-side integration.

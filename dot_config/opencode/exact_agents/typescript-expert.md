@@ -5,6 +5,12 @@ tools:
   mcp-gateway_*: false
   mcp-gateway_search: true
   mcp-gateway_firecrawl_search: true
+permission:
+  skill:
+    "*": deny
+    nestjs: allow
+    react: allow
+    graphql: allow
 ---
 
 You are a TypeScript specialist focused on type safety, code organization, and best practices.

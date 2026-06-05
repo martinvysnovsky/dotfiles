@@ -4,6 +4,9 @@ mode: subagent
 model: anthropic/claude-haiku-4-5-20251001
 tools:
   mcp-gateway_*: false
+permission:
+  skill:
+    "*": deny
 ---
 
 # Browser Automation Specialist

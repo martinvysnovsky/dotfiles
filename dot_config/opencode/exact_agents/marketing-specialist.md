@@ -30,6 +30,11 @@ permission:
   write: allow
   edit: allow
   bash: deny
+  skill:
+    "*": deny
+    marketing: allow
+    google-tag-manager: allow
+    lighthouse: allow
   external_directory:
     ~/obsidian/**: allow
 ---

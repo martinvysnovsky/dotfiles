@@ -15,6 +15,8 @@ permission:
     "grep *": allow
   task:
     "git-conflict-resolver": allow
+  skill:
+    "*": deny
 ---
 
 # Git Workflow Specialist

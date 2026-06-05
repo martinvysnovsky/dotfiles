@@ -5,6 +5,13 @@ tools:
   mcp-gateway_*: false
   mcp-gateway_search: true
   mcp-gateway_firecrawl_search: true
+permission:
+  skill:
+    "*": deny
+    testing-nestjs: allow
+    nestjs: allow
+    mongoose: allow
+    graphql: allow
 ---
 
 # Backend Testing Agent

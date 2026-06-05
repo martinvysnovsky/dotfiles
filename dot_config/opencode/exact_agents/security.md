@@ -8,6 +8,9 @@ tools:
   mcp-gateway_sentry_*: true
 permission:
   bash: allow
+  skill:
+    "*": deny
+    snyk: allow
 ---
 
 # Security Agent

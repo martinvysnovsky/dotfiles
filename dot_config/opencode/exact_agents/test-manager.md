@@ -6,6 +6,11 @@ temperature: 0.2
 tools:
   "*": true
   mcp-gateway_*: false
+permission:
+  skill:
+    "*": deny
+    testing-nestjs: allow
+    testing-react: allow
 ---
 
 # Test Manager Agent

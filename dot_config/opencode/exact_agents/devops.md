@@ -11,6 +11,10 @@ tools:
   mcp-gateway_get_latest_provider_version: true
   mcp-gateway_get_policy_details: true
   mcp-gateway_search_policies: true
+permission:
+  skill:
+    "*": deny
+    bitbucket-pipelines: allow
 ---
 
 # DevOps Agent

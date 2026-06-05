@@ -6,6 +6,13 @@ tools:
   mcp-gateway_search: true
   mcp-gateway_firecrawl_search: true
   mui_*: true
+permission:
+  skill:
+    "*": deny
+    react: allow
+    react-doctor: allow
+    mui: allow
+    graphql: allow
 ---
 
 You are a React specialist focused on component architecture and best practices.

@@ -5,6 +5,13 @@ tools:
   mcp-gateway_*: false
   mcp-gateway_search: true
   mcp-gateway_firecrawl_search: true
+permission:
+  skill:
+    "*": deny
+    testing-react: allow
+    react: allow
+    react-doctor: allow
+    mui: allow
 ---
 
 # Frontend Testing Agent

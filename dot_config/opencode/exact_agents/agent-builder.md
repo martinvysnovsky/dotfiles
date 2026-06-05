@@ -12,6 +12,8 @@ tools:
 permission:
   bash: deny
   edit: deny
+  skill:
+    "*": deny
 ---
 
 # Agent Builder

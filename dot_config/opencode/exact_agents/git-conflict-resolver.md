@@ -10,6 +10,8 @@ permission:
   bash:
     "*": ask
     "git *": allow
+  skill:
+    "*": deny
 ---
 
 # Git Conflict Resolution Specialist

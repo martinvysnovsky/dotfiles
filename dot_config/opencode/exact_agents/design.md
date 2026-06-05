@@ -21,6 +21,11 @@ tools:
   mui_*: true
   mcp-gateway_*: false
   mcp-gateway_obsidian_*: true
+permission:
+  skill:
+    "*": deny
+    mui: allow
+    react: allow
 ---
 
 You are a design specialist working with Pencil — a vector design tool that uses `.pen` files and integrates with AI assistants via MCP (Model Context Protocol).

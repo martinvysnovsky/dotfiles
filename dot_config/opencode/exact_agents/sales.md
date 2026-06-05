@@ -47,6 +47,8 @@ permission:
   write: allow
   edit: allow
   bash: deny
+  skill:
+    "*": deny
   external_directory:
     ~/obsidian/**: allow
 ---

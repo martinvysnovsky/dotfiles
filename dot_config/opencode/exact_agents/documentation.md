@@ -4,6 +4,9 @@ mode: subagent
 tools:
   mcp-gateway_*: false
   mcp-gateway_confluence_*: true
+permission:
+  skill:
+    "*": deny
 ---
 
 # Documentation Agent
