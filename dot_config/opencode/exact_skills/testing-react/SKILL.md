@@ -1,3 +1,8 @@
+---
+name: testing-react
+description: React component testing with Vitest and Testing Library. Use when (1) writing unit tests for React components, (2) configuring Vitest for tests and CI, (3) simulating user interactions with user-event, (4) mocking GraphQL with Apollo MockedProvider, (5) testing forms, loading/error states, and hooks, (6) querying the DOM with Testing Library.
+---
+
 # React Testing Skill
 
 Testing React components with Vitest and Testing Library.

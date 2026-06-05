@@ -1,3 +1,8 @@
+---
+name: graphql
+description: GraphQL-specific patterns covering schema design, code generation, and DataLoaders. Use when (1) designing schema-first GraphQL with .graphql files, (2) configuring GraphQL Code Generator, (3) reusing generated enums instead of duplicating them, (4) preventing N+1 queries with request-scoped DataLoaders, (5) defining types, directives, and extend patterns.
+---
+
 # GraphQL Skill
 
 ## Overview
