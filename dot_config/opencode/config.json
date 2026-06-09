@@ -41,9 +41,15 @@
         "mcp-gateway_*": false,
         "mcp-gateway_jira_*": true,
         "mcp-gateway_bitbucket_*": true,
+        "mcp-gateway_obsidian_*": true,
         "pencil_*": false,
         "mui_*": true,
         "worktree_*": true
+      },
+      "permission": {
+        "external_directory": {
+          "~/obsidian/**": "allow"
+        }
       }
     },
     "plan": {
