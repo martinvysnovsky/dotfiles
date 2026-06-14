@@ -67,3 +67,5 @@ packages:
     - agent-browser
     - openskills
     - ocx
+  pipx:
+    - graphifyy

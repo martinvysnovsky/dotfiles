@@ -6,3 +6,6 @@ yay --save --answerclean None --answerdiff None
 yay -S --needed --noconfirm {{ .packages.yay | join " " }}
 
 npm install -g {{ .packages.npm | join " " }}
+{{ range .packages.pipx }}
+pipx install --force {{ . }}
+{{- end }}

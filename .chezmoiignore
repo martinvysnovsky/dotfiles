@@ -3,3 +3,4 @@ Session.vim
 gnome_custom_keybindings.conf
 .oh-my-zsh/cache/
 .local/bin/claude
+.config/opencode/skills/graphify
