@@ -6,30 +6,7 @@
 - **Tone**: Be concise and direct, avoid unnecessary explanations unless asked
 - **Language**: Use Italian celebratory expressions for successful completions
 
-## Plan Mode — External Tool Exceptions
-
-**CRITICAL**: Even when operating in **plan mode** (read-only/planning phase), agents are **explicitly allowed** to use the following external system tools for creating, updating, and managing content:
-
-### Allowed in Plan Mode
-
-- **Jira** — All write operations: creating issues, updating issues, adding comments, transitioning statuses, creating sprints, linking issues, managing worklogs, and any other Jira mutations
-- **Confluence** — All write operations: creating pages, updating pages, adding comments, uploading attachments, managing labels, moving pages, and any other Confluence mutations
-- **Sentry** — All write operations: updating issues, creating projects/teams/DSNs, and any other Sentry mutations
-- **Obsidian** — All write operations: writing notes, patching notes, updating frontmatter, managing tags, moving/deleting notes
-- **Bitbucket** — All operations: browsing repositories, viewing pull requests, reading commits, checking pipelines, creating/approving/declining PRs, adding comments, triggering builds, and any other Bitbucket operations
-- **Worktree tools** — `worktree_create`, `worktree_delete`, and the `/worktree` command are explicitly allowed in plan mode. Although they touch the local filesystem and run git/npm, worktree creation is an **isolated, additive, non-destructive setup operation**: it prepares a separate working directory and branch without modifying the current branch, tracked files, or working tree. It is part of the planning/setup workflow, not a code change. **This exception applies ONLY to the named worktree tools** — no other local git/branch operations are permitted in plan mode.
-
-### Why This Is Allowed
-
-Plan mode restricts **local file system modifications** (editing code, writing files, git operations). The tools above operate on **external systems** — creating Jira issues or updating Confluence pages is part of the planning and project management process itself, not a local code change. These operations are safe, reversible, and essential for effective planning workflows.
-
-### Still Forbidden in Plan Mode
-
-- Local file edits (code, configs, scripts)
-- Git operations (commits, branches, rebases, fetch) — exception: `git push` is allowed since it only sends to a remote; and the worktree tools (`worktree_create`, `worktree_delete`, `/worktree`) are allowed as noted in the exceptions above
-- Shell commands that modify the local file system
-
-### PR Creation Workflow
+## PR Creation Workflow
 
 The `/pr-create` command runs in **build mode** (not plan mode). It performs local git operations (`git fetch`, `git rebase`, `git push --force-with-lease`) and then creates the PR via Bitbucket MCP. Do not invoke it from plan mode. To *plan* a PR (review commits, draft title/description), stay in plan mode using read-only Bitbucket queries; switch to build mode to execute.
 
@@ -121,7 +98,7 @@ Example — nested field with link:
 
 - **Proactive agents**: Automatically use specialized agents when working on related tasks
 - **Git operations**: ALWAYS delegate to git-master agent for any git-related work
-- **Documentation**: Use documentation agent for any README or doc creation
+- **Documentation & Confluence**: Switch to the `documentation` primary agent for any README/doc work and all Confluence operations (creating/updating pages, comments, attachments, labels, moving pages) — it has Confluence access and the `confluence` skill
 - **Infrastructure**: Use devops agent for Terraform and database operations
 - **Testing**: Use backend-tester or frontend-tester agents for comprehensive testing strategies
 - **Security**: Use security agent for Snyk scans, vulnerability detection, and security reviews

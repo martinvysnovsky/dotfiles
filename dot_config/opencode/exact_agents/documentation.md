@@ -1,12 +1,28 @@
 ---
-description: Use when writing README files, creating API documentation, writing technical guides, organizing knowledge bases, documenting processes, managing file structures, or implementing documentation workflows and knowledge preservation strategies. Use proactively after creating features or when documentation needs arise.
-mode: subagent
+description: Primary agent for documentation and Confluence work — writing README files, API docs, technical guides, organizing knowledge bases, documenting processes, and all Confluence page operations (creating/updating pages, comments, attachments, labels, moving pages). Switch to this agent for any documentation or Confluence task.
+mode: primary
+model: anthropic/claude-opus-4-8
 tools:
-  mcp-gateway_*: false
+  "*": false
+  write: true
+  edit: true
+  read: true
+  grep: true
+  glob: true
+  list: true
+  bash: true
+  patch: true
+  todowrite: true
+  todoread: true
+  webfetch: true
+  task: true
+  skill: true
   mcp-gateway_confluence_*: true
+  mcp-gateway_firecrawl_*: true
 permission:
   skill:
     "*": deny
+    confluence: allow
 ---
 
 # Documentation Agent
