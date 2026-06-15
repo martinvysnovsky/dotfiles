@@ -243,41 +243,6 @@ export AWS_PROFILE=my-profile
 2. AWS profile credentials
 3. Default AWS credential chain
 
-## Local Models (Ollama)
-
-### Setup Ollama
-```bash
-# Install Ollama
-curl -fsSL https://ollama.com/install.sh | sh
-
-# Start Ollama
-ollama serve
-
-# Pull a model
-ollama pull llama3.1
-```
-
-### Configuration
-```json
-{
-  "model": "ollama/llama3.1",
-  "provider": {
-    "ollama": {
-      "options": {
-        "baseURL": "http://localhost:11434"
-      }
-    }
-  }
-}
-```
-
-### Available Models
-Any model from https://ollama.com/library:
-- `llama3.1`
-- `codellama`
-- `mistral`
-- `mixtral`
-
 ## Multiple Providers
 
 Configure multiple providers and switch between them:
