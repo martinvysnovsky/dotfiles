@@ -32,3 +32,14 @@ Host 165.227.169.125
     HostName 165.227.169.125
     User root
     IdentityFile ~/.ssh/riwers_digital_ocean
+
+Host strahlhorn-bastion
+  HostName 179.237.87.51
+  User debian
+  IdentityFile ~/.ssh/strahlhorn
+
+Host strahlhorn-prod
+  HostName schoeb04.nine.ch
+  User www-data
+  IdentityFile ~/.ssh/strahlhorn
+  ProxyJump strahlhorn-bastion
