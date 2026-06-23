@@ -61,6 +61,7 @@ packages:
     - bun-bin # for opencode
     - opencode
     - redisinsight-bin
+    - doppler-cli-bin
   npm:
     - npm-check
     - \@nestjs/cli
