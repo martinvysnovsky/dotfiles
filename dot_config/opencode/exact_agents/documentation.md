@@ -19,6 +19,7 @@ tools:
   skill: true
   mcp-gateway_confluence_*: true
   mcp-gateway_firecrawl_*: true
+  mcp-gateway_obsidian_*: true
 permission:
   skill:
     "*": deny
