@@ -8,7 +8,7 @@
 
 ## PR Creation Workflow
 
-The `/pr-create` command runs in **build mode** (not plan mode). It performs local git operations (`git fetch`, `git rebase`, `git push --force-with-lease`) and then creates the PR via Bitbucket MCP. Do not invoke it from plan mode. To *plan* a PR (review commits, draft title/description), stay in plan mode using read-only Bitbucket queries; switch to build mode to execute.
+The `/pr-create` command runs in **build mode** (not plan mode). The branch is normally already rebased and pushed, so it only does a lightweight push check (`git status -sb`, plus a plain `git push` if there are unpushed commits) — no fetch, rebase, or force-push. It then creates the PR via the Bitbucket MCP tools (never the GitHub `gh` or GitLab `glab` CLI), leaving reviewers for Bitbucket to assign. Do not invoke it from plan mode. To *plan* a PR (review commits, draft title/description), stay in plan mode using read-only Bitbucket queries; switch to build mode to execute.
 
 ## Personal Workflow Preferences
 

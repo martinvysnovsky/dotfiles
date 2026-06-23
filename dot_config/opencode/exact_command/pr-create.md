@@ -10,9 +10,8 @@ Create a Bitbucket pull request for the current branch.
 1. **Get current branch** — Run `git branch --show-current` to get the current branch name
 2. **Get Bitbucket remote** — Run `git remote -v` to extract the workspace and repository slug from the Bitbucket origin URL (format: `bitbucket.org/<workspace>/<repo>`)
 3. **Determine destination branch** — Default to `master`. If $ARGUMENTS specifies a target branch, use that instead
-4. **Rebase on destination branch** — Run `git fetch origin` then `git rebase origin/<destination_branch>` to ensure the branch is up to date. If rebase fails due to conflicts, stop and inform the user
-5. **Push to remote** — Run `git push --force-with-lease` to update the remote branch after rebase
-6. **Build PR title and description**:
+4. **Push check** — The branch is normally already rebased and pushed. Run `git status -sb` to check for unpushed commits. If there are unpushed commits, run a plain `git push`. Otherwise skip. Do **not** fetch, rebase, or force-push
+5. **Build PR title and description**:
    - Extract Jira ticket key from branch name if present (e.g., `EB-448-some-description` → `EB-448`)
    - If Jira key found, fetch the ticket summary using `mcp_Mcp-gateway_jira_getIssue` for context
    - Run `git log origin/master..HEAD --oneline` to see all commits
@@ -27,8 +26,7 @@ Create a Bitbucket pull request for the current branch.
      - <change 2>
      - <change 3>
      ```
-7. **Fetch default reviewers** — Use `mcp_Mcp-gateway_bitbucket_getEffectiveDefaultReviewers` and include them in the `reviewers` array of the PR
-8. **Create the PR** — Use `mcp_Mcp-gateway_bitbucket_createPullRequest` with the built title, description, source and destination branches (branch auto-deletion is governed by the repository's merge settings, not the PR payload)
-9. **Return the PR URL** to the user
+6. **Create the PR** — Always use the Bitbucket MCP tool `mcp_Mcp-gateway_bitbucket_createPullRequest` with the built title, description, source and destination branches. Do **not** set `reviewers` — leave Bitbucket to apply its own default reviewers. Do **not** use or look for the GitHub (`gh`) or GitLab (`glab`) CLIs; this is a Bitbucket-only workflow (branch auto-deletion is governed by the repository's merge settings, not the PR payload)
+7. **Return the PR URL** to the user
 
 Additional context from user: $ARGUMENTS
