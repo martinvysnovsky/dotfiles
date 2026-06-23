@@ -22,13 +22,22 @@ This skill provides best-practice patterns for working with Confluence through t
 Confluence stores pages in **storage format** (XHTML-based). When authoring via MCP,
 prefer the format that matches your input:
 
-- **`markdown`** (default, recommended) — author/edit human-written content. The
-  server converts markdown → storage format. Safest for most page bodies.
+- **`markdown`** — author **new** pages and plain-prose bodies. The server converts
+  markdown → storage format. Safest for content with no macros.
 - **`storage`** — pass raw Confluence storage XHTML when you need macros, layouts,
-  status lozenges, or precise structure markdown can't express.
+  status lozenges, or precise structure markdown can't express. **Required when
+  editing any existing page that already contains macros/layouts.**
 - **`wiki`** — legacy wiki markup; avoid unless migrating old content.
 
-Rule of thumb: write in **markdown**; drop to **storage** only for macros/layouts.
+**Rule of thumb:**
+- New page or plain prose → **markdown**.
+- Editing an existing page that contains macros/layouts → **storage**, always.
+
+**Detect macros before editing (hard precondition):** before updating an existing
+page, fetch it raw with `convert_to_markdown: false` and inspect the body. If you see
+any of `<ac:structured-macro>`, `<ac:layout>`, `<ac:adf-*>`, status lozenges, or
+panels (info/note/warning), edit with `content_format: storage` — **never** markdown.
+A markdown update silently flattens these macros (see "Storage vs markdown drift").
 
 ## Finding Pages
 
@@ -48,6 +57,9 @@ Required: `space_key`, `title`, `body`. Optional: `parent_id` (nest under a page
 content format. Set `parent_id` to build a clean tree instead of flat spaces.
 
 ### Update
+0. **Detect macros first:** fetch the page raw (`convert_to_markdown: false`). If the
+   body contains macros/layouts/status lozenges, edit with `content_format: storage` —
+   a markdown update will flatten them.
 1. Fetch the page first to get its current **version number**.
 2. Submit the update with the next version (the server enforces optimistic locking).
 3. Mark trivial edits as **minor** to avoid notification spam where supported.
@@ -96,8 +108,15 @@ Pair **Firecrawl** with Confluence to import external docs:
   will reject. Always fetch-then-update.
 - **Heading anchors** — Confluence auto-generates anchors from heading text; changing
   a heading breaks deep links. Keep headings stable or update links.
-- **Storage vs markdown drift** — round-tripping markdown ↔ storage can lose macros;
-  keep the source of truth in one format.
+- **Storage vs markdown drift** — editing a macro page with `content_format: markdown`
+  **silently destroys** its macros. A green "AVAILABLE" status lozenge flattens to the
+  literal text `GreenAVAILABLE`, colored panels collapse to plain text, and layouts are
+  lost. Never round-trip an existing macro page through markdown — edit it in `storage`
+  format (detect macros first via `convert_to_markdown: false`).
+- **Recovering from markdown flattening** — if a macro page was already flattened, do
+  **not** hand-rebuild it. Fetch the pre-flatten version via
+  `confluence_get_page_history` (and `confluence_get_page_diff` to confirm), copy its
+  storage body, and re-apply with `content_format: storage`.
 - **Attachment MIME** — set explicit filename/extension when the type is
   `application/octet-stream` so Confluence renders/links it correctly.
 - **Cloud vs Server auth** — see Authentication above; mismatched token type is the

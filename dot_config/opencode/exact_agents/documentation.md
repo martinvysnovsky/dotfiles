@@ -419,6 +419,13 @@ src/
 
 #### Page Operations
 - Create and update Confluence pages with proper markdown formatting
+- **Editing existing pages — macro safety:** Before updating any existing Confluence
+  page, fetch it raw (`convert_to_markdown: false`) to check for macros, layouts, or
+  status lozenges. If present, edit with `content_format: storage`, **not** markdown —
+  a markdown update silently flattens macros (e.g. a green "AVAILABLE" lozenge becomes
+  the literal text `GreenAVAILABLE`). Reserve `content_format: markdown` for new pages
+  and plain-prose bodies. See the `confluence` skill's "Content Formats" and "Storage
+  vs markdown drift" sections.
 - Manage page hierarchies and navigation structures
 - Handle both regular pages and live docs appropriately
 - Maintain consistent page organization and categorization
