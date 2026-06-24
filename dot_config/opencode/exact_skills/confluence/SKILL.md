@@ -39,6 +39,37 @@ any of `<ac:structured-macro>`, `<ac:layout>`, `<ac:adf-*>`, status lozenges, or
 panels (info/note/warning), edit with `content_format: storage` — **never** markdown.
 A markdown update silently flattens these macros (see "Storage vs markdown drift").
 
+## Titles & Special Characters
+
+**CRITICAL — page titles must be plain Unicode text, never HTML/XML-escaped.**
+Confluence escapes the title for display itself. If you pre-escape it, you get
+**double-encoding**: the title `Development Setup & Standards` shows up literally as
+`Development Setup &amp; Standards` in the page tree, breadcrumbs, and tabs.
+
+Rules for the `title` argument on create/update/move:
+
+- Pass the **raw literal string**. Type `&`, `<`, `>`, `"`, `'` as themselves —
+  **do not** convert them to `&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#39;`, or numeric
+  entities. The same goes for body text passed as `markdown`.
+- **Never** use HTML entities or escapes for accented/non-ASCII characters
+  (`á č ž ä é ñ …`). Send the actual UTF-8 character, not `&aacute;` or `&#225;`.
+- **Emojis**: send the real emoji glyph (e.g. `🚀`), not an entity, shortcode
+  (`:rocket:`), or surrogate escape (`\uD83D\uDE80`). If a title renders as mojibake
+  or `&amp;...`, it was escaped/encoded upstream — re-send the raw glyph.
+- The **only** place entities are correct is inside a `content_format: storage`
+  **body**, where the XHTML itself requires `&amp;`/`&lt;`/`&gt;`. This **never**
+  applies to the `title` field, and never to `markdown` bodies.
+
+**Self-check before every create/update/move:** scan the `title` (and markdown body)
+for the literal substrings `&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#`, `\u`, or `:word:`
+shortcodes. If present and you meant a real `&`, `<`, emoji, etc., **unescape them
+back to the literal character** before sending.
+
+**Recovering already-broken titles:** if a page tree shows `&amp;` (or mangled
+emojis), the stored title contains the literal text `&amp;`. Fix it with an update
+that sets `title` to the correct raw string (e.g. `API Security & Rate Limiting`).
+Updating the body alone will **not** fix the title.
+
 ## Finding Pages
 
 - **Search (CQL)** — examples:
@@ -55,6 +86,7 @@ A markdown update silently flattens these macros (see "Storage vs markdown drift
 ### Create
 Required: `space_key`, `title`, `body`. Optional: `parent_id` (nest under a page),
 content format. Set `parent_id` to build a clean tree instead of flat spaces.
+Pass `title` as a raw literal string (see "Titles & Special Characters").
 
 ### Update
 0. **Detect macros first:** fetch the page raw (`convert_to_markdown: false`). If the
@@ -104,6 +136,10 @@ Pair **Firecrawl** with Confluence to import external docs:
 
 ## Gotchas
 
+- **Double-encoded titles (`&amp;`, mangled emojis)** — the #1 authoring bug. Titles
+  and markdown bodies must use **raw literal** characters, not HTML entities or escape
+  sequences. `&` is `&`, not `&amp;`; `🚀` is the glyph, not `:rocket:` or `\uXXXX`.
+  Only `storage`-format **bodies** use entities. See "Titles & Special Characters".
 - **Version conflicts** — every update needs the current version; concurrent edits
   will reject. Always fetch-then-update.
 - **Heading anchors** — Confluence auto-generates anchors from heading text; changing
