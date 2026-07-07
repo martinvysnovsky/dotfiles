@@ -9,7 +9,7 @@ description: Mongoose patterns for NestJS including entity definitions, document
 
 This skill provides comprehensive Mongoose patterns for NestJS applications. Load reference files as needed:
 
-- **[entities.md](references/entities.md)** - @Schema/@Prop decorators, SchemaFactory, indexes, Mongoose 9 id virtual
+- **[entities.md](references/entities.md)** - @Schema/@Prop decorators, SchemaFactory, indexes, id virtual notes
 - **[documents.md](references/documents.md)** - HydratedDocument, Model types, @InjectModel pattern, DocumentArray typing
 - **[queries.md](references/queries.md)** - find/findOne, FilterQuery, operators ($in, $or, $elemMatch), aggregation pipelines
 - **[embedded-schemas.md](references/embedded-schemas.md)** - Subdocument entities, embedding patterns, DocumentArray manipulation
@@ -43,12 +43,9 @@ export class CarType {
 }
 
 export const CarTypeSchema = SchemaFactory.createForClass(CarType);
-
-// Add id virtual (Mongoose 9 no longer provides this by default)
-CarTypeSchema.virtual('id').get(function (this: CarType & { _id: Types.ObjectId }) {
-  return this._id.toHexString();
-});
 ```
+
+> Mongoose provides an `id` virtual getter by default (returns `_id` as a hex string), so there's no need to define it manually. With `toJSON`/`toObject: { virtuals: true }` set above, `id` is included in serialized output.
 
 ## Import Organization
 
