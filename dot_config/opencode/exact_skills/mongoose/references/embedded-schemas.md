@@ -78,12 +78,10 @@ export class Cost {
 }
 
 export const CostSchema = SchemaFactory.createForClass(Cost);
-
-// Add id virtual for subdocuments (Mongoose 9 no longer provides this by default)
-CostSchema.virtual('id').get(function (this: Cost & { _id: Types.ObjectId }) {
-  return this._id.toHexString();
-});
 ```
+
+> Subdocuments get an `id` virtual getter by default (returns `_id` as a hex
+> string) — no need to define it manually.
 
 ## Embedding in Parent Entity
 
@@ -280,7 +278,7 @@ CarSchema.index({ 'history.name': 1, 'history.date': 1 });
 
 ## Best Practices
 
-1. **Always add ID virtual for subdocuments** (Mongoose 9+)
+1. **The `id` virtual is provided by default** for subdocuments (no manual setup needed)
 2. **Use `Types.DocumentArray<T>`** in document overrides for proper typing
 3. **Check for `_id` existence** before operations: `if ('_id' in cost)`
 4. **Use optional chaining** with `.id()`: `car.monthlyCosts.id(costId)?.deleteOne()`
