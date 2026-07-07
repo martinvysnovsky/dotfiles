@@ -148,20 +148,14 @@ import { SchemaFactory } from '@nestjs/mongoose';
 export const CarSchema = SchemaFactory.createForClass(Car);
 ```
 
-## Mongoose 9 ID Virtual
+## `id` Virtual
 
-Mongoose 9 no longer provides `id` virtual by default. Add it manually:
-
-```typescript
-import { Types } from 'mongoose';
-
-export const CarSchema = SchemaFactory.createForClass(Car);
-
-// Add id virtual (Mongoose 9 no longer provides this by default)
-CarSchema.virtual('id').get(function (this: Car & { _id: Types.ObjectId }) {
-  return this._id.toHexString();
-});
-```
+Mongoose provides an `id` virtual getter by default that returns `_id` cast to a
+hex string, so you do **not** need to define it manually. In Mongoose 9 the only
+change is at the TypeScript level: `id` is no longer typed as `any` on the
+`Document` class but is instead exposed on the schema's virtuals as `string`.
+Enable virtuals in serialized output via `toJSON`/`toObject: { virtuals: true }`
+on the `@Schema` decorator.
 
 ## Compound Indexes
 
@@ -246,11 +240,6 @@ export class Car {
 }
 
 export const CarSchema = SchemaFactory.createForClass(Car);
-
-// Add id virtual (Mongoose 9 no longer provides this by default)
-CarSchema.virtual('id').get(function (this: Car & { _id: Types.ObjectId }) {
-  return this._id.toHexString();
-});
 
 // Compound indexes for optimized queries
 CarSchema.index({ 'history.name': 1, 'history.date': 1 });
