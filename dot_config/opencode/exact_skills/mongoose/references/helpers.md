@@ -146,17 +146,13 @@ CarSchema.virtual('number3').set(function (this: Car, number: string) {
 });
 ```
 
-### ID Virtual (Mongoose 9+)
+### `id` Virtual
 
-Required because Mongoose 9 no longer provides `id` by default:
-
-```typescript
-import { Types } from 'mongoose';
-
-CarSchema.virtual('id').get(function (this: Car & { _id: Types.ObjectId }) {
-  return this._id.toHexString();
-});
-```
+Mongoose provides an `id` virtual getter by default (returns `_id` as a hex
+string), so you don't need to define it manually. In Mongoose 9 the only change
+is that `id` is typed as `string` on the schema's virtuals instead of `any` on
+the `Document` class. Just make sure virtuals are enabled in serialized output
+(see below).
 
 ### Enable Virtuals in Output
 
@@ -278,5 +274,5 @@ export const parseDate = (
 2. **Handle null/undefined** in setters to prevent runtime errors
 3. **Use getters for default values** instead of complex entity logic
 4. **Always enable virtuals** in schema options if using them
-5. **Add ID virtual** for Mongoose 9+ compatibility
+5. **`id` virtual is provided by default** — enable virtuals in `toJSON`/`toObject` to expose it
 6. **Test helpers** with edge cases (empty strings, null, special characters)
