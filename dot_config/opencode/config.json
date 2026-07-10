@@ -50,7 +50,11 @@
       },
       "permission": {
         "external_directory": {
-          "~/obsidian/**": "allow"
+          "~/obsidian/**": "allow",
+          "~/www/**": "allow",
+          "/tmp/**": "allow",
+          "~/.config/opencode/**": "allow",
+          "~/.local/share/opencode/tool-output/**": "allow"
         }
       }
     },
@@ -90,7 +94,9 @@
           "~/www/**": "allow",
           "~/obsidian/**": "allow",
           "/tmp/**": "allow",
-          "~/.local/share/opencode/tool-output/**": "allow"
+          "~/.local/share/opencode/tool-output/**": "allow",
+          "~/.config/opencode/**": "allow",
+          "~/.local/share/opencode/plans/**": "allow"
         }
       }
     },
