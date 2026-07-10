@@ -55,12 +55,12 @@ export class CarService {
     // Implementation
   }
 
-  // CRUD methods last
-  async findAll(filters?: CarFilters): Promise<CarDocument[]> {
+  // CRUD methods last (singular first, then many)
+  async findOne(id: string): Promise<CarDocument | null> {
     // Implementation
   }
 
-  async findOne(id: string): Promise<CarDocument | null> {
+  async findAll(filters?: CarFilters): Promise<CarDocument[]> {
     // Implementation
   }
 
@@ -111,31 +111,14 @@ Follow this strict order:
 
 **Service method order**:
 1. Business logic methods (domain-specific operations)
-2. CRUD methods in standard order:
-   - `findAll()` - List/search operations
+2. CRUD methods in standard order (singular first, then many):
    - `findOne()` - Single entity retrieval
+   - `findAll()` - List/search operations
    - `create()` - Entity creation
    - `update()` - Entity modification
    - `delete()` - Entity removal
 
 ## Basic CRUD Patterns
-
-### Find All
-```typescript
-async findAll(filters?: CarFilters): Promise<CarDocument[]> {
-  const query: FilterQuery<Car> = {};
-
-  if (filters?.status) {
-    query.status = filters.status;
-  }
-
-  if (filters?.manufacturer) {
-    query.manufacturer = filters.manufacturer;
-  }
-
-  return this.carModel.find(query).sort({ createdAt: -1 }).exec();
-}
-```
 
 ### Find One
 ```typescript
@@ -151,6 +134,23 @@ async findOne(id: string): Promise<CarDocument | null> {
 
 findOneByNumber(number: string): Promise<CarDocument | null> {
   return this.carModel.findOne({ numbers: number }).exec();
+}
+```
+
+### Find All
+```typescript
+async findAll(filters?: CarFilters): Promise<CarDocument[]> {
+  const query: FilterQuery<Car> = {};
+
+  if (filters?.status) {
+    query.status = filters.status;
+  }
+
+  if (filters?.manufacturer) {
+    query.manufacturer = filters.manufacturer;
+  }
+
+  return this.carModel.find(query).sort({ createdAt: -1 }).exec();
 }
 ```
 
