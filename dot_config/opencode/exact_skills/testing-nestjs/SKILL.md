@@ -112,6 +112,20 @@ const user: UserDocument = fromPartial({
 });
 ```
 
+**CRITICAL**: Prefer the type-annotation form `const car: CarDocument = fromPartial({...})`. Use the generic form `fromPartial<Car>({...})` **only** when there is no variable to annotate — e.g. inline function arguments (`mockResolvedValue(fromPartial<Car>({...}))`) or array elements (`[fromPartial<Car>({...})]`).
+
+```typescript
+// ✅ Preferred: annotate the variable, no generic
+const car: CarDocument = fromPartial({ id: '1', title: 'BMW' });
+
+// ❌ Avoid: generic on a variable declaration
+const car = fromPartial<CarDocument>({ id: '1', title: 'BMW' });
+
+// ✅ Exception: no variable to annotate → use the generic form
+carsService.findOne.mockResolvedValue(fromPartial<Car>({ id: '1' }));
+const cars = [fromPartial<Car>({ id: '1', title: 'BMW X5' })];
+```
+
 ## Basic Unit Test Structure
 
 ### Resolver Test
@@ -131,7 +145,7 @@ describe('CarsResolver', () => {
 
   describe('car', () => {
     it('returns car by id', async () => {
-      const car = fromPartial<Car>({ id: '1', title: 'BMW' });
+      const car: Car = fromPartial({ id: '1', title: 'BMW' });
       carsService.findOne.mockResolvedValue(car);
 
       const result = await resolver.car('1');
@@ -144,7 +158,7 @@ describe('CarsResolver', () => {
   describe('createCar', () => {
     it('creates car with input', async () => {
       const input = { title: 'BMW X5', price: 50000 };
-      const car = fromPartial<Car>({ id: '1', ...input });
+      const car: Car = fromPartial({ id: '1', ...input });
       carsService.create.mockResolvedValue(car);
 
       const result = await resolver.createCar(input);
@@ -259,8 +273,8 @@ it('filters by manufacturer', ...);
 ### Variable Naming
 ```typescript
 // Use direct names, not "mock" prefix
-const car = fromPartial<Car>({ ... });     // Good
-const mockCar = fromPartial<Car>({ ... }); // Avoid
+const car: Car = fromPartial({ ... });     // Good
+const mockCar: Car = fromPartial({ ... }); // Avoid (mock prefix)
 ```
 
 ## When to Load Reference Files

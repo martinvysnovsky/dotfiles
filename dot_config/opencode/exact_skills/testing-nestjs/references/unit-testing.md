@@ -112,6 +112,8 @@ const user: UserDocument = fromPartial({
 carsService.findOne.mockResolvedValue(fromPartial({ id: '1', title: 'BMW' }));
 ```
 
+**CRITICAL**: Prefer the type-annotation form `const car: CarDocument = fromPartial({...})` for variable declarations. Use the generic form `fromPartial<Car>({...})` **only** when there is no variable to annotate — e.g. inline function arguments (`mockResolvedValue(fromPartial<Car>({...}))`) or array elements (`[fromPartial<Car>({...})]`).
+
 ## Resolver Testing
 
 ### Query Resolver
@@ -155,7 +157,7 @@ describe('CarsResolver', () => {
 
   describe('car', () => {
     it('returns car by id', async () => {
-      const car = fromPartial<Car>({ id: '1', title: 'BMW X5' });
+      const car: Car = fromPartial({ id: '1', title: 'BMW X5' });
       carsService.findOne.mockResolvedValue(car);
 
       const result = await resolver.car('1');
@@ -185,7 +187,7 @@ describe('Mutations', () => {
         price: 50000,
         manufacturer: 'BMW',
       };
-      const car = fromPartial<Car>({ id: '1', ...input });
+      const car: Car = fromPartial({ id: '1', ...input });
       carsService.create.mockResolvedValue(car);
 
       const result = await resolver.createCar(input);
@@ -205,7 +207,7 @@ describe('Mutations', () => {
   describe('updateCar', () => {
     it('updates existing car', async () => {
       const input: UpdateCarInput = { title: 'Updated Title' };
-      const car = fromPartial<Car>({ id: '1', title: 'Updated Title' });
+      const car: Car = fromPartial({ id: '1', title: 'Updated Title' });
       carsService.update.mockResolvedValue(car);
 
       const result = await resolver.updateCar('1', input);
@@ -269,7 +271,7 @@ describe('Field Resolvers', () => {
 
   describe('owner (ResolveField)', () => {
     it('returns owner from parent car', async () => {
-      const owner = fromPartial<User>({ id: 'owner-1', name: 'John' });
+      const owner: User = fromPartial({ id: 'owner-1', name: 'John' });
       const car: CarDocument = fromPartial({ id: '1', owner });
 
       const result = await resolver.owner(car);
@@ -279,7 +281,7 @@ describe('Field Resolvers', () => {
 
     it('fetches owner when not populated', async () => {
       const car: CarDocument = fromPartial({ id: '1', ownerId: 'owner-1' });
-      const owner = fromPartial<User>({ id: 'owner-1', name: 'John' });
+      const owner: User = fromPartial({ id: 'owner-1', name: 'John' });
       usersService.findOne.mockResolvedValue(owner);
 
       const result = await resolver.owner(car);
@@ -295,7 +297,7 @@ describe('Field Resolvers', () => {
 ```typescript
 describe('Authorization', () => {
   it('uses current user from context', async () => {
-    const currentUser = fromPartial<UserDocument>({
+    const currentUser: UserDocument = fromPartial({
       id: 'user-1',
       role: UserRole.MANAGER,
     });
@@ -307,7 +309,7 @@ describe('Authorization', () => {
   });
 
   it('restricts access for non-admin users', async () => {
-    const currentUser = fromPartial<UserDocument>({
+    const currentUser: UserDocument = fromPartial({
       id: 'user-1',
       role: UserRole.EMPLOYEE,
     });
@@ -349,7 +351,7 @@ describe('CarsController', () => {
 
   describe('findOne', () => {
     it('returns car by id', async () => {
-      const car = fromPartial<Car>({ id: '1', title: 'BMW' });
+      const car: Car = fromPartial({ id: '1', title: 'BMW' });
       carsService.findOne.mockResolvedValue(car);
 
       const result = await controller.findOne('1');
@@ -527,7 +529,7 @@ describe('CarsService (Unit)', () => {
 
   describe('updateStatus', () => {
     it('updates status and emits event', async () => {
-      const car = fromPartial<CarDocument>({ id: '1', status: CarState.ACTIVE });
+      const car: CarDocument = fromPartial({ id: '1', status: CarState.ACTIVE });
       carsRepository.findById.mockResolvedValue(car);
       carsRepository.save.mockResolvedValue({ ...car, status: CarState.SOLD });
 
@@ -724,7 +726,7 @@ describe('GraphQL errors', () => {
 
 ### Do's
 - Use `TestBed.solitary()` for auto-mocking dependencies
-- Use `fromPartial()` for type-safe partial objects
+- Use `fromPartial()` for type-safe partial objects — annotate the variable (`const car: Car = fromPartial({...})`); use the generic form `fromPartial<Car>({...})` only for inline args or array elements
 - Clean database between tests with `factory.clean()`
 - Use descriptive test names without "should"
 - Test edge cases and error conditions
