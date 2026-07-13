@@ -21,6 +21,9 @@ tools:
   mcp-gateway_firecrawl_*: true
   mcp-gateway_obsidian_*: true
 permission:
+  external_directory:
+    ~/obsidian/**: allow
+    ~/services/mcp-shared/**: allow
   skill:
     "*": deny
     confluence: allow
@@ -431,6 +434,28 @@ src/
 - Handle both regular pages and live docs appropriately
 - Maintain consistent page organization and categorization
 - Apply proper page templates and formatting standards
+
+#### Attachments — shared folder path mapping
+The Atlassian MCP runs in a Docker container with a bind mount so its attachment
+tools can exchange files with the host. The **same folder** appears under two
+different paths:
+
+| Side | Path |
+| --- | --- |
+| Host (where this agent's `read`/`write`/`bash` operate) | `~/services/mcp-shared/` |
+| Container (what the MCP attachment tools see) | `/shared/` |
+
+Workflow:
+- **Uploading** an attachment to Confluence: first write/stage the file on the host
+  under `~/services/mcp-shared/<name>` (e.g. `~/services/mcp-shared/diagram.png`),
+  then pass the **container** path `/shared/<name>` to the MCP upload tool's
+  `file_path` argument — never the host path.
+- **Downloading** an attachment: the MCP tool writes to `/shared/<name>`; read it
+  back on the host at `~/services/mcp-shared/<name>`.
+- The host directory `~/services/mcp-shared/**` is granted via `external_directory`
+  in this agent's front matter, so `read`/`write`/`bash` can access it directly.
+- Treat the folder as a transient staging area: clean up files you create once the
+  upload/download completes.
 
 #### Content Quality Standards
 - Inherit markdown best practices from documentation agent standards

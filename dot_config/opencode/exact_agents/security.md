@@ -8,6 +8,8 @@ tools:
   mcp-gateway_sentry_*: true
 permission:
   bash: allow
+  external_directory:
+    ~/services/mcp-shared/**: allow
   skill:
     "*": deny
     snyk: allow

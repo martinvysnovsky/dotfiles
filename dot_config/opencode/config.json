@@ -54,7 +54,8 @@
           "~/www/**": "allow",
           "/tmp/**": "allow",
           "~/.config/opencode/**": "allow",
-          "~/.local/share/opencode/tool-output/**": "allow"
+          "~/.local/share/opencode/tool-output/**": "allow",
+          "~/services/mcp-shared/**": "allow"
         }
       }
     },
@@ -96,7 +97,8 @@
           "/tmp/**": "allow",
           "~/.local/share/opencode/tool-output/**": "allow",
           "~/.config/opencode/**": "allow",
-          "~/.local/share/opencode/plans/**": "allow"
+          "~/.local/share/opencode/plans/**": "allow",
+          "~/services/mcp-shared/**": "allow"
         }
       }
     },
