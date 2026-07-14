@@ -107,7 +107,13 @@ Pass `title` as a raw literal string (see "Titles & Special Characters").
 - **Comments** — add page comments or threaded replies (reply via parent comment ID).
 - **Labels** — add/remove labels for discoverability and CQL filtering
   (e.g. `runbook`, `adr`, `meeting-notes`).
-- **Attachments** — upload single or batch files; large files may need chunking.
+- **Attachments** — upload single or batch files. **The MCP server has no host
+  filesystem access** — you cannot upload a local path directly. Use the bind-mounted
+  shared folder: stage the file on the host at `~/services/mcp-shared/<name>`, then pass
+  the **container** path `/shared/<name>` as `file_path` (never the host path). Downloads
+  land at `/shared/<name>` → read back on host at `~/services/mcp-shared/<name>`. Treat the
+  folder as transient staging; clean up afterwards. Re-uploading the same filename creates a
+  new **version** (use `minor_edit: true` to skip watcher notifications).
   Note: ambiguous MIME types (`application/octet-stream`) may need an explicit
   content type / filename extension.
 
@@ -133,6 +139,37 @@ Pair **Firecrawl** with Confluence to import external docs:
 2. Clean up headings/links so anchors resolve inside Confluence.
 3. Create the page(s) with the markdown body under the right parent.
 4. Add labels for provenance (e.g. `imported`, source domain).
+
+## Embedding Images (attachment → page body)
+
+Reference an uploaded attachment by filename in a **storage-format** body:
+
+    <p style="text-align: center;">
+      <ac:image ac:align="center" ac:layout="center" ac:width="680"
+                ac:alt="what the screenshot shows">
+        <ri:attachment ri:filename="diagram.png"></ri:attachment>
+      </ac:image>
+    </p>
+    <p style="text-align: center;"><em>Caption under the image.</em></p>
+
+**Which attributes survive the MCP round-trip** — the server re-serialises
+`<ac:image>` into a plain `<img>` on save and **drops most `ac:*` styling attributes**:
+
+- **Display width** — `width="680"` **persists** (fits a fixed-width content column).
+  Use this to shrink oversized screenshots. ✅
+- **Center** — wrap the image in `<p style="text-align: center;">`; `ac:align`/
+  `ac:layout` alone are unreliable.
+- **Border** — `ac:border="true"` is **stripped**. ❌ Instead **bake the border into
+  the image file** before upload:
+
+      magick in.png -bordercolor white -border 6 \
+                    -bordercolor "#c1c7d0" -border 1 out.png
+
+  (6px white padding + 1px `#c1c7d0` grey ≈ Confluence's native image border.)
+
+**Always re-fetch raw (`convert_to_markdown: false`) after an image/style edit and
+verify the attribute persisted** — the tool reports "updated successfully" even when it
+silently drops attributes.
 
 ## Gotchas
 
