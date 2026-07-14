@@ -1,7 +1,7 @@
 ---
 description: Primary agent for documentation and Confluence work — writing README files, API docs, technical guides, organizing knowledge bases, documenting processes, and all Confluence page operations (creating/updating pages, comments, attachments, labels, moving pages). Switch to this agent for any documentation or Confluence task.
 mode: primary
-model: anthropic/claude-opus-4-8
+model: anthropic/claude-sonnet-5
 tools:
   "*": false
   write: true

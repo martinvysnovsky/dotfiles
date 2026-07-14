@@ -1,6 +1,6 @@
 ---
 description: Use when storing knowledge, creating notes, searching the Obsidian vault, organizing information, or managing personal knowledge base. Use proactively when user shares information worth preserving, asks to remember something, or needs to find stored knowledge.
-model: anthropic/claude-opus-4-8
+model: anthropic/claude-sonnet-5
 mode: subagent
 temperature: 0.2
 tools:

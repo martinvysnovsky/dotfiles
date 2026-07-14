@@ -1,6 +1,6 @@
 ---
 description: Analyze code changes and coordinate test creation. Automatically detects project type (NestJS/React), analyzes git diff and context, then delegates to specialized testing agents (backend-tester or frontend-tester).
-model: anthropic/claude-sonnet-4-5-20250929
+model: anthropic/claude-sonnet-5
 mode: subagent
 temperature: 0.2
 tools:

@@ -1,7 +1,7 @@
 ---
 description: Resolves complex merge conflicts, interactive rebases, and tricky git scenarios. Invoked by git-master when conflicts are detected.
 mode: subagent
-model: anthropic/claude-sonnet-4-5-20250929
+model: anthropic/claude-sonnet-5
 temperature: 0.2
 hidden: true
 tools:
