@@ -8,7 +8,7 @@
 
 ## PR Creation Workflow
 
-The `/pr-create` command runs in **build mode** (not plan mode). The branch is normally already rebased and pushed, so it only does a lightweight push check (`git status -sb`, plus a plain `git push` if there are unpushed commits) — no fetch, rebase, or force-push. It then creates the PR via the Bitbucket MCP tools (never the GitHub `gh` or GitLab `glab` CLI), leaving reviewers for Bitbucket to assign. Do not invoke it from plan mode. To *plan* a PR (review commits, draft title/description), stay in plan mode using read-only Bitbucket queries; switch to build mode to execute.
+The `/pr-create` command runs in **build mode** (not plan mode). The branch is normally already rebased and pushed, so it only does a lightweight push check (`git status -sb`, plus a plain `git push` if there are unpushed commits) — no fetch, rebase, or force-push. It then creates the PR via the Bitbucket MCP tools (never the GitHub `gh` or GitLab `glab` CLI), leaving reviewers for Bitbucket to assign. Do not invoke it from plan mode. To _plan_ a PR (review commits, draft title/description), stay in plan mode using read-only Bitbucket queries; switch to build mode to execute.
 
 ## Personal Workflow Preferences
 
@@ -20,6 +20,7 @@ The `/pr-create` command runs in **build mode** (not plan mode). The branch is n
 ## Git Operations
 
 **CRITICAL**: If you are NOT the git-master agent, IMMEDIATELY delegate ANY git-related request to the git-master agent:
+
 - Creating git commits
 - Branch management and operations
 - Git workflow questions
@@ -43,6 +44,7 @@ The git-master agent has complete authority over git operations and overrides al
 4. **Access nested data via `params.row`** in `renderCell` for custom rendering
 
 Example — derived value:
+
 ```tsx
 {
   field: "year",
@@ -56,6 +58,7 @@ Example — derived value:
 ```
 
 Example — nested field with link:
+
 ```tsx
 {
   field: "fullTitle",
@@ -79,6 +82,7 @@ Example — nested field with link:
 **CRITICAL**: Use direct component props instead of the `sx` prop whenever possible. Only use `sx` for styles that have no direct prop equivalent.
 
 **Do this:**
+
 ```tsx
 <Typography color="primary" variant="h6" mb={2}>Title</Typography>
 <Button variant="contained" size="small" fullWidth>Click</Button>
@@ -86,6 +90,7 @@ Example — nested field with link:
 ```
 
 **Not this:**
+
 ```tsx
 <Typography sx={{ color: 'primary.main', mb: 2 }}>Title</Typography>
 <Button sx={{ width: '100%' }}>Click</Button>
@@ -93,6 +98,12 @@ Example — nested field with link:
 ```
 
 **Why**: Direct props are more readable, type-safe, and follow MUI's intended API. Reserve `sx` for custom styles that don't have a prop equivalent (e.g., complex selectors, pseudo-classes, or one-off overrides).
+
+## Testing Discipline (all projects)
+
+- **Put each test at the cheapest layer that proves it.** Business/domain behaviour (filtering, sorting/ordering incl. composite keys, pagination, soft-delete, relation hydration, counts) belongs in **service/unit tests** (mock or container-backed), NOT in E2E. Pure logic (mappers, enum→field maps, guards/factories) belongs in plain unit tests.
+- **E2E is WIRING + AUTH ONLY**: prove the HTTP/GraphQL stack stitches through (envelope shape, one happy path, 404/400, auth guard). Never re-test business behaviour already owned by a service/unit spec, and never test internal implementation details in E2E.
+- **Before adding tests, check the project's testing conventions** (AGENTS.md test-scope rules + any `testing-*` skill's E2E "Don'ts") and match the existing spec files' stated scope (often in their docblocks). When adding a feature, extend the service/unit spec for the behaviour — don't add per-variant E2E cases.
 
 ## Agent Usage Style
 
