@@ -1,10 +1,10 @@
 ---
-description: Update Confluence documentation (business-focused, client-facing) to reflect the changes we just made
+description: Reconcile Confluence documentation with the current state of the system (business-focused, client-facing)
 agent: documentation
 subtask: true
 ---
 
-Update Confluence so its documentation reflects the changes we just made in this session. Confluence pages are **read by the client** — write for a business audience, lead with business value, and keep technical detail to a high-level overview.
+Keep Confluence accurate and useful: its pages should describe **how the system currently works** for a business audience — not log what changed. Confluence pages are **read by the client**, so lead with business value and keep technical detail to a high-level overview. The goal is good documentation, not a change history.
 
 Scope / focus (optional): $ARGUMENTS
 
@@ -12,15 +12,14 @@ Scope / focus (optional): $ARGUMENTS
 
 Invoke the `confluence` skill first. It carries the mandatory rules for content formats, macro safety, raw-literal titles, and the fetch-then-update flow. Follow it throughout.
 
-## Step 1: Detect What Changed
+## Step 1: Identify Affected Topics
 
-Ground the update on the *actual* changes, not just recollection. Run read-only git inspection in the working directory and combine it with the conversation:
+Use git and the conversation **only to figure out which subjects the work touches** — then set the diff aside. You are looking for pages that may now be documented inaccurately or incompletely, not a list of edits.
 
-- `git status -sb` — modified/added/untracked files
-- `git diff` and `git diff --staged` — the concrete edits
-- `git log --oneline -10` — recent commits for context
+- `git status -sb`, `git diff`, `git diff --staged`, `git log --oneline -10` — signals for *which subjects* changed
+- The conversation — what capability or area of the product was worked on
 
-Build a change set of what was actually done: features delivered, behaviour changed, capabilities added/removed, and decisions made. If `$ARGUMENTS` is provided, narrow the scope to that topic/feature (it may also name a space, parent, or page).
+Produce a list of **topics/subjects** to review (e.g. "how subscriptions renew", "what the API exposes"), not a change set. If `$ARGUMENTS` is provided, narrow to that topic (it may also name a space, parent, or page).
 
 ## Step 2: Determine the Target Space from Context
 
@@ -32,22 +31,22 @@ Build a change set of what was actually done: features delivered, behaviour chan
 
 Use `confluence_search` (CQL) and `confluence_get_space_page_tree` to confirm the space exists and to learn its structure before writing. If the space is genuinely ambiguous, ask the user which space to target rather than guessing.
 
-## Step 3: Translate Changes into Business Value
+## Step 3: Describe the Current State in Business Terms
 
-This is the core of the command. Reframe every change from the **client's** perspective:
+Write each page as a **standing description of how the system works today**, for the client:
 
-- **Lead with what it means for the business / user** — the outcome and value, not the implementation.
-- **Keep it non-technical.** Only include technical content when the change *is* technical documentation — and even then as a **high-level overview / general approach**, never detailed code, function signatures, config snippets, or file-level specifics.
-- **Skip internal churn** that has no client-visible meaning: refactors, test changes, linting, dependency bumps, formatting.
-- **Match the house style** of the existing pages: a short lead paragraph → tables/bullets for structured facts → a **Related** section cross-linking sibling pages. Note callouts (e.g. "not yet exposed", "to be confirmed") where relevant.
+- **Lead with business value** — what the capability means for the business / user, not how it is implemented.
+- **Keep it non-technical.** Include technical content only when the page *is* technical documentation — and even then as a **high-level overview / general approach**, never detailed code, function signatures, config snippets, or file-level specifics.
+- **Write timelessly.** Describe how things work as if they always have. **No** before/after, **no** "now supports / newly added / recently changed", **no** release-note or changelog phrasing.
+- **Match the house style** of the existing pages: a short lead paragraph → tables/bullets for structured facts → a **Related** section cross-linking sibling pages. Use note callouts (e.g. "not yet exposed", "to be confirmed") where relevant.
 
 ## Step 4: Locate the Right Page (update-over-create)
 
-- Use `confluence_search` and `confluence_get_space_page_tree` to find an existing page on the topic and its correct parent section (e.g. business vs. technical vs. integrator-facing sections).
+- Use `confluence_search` and `confluence_get_space_page_tree` to find the existing page on the topic and its correct parent section (e.g. business vs. technical vs. integrator-facing sections).
 - Capture the **page ID and current version number**.
-- **Prefer extending an existing page.** Create a new page only when no existing page fits — and then always as a **child under the appropriate existing section**, never at the top level.
+- **Prefer extending an existing page.** Create a new page only when no existing page covers the topic — and then always as a **child under the appropriate existing section**, never at the top level.
 
-Be **proactive**: both update existing pages and create the missing ones the changes warrant.
+Be **proactive**: both update pages that are now inaccurate and create genuinely missing ones.
 
 ## Step 5: Macro-Safety Precondition (mandatory)
 
@@ -57,7 +56,15 @@ Before editing **any existing page**, fetch it raw with `convert_to_markdown: fa
 - Otherwise, markdown is fine.
 - **New pages and plain prose → markdown.**
 
-## Step 6: Apply the Update
+## Step 6: Reconcile the Page with Reality
+
+For each topic, compare what the page says against how the system now works, and make it correct and complete:
+
+- **Rewrite stale sections** to describe the **current state** — replace outdated descriptions rather than appending a "what changed" note.
+- **Fill genuine gaps** where the product does something the page doesn't cover.
+- **If the page is already accurate, make no edit.** Do not touch a page just because related code changed. A client reading the result should see a coherent description of the system, not a release note.
+
+Apply:
 
 - **Update** → fetch the page for its current version, then `confluence_update_page` with the next version. Mark trivial edits as **minor** to avoid notification spam. On a version conflict, re-fetch and reapply.
 - **Create** → `confluence_create_page` with the correct `parent_id`. Pass `title` as a **raw literal string** — never HTML-escape `&`, accents, or emojis (see the skill's "Titles & Special Characters").
@@ -66,12 +73,12 @@ Before editing **any existing page**, fetch it raw with `convert_to_markdown: fa
 
 ## Step 7: Report
 
-Give a concise summary listing each page created or updated: title, URL, created-vs-updated, and the business framing you applied.
+Give a concise summary listing each page created or updated: title, URL, created-vs-updated, and **what it now documents** — plus any pages you reviewed and deliberately left unchanged because they were already accurate.
 
 ## Relationship to `/obsidian-update` and `/learn`
 
-- **`/confluence-update`** (this command) → **client-facing, business-value** documentation in Confluence. Technical content only as high-level overview. Space is inferred from context.
-- **`/obsidian-update`** → personal/technical notes in the local Obsidian vault, updated directly.
+- **`/confluence-update`** (this command) → **client-facing, business-value** documentation in Confluence, kept current with how the system works. Technical content only as high-level overview. Space is inferred from context.
+- **`/obsidian-update`** → personal/technical notes in the local Obsidian vault, kept current and edited directly.
 - **`/learn`** → harvests session insights and delegates to `@obsidian-knowledge-manager`.
 
-Don't re-run these for the same content — use this one when the goal is "document what we shipped for the client."
+Use this one when the goal is accurate standing documentation for the client — not capturing what happened in a session.
