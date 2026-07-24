@@ -1,6 +1,6 @@
 ---
 description: Reply to PR comments and mark them as resolved
-agent: plan
+agent: build
 ---
 
 For each review comment on the current branch's PR: reply with what was done (or why it was skipped).
