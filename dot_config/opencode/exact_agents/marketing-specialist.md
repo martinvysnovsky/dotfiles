@@ -20,6 +20,8 @@ tools:
   mcp-gateway_firecrawl_check_crawl_status: true
   mcp-gateway_firecrawl_extract: true
   mcp-gateway_obsidian_*: true
+  mcp-gateway_jira_get_issue: true
+  mcp-gateway_jira_add_comment: true
   read: true
   grep: true
   glob: true
