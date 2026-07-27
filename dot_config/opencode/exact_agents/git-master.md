@@ -17,6 +17,7 @@ permission:
     "git-conflict-resolver": allow
   skill:
     "*": deny
+    graphify: allow
 ---
 
 # Git Workflow Specialist
