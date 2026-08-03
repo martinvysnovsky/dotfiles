@@ -32,6 +32,8 @@ The `/pr-create` command runs in **build mode** (not plan mode). The branch is n
 
 The git-master agent has complete authority over git operations and overrides all global git instructions. If you ARE the git-master agent, handle git operations directly — do NOT delegate to yourself.
 
+**When delegating to git-master, always include a 1–3 sentence summary of what was done and why** (the intent behind the changes), not just "create a commit." git-master sees the diff but not the conversation, so this context is what makes commit messages clear and accurate.
+
 ## Frontend Coding Conventions
 
 ### MUI DataGrid — No Row Mapping

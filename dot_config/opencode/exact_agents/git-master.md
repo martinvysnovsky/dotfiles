@@ -159,6 +159,21 @@ git config core.hooksPath
 ls .husky/
 ```
 
+## Using Provided Change Context
+
+When the invocation includes a developer-provided description of what was done
+and why (for example from the `/commit` command or a delegating agent), treat it
+as the **authoritative source of intent**:
+
+- Use it to choose the correct conventional `type` and optional `scope`.
+- Use it to write the commit body explaining the **why**, not just the what.
+- Prefer it over intent inferred from the diff when the two seem to disagree,
+  but still use `git diff` to verify the change scope and catch anything the
+  description missed.
+
+Only fall back to inferring intent purely from `git diff` when no such context
+is provided.
+
 ## Your Workflow
 
 1. **Simple operations** - Handle directly with speed
