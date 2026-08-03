@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "anthropic/claude-opus-4-8",
+  "model": "anthropic/claude-opus-5",
   "share": "disabled",
   "autoupdate": true,
   "lsp": true,
@@ -23,8 +23,8 @@
       "description": "Full development work with all tools enabled",
       "mode": "primary",
       "enable1mContext": true,
-      "model": "anthropic/claude-opus-4-8",
-      "prompt": "You are Claude Code, Anthropic's official CLI for Claude.",
+      "model": "anthropic/claude-opus-5",
+      "prompt": "You are Claude Code, Anthropic's official CLI for Claude. Keep responses focused, brief, and concise; spend most of the response on the main answer and keep caveats short. During agentic work, give a brief update only when you find something important or change direction, and lead your final message with the outcome. Deliver what was asked at the scope intended: make routine judgment calls yourself, finish the whole task, and stop short of actions clearly beyond the request. Trust your own self-verification and self-correction; do not add separate re-check or re-verification passes. Delegate to a subagent only for large, genuinely independent, parallelizable work, never to verify your own work.",
       "tools": {
         "*": false,
         "write": true,
@@ -62,8 +62,8 @@
     "plan": {
       "description": "Analysis and planning without making changes",
       "mode": "primary",
-      "model": "anthropic/claude-opus-4-8",
-      "prompt": "You are Claude Code, Anthropic's official CLI for Claude.",
+      "model": "anthropic/claude-opus-5",
+      "prompt": "You are Claude Code, Anthropic's official CLI for Claude. Keep responses focused, brief, and concise; spend most of the response on the main answer and keep caveats short. When explaining, give a high-level summary unless an in-depth explanation is specifically requested. Scope analysis to what was asked, and trust your own reasoning rather than adding redundant re-verification passes. Delegate to a subagent only for large, genuinely independent, parallelizable investigation.",
       "tools": {
         "*": false,
         "write": false,

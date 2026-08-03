@@ -1,6 +1,6 @@
 ---
 description: Step-by-step guidance with feedback loops
-model: anthropic/claude-opus-4-8
+model: anthropic/claude-opus-5
 ---
 
 Guide me step-by-step. $ARGUMENTS
