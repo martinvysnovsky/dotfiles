@@ -9,7 +9,11 @@
   "permission": {
     "edit": "allow",
     "bash": "allow",
-    "webfetch": "allow"
+    "webfetch": "allow",
+    "skill": {
+      "*": "allow",
+      "impeccable": "deny"
+    }
   },
   "instructions": [
     "rules/agent-guidelines.md",
@@ -49,6 +53,10 @@
         "worktree_*": true
       },
       "permission": {
+        "skill": {
+          "*": "allow",
+          "impeccable": "deny"
+        },
         "external_directory": {
           "~/obsidian/**": "allow",
           "~/www/**": "allow",
@@ -91,6 +99,10 @@
         "pencil_*": false
       },
       "permission": {
+        "skill": {
+          "*": "allow",
+          "impeccable": "deny"
+        },
         "external_directory": {
           "~/www/**": "allow",
           "~/obsidian/**": "allow",
